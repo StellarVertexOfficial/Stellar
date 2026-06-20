@@ -1,0 +1,9 @@
+{
+  "name": "stellarvertex",
+  "version": "1.0.0",
+  "private": true,
+  "description": "StellarVertex — tienda de tecnología agrícola y LED hidroponía",
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4"
+  }
+}

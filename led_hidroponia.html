@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Grow · LED & Hidropónico · StellarVertex</title>
+  <link rel="icon" type="image/png" href="assets/Logo.png">
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="cart.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ NAV ═══ -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-mark">✦</div>
+        <span class="nav__logo-text">StellarVertex</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#categorias">Categorías</a></li>
+        <li><a href="#catalogo">Productos</a></li>
+        <li><a href="#por-que">¿Por qué elegirnos?</a></li>
+        <li><a href="#proceso">Tu Pedido</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="cart-trigger" id="svCartTrigger" aria-label="Ver carrito">
+          <span class="cart-trigger__icon">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 1.5H3l1.5 7.5h7.5l1-5H5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="7" cy="13.5" r="1.1" fill="currentColor"/>
+              <circle cx="12" cy="13.5" r="1.1" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="cart-trigger__label">Carrito</span>
+          <span class="cart-trigger__count hidden" id="svCartCount">0</span>
+        </button>
+        <a href="index.html" class="nav__back">← Inicio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════ HERO ═══ -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="hero__glow"></div>
+      <div class="hero__glow-2" style="background:radial-gradient(circle,rgba(107,169,217,0.08) 0%,transparent 70%);top:60%;right:8%;"></div>
+      <div class="hero__grid"></div>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <span class="hero__tag">Cultivo Inteligente</span>
+          <div class="hero__divider"></div>
+        </div>
+
+        <h1 class="hero__title">
+          Tecnología LED<br>
+          <em>e Hidropónica</em><br>
+          para tu Hogar
+        </h1>
+
+        <p class="hero__desc">
+          Cultiva hierbas, vegetales y plantas en cualquier espacio — sin tierra, sin complejidad.
+          Equipos de producción real, seleccionados por StellarVertex y enviados directo a ti.
+        </p>
+
+        <div class="hero__badges">
+          <span class="badge badge--harvest">Envío a Todo México</span>
+          <span class="badge badge--accent">Garantía Incluida</span>
+          <span class="badge badge--water">Soporte Técnico</span>
+          <span class="badge badge--rare">Cultivo 24/7</span>
+        </div>
+
+        <div class="hero__cta">
+          <a href="#catalogo" class="btn btn--primary">Ver Productos →</a>
+          <a href="#proceso" class="btn btn--ghost">Envíos y Garantía</a>
+        </div>
+      </div>
+
+      <!-- Visual: mini tech cards -->
+      <div class="hero__visual">
+        <div class="hero__cactus-grid">
+
+          <!-- LED Panel mini -->
+          <div class="mini-cactus">
+            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="36" y1="8" x2="36" y2="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="8" y="8" width="56" height="52" rx="5" fill="#080E08" stroke="rgba(232,181,71,0.20)" stroke-width="1"/>
+              <circle cx="18" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
+              <circle cx="27" cy="18" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="36" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
+              <circle cx="45" cy="18" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="54" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
+              <circle cx="18" cy="27" r="2.2" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="27" cy="27" r="2.2" fill="rgba(232,181,71,0.80)"/>
+              <circle cx="36" cy="27" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="45" cy="27" r="2.2" fill="rgba(232,181,71,0.75)"/>
+              <circle cx="54" cy="27" r="2.2" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="18" cy="36" r="2.2" fill="rgba(232,181,71,0.80)"/>
+              <circle cx="27" cy="36" r="2.2" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="36" cy="36" r="2.2" fill="rgba(232,181,71,0.85)"/>
+              <circle cx="45" cy="36" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="54" cy="36" r="2.2" fill="rgba(232,181,71,0.80)"/>
+              <circle cx="18" cy="45" r="2.2" fill="rgba(107,169,217,0.70)"/>
+              <circle cx="27" cy="45" r="2.2" fill="rgba(232,181,71,0.70)"/>
+              <circle cx="36" cy="45" r="2.2" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="45" cy="45" r="2.2" fill="rgba(232,181,71,0.70)"/>
+              <circle cx="54" cy="45" r="2.2" fill="rgba(107,169,217,0.70)"/>
+              <rect x="8" y="60" width="56" height="6" rx="3" fill="#0A1208" stroke="rgba(232,181,71,0.12)" stroke-width="0.8"/>
+              <line x1="16" y1="60" x2="16" y2="72" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="56" y1="60" x2="56" y2="72" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="14" y1="72" x2="58" y2="72" stroke="rgba(255,255,255,0.10)" stroke-width="1.2" stroke-linecap="round"/>
+              <rect x="24" y="78" width="24" height="10" rx="4" fill="rgba(232,181,71,0.08)" stroke="rgba(232,181,71,0.25)" stroke-width="0.7"/>
+            </svg>
+            <span class="mini-cactus__name">LED Panel</span>
+          </div>
+
+          <!-- Hydroponic pod mini -->
+          <div class="mini-cactus">
+            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="6" width="48" height="7" rx="3.5" fill="#080E08" stroke="rgba(125,211,125,0.25)" stroke-width="0.9"/>
+              <circle cx="21" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="30" cy="9.5" r="1.8" fill="rgba(125,211,125,0.80)"/>
+              <circle cx="39" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="48" cy="9.5" r="1.8" fill="rgba(125,211,125,0.80)"/>
+              <circle cx="57" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
+              <rect x="33" y="13" width="6" height="22" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+              <rect x="6" y="35" width="60" height="40" rx="7" fill="#080E08" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
+              <rect x="10" y="68" width="52" height="3.5" rx="1.5" fill="rgba(107,169,217,0.12)"/>
+              <circle cx="21" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
+              <circle cx="36" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
+              <circle cx="51" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
+              <circle cx="21" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
+              <circle cx="36" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
+              <circle cx="51" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
+              <path d="M21 41 Q19 35 17 32 M21 41 Q23 35 25 32" stroke="rgba(125,211,125,0.65)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+              <path d="M36 41 Q34 35 32 33 M36 41 Q38 35 40 33" stroke="rgba(125,211,125,0.60)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+              <path d="M51 41 Q49 36 47 33 M51 41 Q53 36 55 33" stroke="rgba(125,211,125,0.55)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="mini-cactus__name">Hidropónico</span>
+          </div>
+
+          <!-- Timer/Control mini -->
+          <div class="mini-cactus">
+            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="52" height="60" rx="8" fill="#080E08" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
+              <rect x="16" y="16" width="40" height="28" rx="4" fill="#0D1A0D" stroke="rgba(125,211,125,0.12)" stroke-width="0.8"/>
+              <circle cx="36" cy="30" r="10" fill="none" stroke="rgba(125,211,125,0.20)" stroke-width="1"/>
+              <line x1="36" y1="22" x2="36" y2="30" stroke="rgba(125,211,125,0.55)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="36" y1="30" x2="43" y2="33" stroke="rgba(232,181,71,0.55)" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="36" cy="30" r="1.5" fill="rgba(125,211,125,0.6)"/>
+              <circle cx="22" cy="56" r="5" fill="#0A1208" stroke="rgba(125,211,125,0.20)" stroke-width="0.9"/>
+              <circle cx="36" cy="56" r="5" fill="#0A1208" stroke="rgba(232,181,71,0.25)" stroke-width="0.9"/>
+              <circle cx="50" cy="56" r="5" fill="#0A1208" stroke="rgba(107,169,217,0.20)" stroke-width="0.9"/>
+              <circle cx="22" cy="56" r="2" fill="rgba(125,211,125,0.50)"/>
+              <circle cx="36" cy="56" r="2" fill="rgba(232,181,71,0.55)"/>
+              <circle cx="50" cy="56" r="2" fill="rgba(107,169,217,0.50)"/>
+              <line x1="36" y1="70" x2="36" y2="80" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="36" cy="82" r="4" fill="#0A1208" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+              <line x1="32" y1="82" x2="40" y2="82" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <span class="mini-cactus__name">Automatización</span>
+          </div>
+
+          <!-- Sensor/Monitor mini -->
+          <div class="mini-cactus">
+            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="14" y="8" width="44" height="60" rx="7" fill="#080E08" stroke="rgba(107,169,217,0.20)" stroke-width="1"/>
+              <circle cx="36" cy="22" r="10" fill="#0D1A10" stroke="rgba(107,169,217,0.18)" stroke-width="0.9"/>
+              <path d="M26 16 Q36 8 46 16" stroke="rgba(107,169,217,0.35)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+              <path d="M22 12 Q36 2 50 12" stroke="rgba(107,169,217,0.20)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+              <circle cx="36" cy="22" r="4" fill="rgba(107,169,217,0.40)"/>
+              <circle cx="36" cy="22" r="2" fill="rgba(107,169,217,0.75)"/>
+              <rect x="20" y="38" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+              <rect x="20" y="38" width="22" height="3" rx="1.5" fill="rgba(125,211,125,0.30)"/>
+              <rect x="20" y="45" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+              <rect x="20" y="45" width="26" height="3" rx="1.5" fill="rgba(107,169,217,0.30)"/>
+              <rect x="20" y="52" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+              <rect x="20" y="52" width="18" height="3" rx="1.5" fill="rgba(232,181,71,0.30)"/>
+              <rect x="24" y="60" width="24" height="5" rx="2" fill="rgba(107,169,217,0.08)"/>
+              <rect x="28" y="68" width="16" height="5" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+              <rect x="22" y="73" width="28" height="4" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+            </svg>
+            <span class="mini-cactus__name">Sensor IoT</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ STATS ════ -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-strip__grid">
+        <div class="stat-item reveal d1">
+          <span class="stat-item__num"><em>288</em></span>
+          <span class="stat-item__lbl">LEDs por panel</span>
+        </div>
+        <div class="stat-item reveal d2">
+          <span class="stat-item__num"><em>9</em></span>
+          <span class="stat-item__lbl">Cápsulas de cultivo</span>
+        </div>
+        <div class="stat-item reveal d3">
+          <span class="stat-item__num"><em>3–7</em></span>
+          <span class="stat-item__lbl">Días de entrega</span>
+        </div>
+        <div class="stat-item reveal d4">
+          <span class="stat-item__num"><em>4.8</em></span>
+          <span class="stat-item__lbl">Calificación promedio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════ CATEGORÍAS ════ -->
+  <section class="section categories" id="categorias">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="label section__label">Líneas de Producto</span>
+        <h2 class="section__title">Tecnología para Cultivo</h2>
+        <p class="section__sub">Equipos de producción agrícola inteligente — diseñados para el cultivador moderno, desde el escritorio hasta la terraza.</p>
+      </div>
+
+      <div class="cat-grid">
+
+        <div class="cat-card h reveal d1">
+          <div class="cat-icon">💡</div>
+          <h3>Iluminación LED</h3>
+          <p>Paneles y sistemas de crecimiento de espectro completo. De escritorio a producción semi-profesional.</p>
+          <span class="cat-count">Disponible · MX$2,200 en adelante</span>
+        </div>
+
+        <div class="cat-card w reveal d2">
+          <div class="cat-icon">🌊</div>
+          <h3>Hidroponía</h3>
+          <p>Jardines inteligentes y sistemas de cultivo en agua. Cero tierra, cero suciedad, máxima eficiencia.</p>
+          <span class="cat-count">Disponible · MX$2,800 en adelante</span>
+        </div>
+
+        <div class="cat-card a reveal d3">
+          <div class="cat-icon">⏱️</div>
+          <h3>Automatización</h3>
+          <p>Temporizadores, controladores de riego y sistemas de monitoreo remoto para cultivos sin atención constante.</p>
+          <span class="cat-count">Próximamente</span>
+        </div>
+
+        <div class="cat-card s reveal d4">
+          <div class="cat-icon">🌡️</div>
+          <h3>Control Climático</h3>
+          <p>Ventiladores, extractores y sensores de temperatura y humedad para invernadero o cuarto de cultivo.</p>
+          <span class="cat-count">Próximamente</span>
+        </div>
+
+        <div class="cat-card r reveal d5">
+          <div class="cat-icon">🧪</div>
+          <h3>Nutrición</h3>
+          <p>Soluciones nutritivas, sustratos especializados y complementos para maximizar el rendimiento por planta.</p>
+          <span class="cat-count">Próximamente</span>
+        </div>
+
+        <div class="cat-card d reveal d6">
+          <div class="cat-icon">📦</div>
+          <h3>Kits Completos</h3>
+          <p>Paquetes todo-en-uno para quien empieza desde cero. Todo lo que necesitas en una sola caja.</p>
+          <span class="cat-count">Próximamente</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ CATÁLOGO ════ -->
+  <section class="section catalog" id="catalogo">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="label section__label">Catálogo</span>
+        <h2 class="section__title">Productos Disponibles</h2>
+        <p class="section__sub">Cada equipo que vendemos pasa por nuestra selección técnica — probado, calificado y listo para usarse el día que llega.</p>
+      </div>
+
+      <div class="catalog__filters">
+        <button class="filter-btn active">Todos</button>
+        <button class="filter-btn">LED Grow</button>
+        <button class="filter-btn">Hidroponía</button>
+        <button class="filter-btn">Espectro completo</button>
+        <button class="filter-btn">Interior</button>
+      </div>
+
+      <div class="catalog__grid">
+
+        <!-- ── PRODUCTO 1: GrowSphere 288 ── -->
+        <div class="prod-card reveal d1"
+          data-product-id="growsphere-288"
+          data-product-name="GrowSphere 288"
+          data-product-price="2200"
+          data-product-detail="Set 4 Lámparas E26 · 288 LEDs totales"
+          data-product-icon="💡">
+          <div class="prod-visual">
+            <div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div>
+            <svg viewBox="0 0 88 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="44" y1="10" x2="44" y2="3" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-linecap="round"/>
+              <rect x="10" y="10" width="68" height="60" rx="6" fill="#060E06" stroke="rgba(232,181,71,0.22)" stroke-width="1"/>
+              <circle cx="20" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
+              <circle cx="30" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
+              <circle cx="40" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
+              <circle cx="50" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
+              <circle cx="60" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
+              <circle cx="70" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
+              <circle cx="20" cy="30" r="2.4" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="30" cy="30" r="2.4" fill="rgba(232,181,71,0.85)"/>
+              <circle cx="40" cy="30" r="2.4" fill="rgba(107,169,217,0.85)"/>
+              <circle cx="50" cy="30" r="2.4" fill="rgba(232,181,71,0.82)"/>
+              <circle cx="60" cy="30" r="2.4" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="70" cy="30" r="2.4" fill="rgba(232,181,71,0.80)"/>
+              <circle cx="20" cy="40" r="2.4" fill="rgba(232,181,71,0.82)"/>
+              <circle cx="30" cy="40" r="2.4" fill="rgba(107,169,217,0.78)"/>
+              <circle cx="40" cy="40" r="2.4" fill="rgba(232,181,71,0.88)"/>
+              <circle cx="50" cy="40" r="2.4" fill="rgba(107,169,217,0.85)"/>
+              <circle cx="60" cy="40" r="2.4" fill="rgba(232,181,71,0.82)"/>
+              <circle cx="70" cy="40" r="2.4" fill="rgba(107,169,217,0.78)"/>
+              <circle cx="20" cy="50" r="2.4" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="30" cy="50" r="2.4" fill="rgba(232,181,71,0.78)"/>
+              <circle cx="40" cy="50" r="2.4" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="50" cy="50" r="2.4" fill="rgba(232,181,71,0.78)"/>
+              <circle cx="60" cy="50" r="2.4" fill="rgba(107,169,217,0.75)"/>
+              <circle cx="70" cy="50" r="2.4" fill="rgba(232,181,71,0.72)"/>
+              <circle cx="20" cy="60" r="2.4" fill="rgba(232,181,71,0.72)"/>
+              <circle cx="30" cy="60" r="2.4" fill="rgba(107,169,217,0.70)"/>
+              <circle cx="40" cy="60" r="2.4" fill="rgba(232,181,71,0.75)"/>
+              <circle cx="50" cy="60" r="2.4" fill="rgba(107,169,217,0.72)"/>
+              <circle cx="60" cy="60" r="2.4" fill="rgba(232,181,71,0.70)"/>
+              <circle cx="70" cy="60" r="2.4" fill="rgba(107,169,217,0.68)"/>
+              <rect x="10" y="70" width="68" height="7" rx="3" fill="#0A1208" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+              <line x1="18" y1="77" x2="18" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="70" y1="77" x2="70" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="16" y1="90" x2="72" y2="90" stroke="rgba(255,255,255,0.10)" stroke-width="1.4" stroke-linecap="round"/>
+              <rect x="28" y="97" width="32" height="12" rx="5" fill="rgba(232,181,71,0.08)" stroke="rgba(232,181,71,0.28)" stroke-width="0.8"/>
+            </svg>
+          </div>
+
+          <div class="prod-body">
+            <div class="prod-tags">
+              <span class="badge badge--harvest">Espectro Completo</span>
+              <span class="badge badge--accent">Más Vendido</span>
+              <span class="badge">LED Grow</span>
+            </div>
+            <h3 class="prod-name">GrowSphere 288</h3>
+            <p class="prod-latin">Set 4 Lámparas E26 · 288 LEDs totales</p>
+            <p class="prod-desc">El sistema de iluminación que usan productores avanzados, ahora en formato doméstico. 288 LEDs de alta potencia con espectro completo para invernadero, patio o interior. Instalación sin herramientas, enchufes EU/US incluidos.</p>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;">
+              <span class="badge">4.7 ⭐ Calificación</span>
+              <span class="badge badge--accent">Envío incluido</span>
+            </div>
+            <div class="prod-footer">
+              <div class="prod-price">
+                <span class="prod-price__lbl">Precio</span>
+                <span class="prod-price__val">$2,200 <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span>
+              </div>
+              <button
+                class="btn btn--outline btn--sm btn-add-cart"
+                data-product-id="growsphere-288"
+                data-product-name="GrowSphere 288"
+                data-product-price="2200"
+                data-product-detail="Set 4 Lámparas E26 · 288 LEDs totales"
+                data-product-icon="💡">
+                + Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PRODUCTO 2: SmartGarden 9 Pro ── -->
+        <div class="prod-card reveal d2"
+          data-product-id="smartgarden-9-pro"
+          data-product-name="SmartGarden 9 Pro"
+          data-product-price="2800"
+          data-product-detail="9 cápsulas · LED 15W · Temporizador automático"
+          data-product-icon="🌿">
+          <div class="prod-visual">
+            <div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(125,211,125,0.14),transparent 70%);opacity:0.6;"></div>
+            <svg viewBox="0 0 88 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="8" width="64" height="9" rx="4.5" fill="#060E06" stroke="rgba(125,211,125,0.28)" stroke-width="1"/>
+              <circle cx="22" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="32" cy="12.5" r="2.2" fill="rgba(125,211,125,0.85)"/>
+              <circle cx="42" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="52" cy="12.5" r="2.2" fill="rgba(125,211,125,0.85)"/>
+              <circle cx="62" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
+              <circle cx="72" cy="12.5" r="2.2" fill="rgba(125,211,125,0.80)"/>
+              <rect x="12" y="17" width="64" height="18" rx="2" fill="rgba(125,211,125,0.04)"/>
+              <rect x="40" y="17" width="8" height="26" rx="3" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+              <rect x="6" y="43" width="76" height="50" rx="9" fill="#060E06" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
+              <rect x="10" y="85" width="68" height="4" rx="2" fill="rgba(107,169,217,0.10)"/>
+              <circle cx="22" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
+              <circle cx="44" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
+              <circle cx="66" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
+              <circle cx="22" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
+              <circle cx="44" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
+              <circle cx="66" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
+              <path d="M22 49 Q19 42 16 38 M22 49 Q25 42 28 38" stroke="rgba(125,211,125,0.70)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+              <path d="M44 49 Q41 43 38 40 M44 49 Q47 43 50 40" stroke="rgba(125,211,125,0.65)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+              <path d="M66 49 Q63 43 60 40 M66 49 Q69 43 72 40" stroke="rgba(125,211,125,0.60)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+              <path d="M22 68 Q21 65 20 63 M22 68 Q23 65 24 63" stroke="rgba(125,211,125,0.40)" stroke-width="1" stroke-linecap="round" fill="none"/>
+              <path d="M44 68 Q43 65 42 63 M44 68 Q45 65 46 63" stroke="rgba(125,211,125,0.38)" stroke-width="1" stroke-linecap="round" fill="none"/>
+              <circle cx="44" cy="90" r="3.5" fill="rgba(107,169,217,0.35)" stroke="rgba(107,169,217,0.30)" stroke-width="0.8"/>
+              <rect x="26" y="98" width="36" height="12" rx="5" fill="rgba(125,211,125,0.07)" stroke="rgba(125,211,125,0.25)" stroke-width="0.8"/>
+            </svg>
+          </div>
+
+          <div class="prod-body">
+            <div class="prod-tags">
+              <span class="badge badge--rare">Destacado</span>
+              <span class="badge badge--accent">Regalo Ideal</span>
+              <span class="badge">Hidropónico</span>
+            </div>
+            <h3 class="prod-name">SmartGarden 9 Pro</h3>
+            <p class="prod-latin">9 cápsulas · LED 15W · Temporizador automático</p>
+            <p class="prod-desc">Cultiva hierbas, lechugas y vegetales dentro de tu hogar sin tierra. LED de espectro completo con altura ajustable y temporizador integrado. Silencioso, compacto y listo para regalar.</p>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;">
+              <span class="badge">4.8 ⭐ Calificación</span>
+              <span class="badge badge--water">Envío incluido</span>
+            </div>
+            <div class="prod-footer">
+              <div class="prod-price">
+                <span class="prod-price__lbl">Precio</span>
+                <span class="prod-price__val">$2,800 <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span>
+              </div>
+              <button
+                class="btn btn--outline btn--sm btn-add-cart"
+                data-product-id="smartgarden-9-pro"
+                data-product-name="SmartGarden 9 Pro"
+                data-product-price="2800"
+                data-product-detail="9 cápsulas · LED 15W · Temporizador automático"
+                data-product-icon="🌿">
+                + Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ POR QUÉ STELLARVERTEX ════ -->
+  <section class="section benefits" id="por-que">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="label section__label">Por qué elegirnos</span>
+        <h2 class="section__title">La tienda detrás del producto</h2>
+        <p class="section__sub">StellarVertex no es una plataforma — soy yo, Colter, eligiendo, probando y vendiendo cada equipo directamente.</p>
+      </div>
+
+      <div class="benefits__grid">
+
+        <div class="benefit reveal d1">
+          <div class="benefit__icon">🎯</div>
+          <div>
+            <h3>Selección técnica propia</h3>
+            <p>Cada producto en el catálogo lo investigo y evalúo personalmente. No agrego algo solo porque existe — lo agrego porque funciona.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d2">
+          <div class="benefit__icon">📦</div>
+          <div>
+            <h3>Entrega con número de rastreo</h3>
+            <p>Tu pedido viaja con seguimiento real desde el momento en que confirmas. Entrega en 3–7 días a cualquier punto de México.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d3">
+          <div class="benefit__icon">🌱</div>
+          <div>
+            <h3>Cultivo urbano en expansión</h3>
+            <p>El cultivo hidropónico doméstico creció más del 30% anual en México desde 2021. Estos equipos no son tendencia — son el presente.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d4">
+          <div class="benefit__icon">🎁</div>
+          <div>
+            <h3>Regalo que se recuerda</h3>
+            <p>Los jardines inteligentes son uno de los regalos premium más comprados en plataformas digitales mexicanas — compactos, originales, útiles.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d5">
+          <div class="benefit__icon">⭐</div>
+          <div>
+            <h3>Calidad con calificaciones reales</h3>
+            <p>4.7–4.8 estrellas con cientos de compradores verificados. Antes de vender un producto, confirmo que tiene el historial que merece.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d6">
+          <div class="benefit__icon">🔄</div>
+          <div>
+            <h3>Consumibles disponibles</h3>
+            <p>Los nutrientes, cápsulas y accesorios de repuesto estarán en el catálogo — para que tu sistema siga produciendo sin pausas.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ PROCESO ════ -->
+  <section class="section process" id="proceso">
+    <div class="container">
+      <div class="section__header reveal" style="text-align:center;">
+        <span class="label section__label">Tu Pedido</span>
+        <h2 class="section__title">Cómo Funciona</h2>
+        <p class="section__sub--center section__sub">Elige, paga y recibe — así de directo. Cada paso tiene seguimiento real.</p>
+      </div>
+
+      <div class="process__track">
+        <div class="step reveal d1">
+          <div class="step__num">01</div>
+          <h3>Elige tu Equipo</h3>
+          <p>Explora el catálogo y encuentra el sistema que se adapta a tu espacio. Escríbeme si tienes dudas — respondo en menos de 24h.</p>
+        </div>
+        <div class="step reveal d2">
+          <div class="step__num">02</div>
+          <h3>Confirma tu Pedido</h3>
+          <p>Coordina el pago directamente conmigo. Sin plataformas intermediarias — el proceso es claro y sin sorpresas.</p>
+        </div>
+        <div class="step reveal d3">
+          <div class="step__num">03</div>
+          <h3>Te Confirmo en 24h</h3>
+          <p>Verifico disponibilidad y te envío los datos de tu envío. Recibes número de rastreo tan pronto como el paquete sale.</p>
+        </div>
+        <div class="step reveal d4">
+          <div class="step__num">04</div>
+          <h3>Recibe en Casa</h3>
+          <p>Tu equipo llega en 3–7 días, empacado y listo para usar. Si algo no está perfecto, lo resolvemos — sin discusión.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ CTA ════ -->
+  <section class="section cta-section" id="contacto">
+    <div class="cta-section__glow"></div>
+    <div class="cta-section__inner reveal">
+      <span class="label" style="display:block;margin-bottom:1rem;">Hablemos</span>
+      <h2>¿Listo para empezar<br>a cultivar en casa?</h2>
+      <p>Escríbeme con tu duda, el producto que te interesa, o simplemente para conocer más del catálogo — te respondo directo, sin bots.</p>
+
+      <div class="cta-actions">
+        <a href="mailto:contacto@stellarvertex.mx" class="btn btn--primary" style="font-size:0.95rem;padding:12px 28px;">
+          Ponerse en Contacto →
+        </a>
+        <a href="https://wa.me/525629704701" class="btn btn--ghost" style="font-size:0.95rem;padding:12px 28px;">
+          WhatsApp
+        </a>
+      </div>
+
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <div class="cta-card"><span>📦</span><span>Envío a todo México</span></div>
+        <div class="cta-card"><span>⚡</span><span>Respuesta en <strong>menos de 24h</strong></span></div>
+        <div class="cta-card"><span>✦</span><span>Vendedor <strong>directo</strong></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ FOOTER ════ -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__copy">© 2025 StellarVertex · Agri-tech · México</span>
+        <ul class="footer__links">
+          <li><a href="#">Términos</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="index.html">← Inicio</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Nav active link
+    const navIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.nav__links a').forEach(l => l.style.color = '');
+          const a = document.querySelector(`.nav__links a[href="#${e.target.id}"]`);
+          if (a) a.style.color = 'var(--accent)';
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
+  </script>
+  <script src="solana-pay.js"></script>
+  <script src="cart.js"></script>
+
+</body>
+</html>
