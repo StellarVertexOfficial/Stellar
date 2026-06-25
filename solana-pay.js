@@ -222,6 +222,43 @@
 
     const link = document.getElementById('svp-deeplink');
     if (link) link.href = url;
+
+    // Actualizar sección manual (Trust Wallet / cualquier wallet)
+    const manualAmt = document.getElementById('svp-manual-amount');
+    if (manualAmt) {
+      manualAmt.textContent = state.token === 'SOL'
+        ? `${tokenAmount} SOL`
+        : `${tokenAmount} USDC`;
+    }
+    const manualToken = document.getElementById('svp-manual-token');
+    if (manualToken) manualToken.textContent = state.token;
+  }
+
+  // ─── COPIAR DIRECCIÓN (Trust Wallet / wallets manuales) ──────────
+  function copyAddress() {
+    const btn = document.getElementById('svp-copy-btn');
+    navigator.clipboard.writeText(CONFIG.WALLET_ADDRESS).then(() => {
+      if (!btn) return;
+      btn.innerHTML = `<svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7L5.5 10.5L12 3" stroke="#7DD37D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>¡Copiado!</span>`;
+      btn.style.borderColor = 'rgba(125,211,125,0.35)';
+      btn.style.color = '#7DD37D';
+      setTimeout(() => {
+        if (!btn) return;
+        btn.innerHTML = `<svg viewBox="0 0 14 14" fill="none" width="13" height="13"><rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 0 1 1-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span>Copiar</span>`;
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      }, 2500);
+    }).catch(() => {
+      // Fallback para navegadores sin clipboard API
+      const el = document.createElement('textarea');
+      el.value = CONFIG.WALLET_ADDRESS;
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    });
   }
 
   // ─── API PÚBLICA ──────────────────────────────────────────────────
@@ -352,6 +389,29 @@
               <path d="M1 11L11 1M11 1H5M11 1V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </a>
+
+          <!-- ── SECCIÓN MANUAL: Trust Wallet y otras wallets ── -->
+          <div class="svp-divider"><span>¿Usando Trust Wallet u otra wallet?</span></div>
+
+          <div class="svp-manual">
+            <p class="svp-manual-label">Envía exactamente este monto:</p>
+            <div class="svp-manual-amount-row">
+              <span class="svp-manual-badge" id="svp-manual-token">SOL</span>
+              <span class="svp-manual-value" id="svp-manual-amount">Calculando...</span>
+            </div>
+            <p class="svp-manual-label" style="margin-top:10px;">A esta dirección:</p>
+            <div class="svp-address-row">
+              <code class="svp-address" id="svp-manual-addr">${CONFIG.WALLET_ADDRESS.slice(0,8)}...${CONFIG.WALLET_ADDRESS.slice(-8)}</code>
+              <button class="svp-copy-btn" onclick="StellarPay.copyAddress()" id="svp-copy-btn" aria-label="Copiar dirección">
+                <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 0 1 1-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <span>Copiar</span>
+              </button>
+            </div>
+            <p class="svp-manual-note">
+              Después de enviar, mándanos tu número de TX por <strong>WhatsApp</strong> para confirmar tu pedido.
+            </p>
+          </div>
+
         </div>
       </div>`;
 
@@ -664,6 +724,116 @@
 }
 .svp-tx-link:hover { color: #7DD37D; }
 
+/* ── Manual / Trust Wallet ── */
+.svp-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.22);
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.svp-divider::before,
+.svp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+.svp-manual {
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.svp-manual-label {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin: 0;
+}
+.svp-manual-amount-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.svp-manual-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgba(125,211,125,0.10);
+  color: #7DD37D;
+  border: 1px solid rgba(125,211,125,0.20);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+.svp-manual-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: #E6EDF3;
+  letter-spacing: -0.02em;
+}
+.svp-address-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.svp-address {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  flex: 1;
+  word-break: break-all;
+  letter-spacing: 0.3px;
+}
+.svp-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.50);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.svp-copy-btn:hover {
+  background: rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.18);
+}
+.svp-manual-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.30);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+.svp-manual-note strong {
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+
 /* ── Responsive ── */
 @media (max-width: 430px) {
   #svp-overlay { padding: 0; align-items: flex-end; }
@@ -682,6 +852,6 @@
   }
 
   // ─── EXPORT ───────────────────────────────────────────────────────
-  window.StellarPay = { open, close, switchToken };
+  window.StellarPay = { open, close, switchToken, copyAddress };
 
 })();
