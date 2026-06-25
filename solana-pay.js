@@ -21,7 +21,7 @@
 
   // ─── CONFIGURACIÓN ────────────────────────────────────────────────
   const CONFIG = {
-    WALLET_ADDRESS: 'TU_WALLET_DE_SOLANA_AQUI',              // ← CAMBIAR
+    WALLET_ADDRESS: 'G1sjfuuSKsRgb1o1iDH77xjPCdwwPiSaLAvjxoQ3c1iQ',              // ← CAMBIAR
     USDC_MINT: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
     VERIFY_ENDPOINT: '/.netlify/functions/verify-payment',
     POLL_INTERVAL_MS: 4000,
