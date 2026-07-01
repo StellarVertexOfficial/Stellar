@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiénes Somos · StellarVertex</title>
+  <link rel="icon" type="image/png" href="assets/Logo.png">
+  <meta name="description" content="Conoce la historia de StellarVertex: nacimos de una simple pregunta y hoy diseñamos sistemas para que cualquier persona, en cualquier depa, pueda cultivar en casa sin tierra.">
+  <meta property="og:title" content="Quiénes Somos · StellarVertex">
+  <meta property="og:description" content="Nacimos de una pregunta, no de un plan de negocios. Conoce la historia detrás de StellarVertex.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="cart.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2CH4VJQ9NS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2CH4VJQ9NS');
+</script>
+
+<!-- ═══════════════════════════════════ ESTILOS EXCLUSIVOS DE ESTA PÁGINA ═══ -->
+<style>
+  /* Tarjeta-cita del hero: "la pregunta que lo inició todo" */
+  .quote-card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 2.4rem 2.1rem;
+    max-width: 360px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-card::before{
+    content: '"';
+    position: absolute;
+    top: -18px; left: 18px;
+    font-size: 6rem;
+    color: var(--accent-dim);
+    font-family: var(--font-mono);
+    line-height: 1;
+    z-index: 0;
+  }
+  .quote-card__glow{
+    position: absolute; top: -30%; right: -20%;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .quote-card__label{
+    position: relative; z-index: 1;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .quote-card__text{
+    position: relative; z-index: 1;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 1.4rem;
+  }
+  .quote-card__text em{ font-style: normal; color: var(--accent); }
+  .quote-card__by{
+    position: relative; z-index: 1;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+
+  /* Manifiesto de marca ("Nuestra filosofía") */
+  .manifesto{ background: var(--bg-secondary); text-align: center; }
+  .manifesto__inner{ max-width: 740px; margin: 0 auto; }
+  .manifesto__statement{
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    margin-bottom: 1.75rem;
+  }
+  .manifesto__statement em{ font-style: normal; color: var(--accent); }
+  .manifesto__body{
+    font-size: 1.02rem;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ════════════════════════ NAV ════ -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-mark">✦</div>
+        <span class="nav__logo-text">StellarVertex</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="led_hidroponia.html">Catálogo</a></li>
+        <li><a href="#historia">Nuestra historia</a></li>
+        <li><a href="#filosofia">Filosofía</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="cart-trigger" id="svCartTrigger" aria-label="Ver carrito">
+          <span class="cart-trigger__icon">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 1.5H3l1.5 7.5h7.5l1-5H5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="7" cy="13.5" r="1.1" fill="currentColor"/>
+              <circle cx="12" cy="13.5" r="1.1" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="cart-trigger__label">Carrito</span>
+          <span class="cart-trigger__count hidden" id="svCartCount">0</span>
+        </button>
+        <a href="index.html" class="nav__back">← Inicio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════ HERO ════ -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="hero__glow"></div>
+      <div class="hero__glow-2"></div>
+      <div class="hero__grid"></div>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <span class="hero__tag">Nuestra historia</span>
+          <div class="hero__divider"></div>
+        </div>
+
+        <h1 class="hero__title">
+          Todos queremos sembrar.<br>
+          <em>Casi nadie tiene dónde.</em>
+        </h1>
+
+        <p class="hero__desc">
+          A millones nos encantaría tener nuestras propias hierbas, verduras y plantas frescas — cultivadas con nuestras manos, en nuestra propia casa. El problema nunca fueron las ganas. Fue el espacio. Así que un día nos hicimos una pregunta simple y directa: ¿de verdad no podemos hacer nada para cambiar esto? De ahí nació StellarVertex.
+        </p>
+
+        <div class="hero__badges">
+          <span class="badge badge--accent">🌱 Nacida de una necesidad real</span>
+          <span class="badge badge--water">🏠 Pensada para tu depa</span>
+          <span class="badge badge--soil">🇲🇽 Hecha para México</span>
+        </div>
+
+        <div class="hero__cta">
+          <a href="led_hidroponia.html" class="btn btn--primary">Conoce nuestros sistemas →</a>
+          <a href="#filosofia" class="btn btn--ghost">Nuestra filosofía</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="quote-card">
+          <div class="quote-card__glow"></div>
+          <span class="quote-card__label">// La pregunta que lo inició todo</span>
+          <p class="quote-card__text">¿De verdad no podemos hacer nada <em>para cambiar esto?</em></p>
+          <span class="quote-card__by">— Así nace StellarVertex</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ HISTORIA (proceso) ════ -->
+  <section class="section process" id="historia">
+    <div class="container">
+      <div class="section__header reveal" style="text-align:center;">
+        <span class="label section__label">Cómo llegamos aquí</span>
+        <h2 class="section__title">De la pregunta a tu casa</h2>
+        <p class="section__sub--center section__sub">Esta no es una historia de negocios. Es la historia de una necesidad que decidimos resolver.</p>
+      </div>
+
+      <div class="process__track">
+        <div class="step reveal d1">
+          <div class="step__num">01</div>
+          <h3>La necesidad</h3>
+          <p>Nos encanta sembrar. Soñamos con hierbas frescas para cocinar, con vegetales que crecieron con nuestras propias manos, con un poco de verde que sea nuestro. No es un capricho — es algo que millones de personas desean de verdad.</p>
+        </div>
+        <div class="step reveal d2">
+          <div class="step__num">02</div>
+          <h3>La pregunta</h3>
+          <p>El problema nunca fueron las ganas. Fue el espacio. La mayoría apenas tenemos lugar para nosotros mismos, mucho menos un patio o un jardín. Así que nos preguntamos, en serio: ¿de verdad no hay nada que podamos hacer?</p>
+        </div>
+        <div class="step reveal d3">
+          <div class="step__num">03</div>
+          <h3>El nacimiento</h3>
+          <p>De esa pregunta nació StellarVertex: una empresa dedicada al planteamiento de sistemas para que cualquier persona pueda plantar en su hogar, sin necesidad de tener tierra.</p>
+        </div>
+        <div class="step reveal d4">
+          <div class="step__num">04</div>
+          <h3>Hoy</h3>
+          <p>Seguimos con el mismo propósito con el que empezamos: acompañarte, sistema por sistema, hasta que veas crecer algo que sembraste con tus propias manos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ NUESTRA PROMESA (benefits) ════ -->
+  <section class="section benefits" id="promesa">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="label section__label">Nuestra promesa</span>
+        <h2 class="section__title">Alta tecnología, en términos simples</h2>
+        <p class="section__sub">Nada de manuales complicados ni jerga de agrónomo. Así de simple funciona lo que hacemos.</p>
+      </div>
+
+      <div class="benefits__grid">
+        <div class="benefit reveal d1">
+          <div class="benefit__icon">💧</div>
+          <div>
+            <h3>Agua, no tierra</h3>
+            <p>Nuestros sistemas se basan en el crecimiento hidropónico: tus plantas viven directo en agua con nutrientes. Nada de macetas, nada de tierra que ensucia tu casa.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d2">
+          <div class="benefit__icon">📐</div>
+          <div>
+            <h3>Espacio optimizado</h3>
+            <p>Diseño vertical pensado para departamentos y espacios chicos. Donde antes cabía una maceta, ahora caben veinte plantas.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d3">
+          <div class="benefit__icon">💡</div>
+          <div>
+            <h3>Luces de alto crecimiento</h3>
+            <p>Iluminación LED de espectro completo que hace el trabajo del sol, para que tus plantas crezcan fuertes sin importar cuánta luz natural tenga tu casa.</p>
+          </div>
+        </div>
+
+        <div class="benefit reveal d4">
+          <div class="benefit__icon">🌿</div>
+          <div>
+            <h3>Para todos, sin excepción</h3>
+            <p>Con años de experiencia cultivando o sin haber tocado una planta en tu vida — nuestros sistemas están pensados para que cualquiera tenga éxito desde el primer día.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ FILOSOFÍA (manifiesto) ════ -->
+  <section class="section manifesto" id="filosofia">
+    <div class="container">
+      <div class="manifesto__inner reveal">
+        <span class="label" style="display:block;margin-bottom:1.2rem;">Nuestra filosofía</span>
+        <p class="manifesto__statement">
+          No queremos venderte rápido.<br>
+          No queremos que compres bajo presión.<br>
+          <em>Queremos que tengas éxito cultivando</em> — antes que cerrar una venta.
+        </p>
+        <p class="manifesto__body">Por eso trabajamos todos los días para ofrecerte el mejor servicio, el mejor producto y la mejor calidad posible, a un precio que de verdad puedas pagar. Preferimos ganarnos tu confianza con resultados reales en tu casa — no con descuentos falsos ni relojes de cuenta regresiva contando los minutos que te quedan para comprar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ CTA / CONTACTO ════ -->
+  <section class="section cta-section" id="contacto">
+    <div class="cta-section__glow"></div>
+    <div class="cta-section__inner reveal">
+      <span class="label" style="display:block;margin-bottom:1rem;">¿Tienes dudas?</span>
+      <h2>Estamos aquí<br>para acompañarte</h2>
+      <p>Si tienes alguna duda, escríbenos — te respondemos directo, sin bots. Y si todavía no te decides, sigue explorando nuestra empresa y toda nuestra variedad de productos y servicios: estamos seguros de que vas a encontrar algo que te interese.</p>
+
+      <div class="cta-actions">
+        <a href="mailto:contacto@stellarvertex.mx" class="btn btn--primary" style="font-size:0.95rem;padding:12px 28px;">
+          Ponerse en Contacto →
+        </a>
+        <a href="https://wa.me/525629704701" class="btn btn--ghost" style="font-size:0.95rem;padding:12px 28px;">
+          WhatsApp
+        </a>
+      </div>
+
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <div class="cta-card"><span>📦</span><span>Envío a todo México</span></div>
+        <div class="cta-card"><span>🌱</span><span>Pensado para <strong>principiantes</strong></span></div>
+        <div class="cta-card"><span>🤝</span><span>Sin presión, <strong>nunca</strong></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ FOOTER ════ -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__copy">© 2026 StellarVertex · Agri-tech · México</span>
+        <ul class="footer__links">
+          <li><a href="#">Términos</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="index.html">← Inicio</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Nav active link
+    const navIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.nav__links a').forEach(l => l.style.color = '');
+          const a = document.querySelector(`.nav__links a[href="#${e.target.id}"]`);
+          if (a) a.style.color = 'var(--accent)';
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
+  </script>
+  <script src="cart.js"></script>
+
+</body>
+</html>
