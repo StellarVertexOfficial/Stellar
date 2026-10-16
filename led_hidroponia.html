@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Grow · LED & Hidropónico · StellarVertex</title>
+  <title>Tienda · Mapas estelares · StellarVertex</title>
+  <meta name="description" content="Mapas estelares personalizados: elige tamaño, marco y estilo, escribe tu fecha, hora y lugar, y recibe el cielo de tu momento especial. Envío a todo México.">
+  <meta property="og:title" content="Tienda · Mapas estelares · StellarVertex">
+  <meta property="og:locale" content="es_MX">
   <link rel="icon" type="image/png" href="assets/Logo.png">
   <link rel="stylesheet" href="style1.css">
   <link rel="stylesheet" href="cart.css">
@@ -19,6 +22,18 @@
 
   gtag('config', 'G-2CH4VJQ9NS');
 </script>
+<style>
+.spec{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:5px;font-size:.85rem;color:var(--text-secondary)}.spec li::before{content:"✦ ";color:var(--harvest)}
+.pers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 1rem}.pers label{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--text-secondary);font-family:'JetBrains Mono',monospace}.pers .w2{grid-column:1/-1}
+.pers input,.pers select{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);padding:8px 10px;font:inherit;font-size:.85rem;min-width:0}
+.pers input:focus-visible,.pers select:focus-visible,.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.err{color:#ff8a8a;font-size:.8rem;margin:-4px 0 .75rem}
+.cmp-wrap{overflow-x:auto}.cmp{width:100%;border-collapse:collapse;min-width:620px}.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text-secondary);vertical-align:top}.cmp thead th{color:var(--text-primary);font-weight:600}.cmp tbody th{font:500 .75rem 'JetBrains Mono',monospace;color:var(--text-secondary);width:20%}
+.styles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.sty{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}.sty i{display:block;width:104px;height:104px;border-radius:50%;margin:0 auto 1rem;border:2px solid}.sty h3{margin-bottom:6px}.sty p{color:var(--text-secondary);font-size:.9rem}
+.read{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:3rem;align-items:center}.read ul{list-style:none;padding:0;margin:0;display:grid;gap:14px}.read li{color:var(--text-secondary)}.read li b{color:var(--text-primary)}
+@media(max-width:760px){.read{grid-template-columns:1fr}}
+.faq{max-width:760px;margin:0 auto;display:grid;gap:10px}.faq details{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem}.faq summary{cursor:pointer;font-weight:600;color:var(--text-primary)}.faq p{margin:.75rem 0 0;color:var(--text-secondary)}
+</style>
 </head>
 <body>
 
@@ -29,12 +44,7 @@
         <div class="nav__logo-mark">✦</div>
         <span class="nav__logo-text">StellarVertex</span>
       </a>
-      <ul class="nav__links">
-        <li><a href="#categorias">Categorías</a></li>
-        <li><a href="#catalogo">Productos</a></li>
-        <li><a href="#por-que">¿Por qué elegirnos?</a></li>
-        <li><a href="#proceso">Tu Pedido</a></li>
-      </ul>
+      <ul class="nav__links"><li><a href="#catalogo">Productos</a></li><li><a href="#ocasiones">Ocasiones</a></li><li><a href="#como-leer">Cómo leer tu mapa</a></li><li><a href="#faq">Preguntas</a></li><li><a href="#proceso">Tu Pedido</a></li></ul>
       <div class="nav__actions">
         <button class="cart-trigger" id="svCartTrigger" aria-label="Ver carrito">
           <span class="cart-trigger__icon">
@@ -54,472 +64,199 @@
 
   <!-- ═══════════════════════════════════ HERO ═══ -->
   <section class="hero" id="inicio">
-    <div class="hero__bg">
-      <div class="hero__glow"></div>
-      <div class="hero__glow-2" style="background:radial-gradient(circle,rgba(107,169,217,0.08) 0%,transparent 70%);top:60%;right:8%;"></div>
-      <div class="hero__grid"></div>
-    </div>
-
+    <div class="hero__bg"><div class="hero__glow"></div><div class="hero__grid"></div></div>
     <div class="hero__inner">
       <div class="hero__content">
-        <div class="hero__eyebrow">
-          <span class="hero__tag">Cultivo Inteligente</span>
-          <div class="hero__divider"></div>
-        </div>
-
-        <h1 class="hero__title">
-          Tecnología LED<br>
-          <em>e Hidropónica</em><br>
-          para tu Hogar
-        </h1>
-
-        <p class="hero__desc">
-          Cultiva hierbas, vegetales y plantas en cualquier espacio — sin tierra, sin complejidad.
-          Equipos de producción real, seleccionados por StellarVertex y enviados directo a ti.
-        </p>
-
-        <div class="hero__badges">
-          <span class="badge badge--harvest">Envío a Todo México</span>
-          <span class="badge badge--accent">Garantía Incluida</span>
-          <span class="badge badge--water">Soporte Técnico</span>
-          <span class="badge badge--rare">Cultivo 24/7</span>
-        </div>
-
-        <div class="hero__cta">
-          <a href="#catalogo" class="btn btn--primary">Ver Productos →</a>
-          <a href="#proceso" class="btn btn--ghost">Envíos y Garantía</a>
-        </div>
+        <div class="hero__eyebrow"><span class="hero__tag">Mapas estelares</span><div class="hero__divider"></div></div>
+        <h1 class="hero__title">El cielo de tu<br><em>momento especial</em><br>en tu pared</h1>
+        <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y la hora que quieras recordar. Personalizado por StellarVertex y enviado directo a ti.</p>
+        <div class="hero__badges"><span class="badge badge--harvest">Envío a Todo México</span><span class="badge badge--accent">Hecho a tu medida</span><span class="badge badge--water">Soporte por WhatsApp</span><span class="badge badge--rare">Vista previa gratis</span></div>
+        <div class="hero__cta"><a href="mapa.html" class="btn btn--primary">Crear mi mapa →</a><a href="#catalogo" class="btn btn--ghost">Ver productos</a></div>
       </div>
-
-      <!-- Visual: mini tech cards -->
-      <div class="hero__visual">
-        <div class="hero__cactus-grid">
-
-          <!-- LED Panel mini -->
-          <div class="mini-cactus">
-            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="36" y1="8" x2="36" y2="2" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
-              <rect x="8" y="8" width="56" height="52" rx="5" fill="#080E08" stroke="rgba(232,181,71,0.20)" stroke-width="1"/>
-              <circle cx="18" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
-              <circle cx="27" cy="18" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="36" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
-              <circle cx="45" cy="18" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="54" cy="18" r="2.2" fill="rgba(232,181,71,0.85)"/>
-              <circle cx="18" cy="27" r="2.2" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="27" cy="27" r="2.2" fill="rgba(232,181,71,0.80)"/>
-              <circle cx="36" cy="27" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="45" cy="27" r="2.2" fill="rgba(232,181,71,0.75)"/>
-              <circle cx="54" cy="27" r="2.2" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="18" cy="36" r="2.2" fill="rgba(232,181,71,0.80)"/>
-              <circle cx="27" cy="36" r="2.2" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="36" cy="36" r="2.2" fill="rgba(232,181,71,0.85)"/>
-              <circle cx="45" cy="36" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="54" cy="36" r="2.2" fill="rgba(232,181,71,0.80)"/>
-              <circle cx="18" cy="45" r="2.2" fill="rgba(107,169,217,0.70)"/>
-              <circle cx="27" cy="45" r="2.2" fill="rgba(232,181,71,0.70)"/>
-              <circle cx="36" cy="45" r="2.2" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="45" cy="45" r="2.2" fill="rgba(232,181,71,0.70)"/>
-              <circle cx="54" cy="45" r="2.2" fill="rgba(107,169,217,0.70)"/>
-              <rect x="8" y="60" width="56" height="6" rx="3" fill="#0A1208" stroke="rgba(232,181,71,0.12)" stroke-width="0.8"/>
-              <line x1="16" y1="60" x2="16" y2="72" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="56" y1="60" x2="56" y2="72" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="14" y1="72" x2="58" y2="72" stroke="rgba(255,255,255,0.10)" stroke-width="1.2" stroke-linecap="round"/>
-              <rect x="24" y="78" width="24" height="10" rx="4" fill="rgba(232,181,71,0.08)" stroke="rgba(232,181,71,0.25)" stroke-width="0.7"/>
-            </svg>
-            <span class="mini-cactus__name">LED Panel</span>
-          </div>
-
-          <!-- Hydroponic pod mini -->
-          <div class="mini-cactus">
-            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="12" y="6" width="48" height="7" rx="3.5" fill="#080E08" stroke="rgba(125,211,125,0.25)" stroke-width="0.9"/>
-              <circle cx="21" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="30" cy="9.5" r="1.8" fill="rgba(125,211,125,0.80)"/>
-              <circle cx="39" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="48" cy="9.5" r="1.8" fill="rgba(125,211,125,0.80)"/>
-              <circle cx="57" cy="9.5" r="1.8" fill="rgba(107,169,217,0.75)"/>
-              <rect x="33" y="13" width="6" height="22" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
-              <rect x="6" y="35" width="60" height="40" rx="7" fill="#080E08" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
-              <rect x="10" y="68" width="52" height="3.5" rx="1.5" fill="rgba(107,169,217,0.12)"/>
-              <circle cx="21" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
-              <circle cx="36" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
-              <circle cx="51" cy="46" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.22)" stroke-width="0.9"/>
-              <circle cx="21" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
-              <circle cx="36" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
-              <circle cx="51" cy="61" r="6" fill="#0D1A0D" stroke="rgba(125,211,125,0.16)" stroke-width="0.9"/>
-              <path d="M21 41 Q19 35 17 32 M21 41 Q23 35 25 32" stroke="rgba(125,211,125,0.65)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-              <path d="M36 41 Q34 35 32 33 M36 41 Q38 35 40 33" stroke="rgba(125,211,125,0.60)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-              <path d="M51 41 Q49 36 47 33 M51 41 Q53 36 55 33" stroke="rgba(125,211,125,0.55)" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-            </svg>
-            <span class="mini-cactus__name">Hidropónico</span>
-          </div>
-
-          <!-- Timer/Control mini -->
-          <div class="mini-cactus">
-            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="10" width="52" height="60" rx="8" fill="#080E08" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
-              <rect x="16" y="16" width="40" height="28" rx="4" fill="#0D1A0D" stroke="rgba(125,211,125,0.12)" stroke-width="0.8"/>
-              <circle cx="36" cy="30" r="10" fill="none" stroke="rgba(125,211,125,0.20)" stroke-width="1"/>
-              <line x1="36" y1="22" x2="36" y2="30" stroke="rgba(125,211,125,0.55)" stroke-width="1.4" stroke-linecap="round"/>
-              <line x1="36" y1="30" x2="43" y2="33" stroke="rgba(232,181,71,0.55)" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="36" cy="30" r="1.5" fill="rgba(125,211,125,0.6)"/>
-              <circle cx="22" cy="56" r="5" fill="#0A1208" stroke="rgba(125,211,125,0.20)" stroke-width="0.9"/>
-              <circle cx="36" cy="56" r="5" fill="#0A1208" stroke="rgba(232,181,71,0.25)" stroke-width="0.9"/>
-              <circle cx="50" cy="56" r="5" fill="#0A1208" stroke="rgba(107,169,217,0.20)" stroke-width="0.9"/>
-              <circle cx="22" cy="56" r="2" fill="rgba(125,211,125,0.50)"/>
-              <circle cx="36" cy="56" r="2" fill="rgba(232,181,71,0.55)"/>
-              <circle cx="50" cy="56" r="2" fill="rgba(107,169,217,0.50)"/>
-              <line x1="36" y1="70" x2="36" y2="80" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="36" cy="82" r="4" fill="#0A1208" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-              <line x1="32" y1="82" x2="40" y2="82" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            <span class="mini-cactus__name">Automatización</span>
-          </div>
-
-          <!-- Sensor/Monitor mini -->
-          <div class="mini-cactus">
-            <svg viewBox="0 0 72 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="14" y="8" width="44" height="60" rx="7" fill="#080E08" stroke="rgba(107,169,217,0.20)" stroke-width="1"/>
-              <circle cx="36" cy="22" r="10" fill="#0D1A10" stroke="rgba(107,169,217,0.18)" stroke-width="0.9"/>
-              <path d="M26 16 Q36 8 46 16" stroke="rgba(107,169,217,0.35)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-              <path d="M22 12 Q36 2 50 12" stroke="rgba(107,169,217,0.20)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-              <circle cx="36" cy="22" r="4" fill="rgba(107,169,217,0.40)"/>
-              <circle cx="36" cy="22" r="2" fill="rgba(107,169,217,0.75)"/>
-              <rect x="20" y="38" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-              <rect x="20" y="38" width="22" height="3" rx="1.5" fill="rgba(125,211,125,0.30)"/>
-              <rect x="20" y="45" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-              <rect x="20" y="45" width="26" height="3" rx="1.5" fill="rgba(107,169,217,0.30)"/>
-              <rect x="20" y="52" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-              <rect x="20" y="52" width="18" height="3" rx="1.5" fill="rgba(232,181,71,0.30)"/>
-              <rect x="24" y="60" width="24" height="5" rx="2" fill="rgba(107,169,217,0.08)"/>
-              <rect x="28" y="68" width="16" height="5" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
-              <rect x="22" y="73" width="28" height="4" rx="2" fill="#0A1208" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
-            </svg>
-            <span class="mini-cactus__name">Sensor IoT</span>
-          </div>
-
-        </div>
-      </div>
+      <div class="hero__visual"><div style="width:min(320px,80%);margin:auto;"><svg style="width:100%;height:auto" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div></div>
     </div>
   </section>
 
-  <!-- ════════════════════════ STATS ════ -->
-  <div class="stats-strip">
-    <div class="container">
-      <div class="stats-strip__grid">
-        <div class="stat-item reveal d1">
-          <span class="stat-item__num"><em>288</em></span>
-          <span class="stat-item__lbl">LEDs por panel</span>
-        </div>
-        <div class="stat-item reveal d2">
-          <span class="stat-item__num"><em>9</em></span>
-          <span class="stat-item__lbl">Cápsulas de cultivo</span>
-        </div>
-        <div class="stat-item reveal d3">
-          <span class="stat-item__num"><em>3–7</em></span>
-          <span class="stat-item__lbl">Días de entrega</span>
-        </div>
-        <div class="stat-item reveal d4">
-          <span class="stat-item__num"><em>4.8</em></span>
-          <span class="stat-item__lbl">Calificación promedio</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════ CATEGORÍAS ════ -->
-  <section class="section categories" id="categorias">
-    <div class="container">
-      <div class="section__header reveal">
-        <span class="label section__label">Líneas de Producto</span>
-        <h2 class="section__title">Tecnología para Cultivo</h2>
-        <p class="section__sub">Equipos de producción agrícola inteligente — diseñados para el cultivador moderno, desde el escritorio hasta la terraza.</p>
-      </div>
-
-      <div class="cat-grid">
-
-        <div class="cat-card h reveal d1">
-          <div class="cat-icon">💡</div>
-          <h3>Iluminación LED</h3>
-          <p>Paneles y sistemas de crecimiento de espectro completo. De escritorio a producción semi-profesional.</p>
-          <span class="cat-count">Disponible · MX$2,200 en adelante</span>
-        </div>
-
-        <div class="cat-card w reveal d2">
-          <div class="cat-icon">🌊</div>
-          <h3>Hidroponía</h3>
-          <p>Jardines inteligentes y sistemas de cultivo en agua. Cero tierra, cero suciedad, máxima eficiencia.</p>
-          <span class="cat-count">Disponible · MX$2,800 en adelante</span>
-        </div>
-
-        <div class="cat-card a reveal d3">
-          <div class="cat-icon">⏱️</div>
-          <h3>Automatización</h3>
-          <p>Temporizadores, controladores de riego y sistemas de monitoreo remoto para cultivos sin atención constante.</p>
-          <span class="cat-count">Próximamente</span>
-        </div>
-
-        <div class="cat-card s reveal d4">
-          <div class="cat-icon">🌡️</div>
-          <h3>Control Climático</h3>
-          <p>Ventiladores, extractores y sensores de temperatura y humedad para invernadero o cuarto de cultivo.</p>
-          <span class="cat-count">Próximamente</span>
-        </div>
-
-        <div class="cat-card r reveal d5">
-          <div class="cat-icon">🧪</div>
-          <h3>Nutrición</h3>
-          <p>Soluciones nutritivas, sustratos especializados y complementos para maximizar el rendimiento por planta.</p>
-          <span class="cat-count">Próximamente</span>
-        </div>
-
-        <div class="cat-card d reveal d6">
-          <div class="cat-icon">📦</div>
-          <h3>Kits Completos</h3>
-          <p>Paquetes todo-en-uno para quien empieza desde cero. Todo lo que necesitas en una sola caja.</p>
-          <span class="cat-count">Próximamente</span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════ CATÁLOGO ════ -->
   <section class="section catalog" id="catalogo">
     <div class="container">
       <div class="section__header reveal">
         <span class="label section__label">Catálogo</span>
-        <h2 class="section__title">Productos Disponibles</h2>
-        <p class="section__sub">Cada equipo que vendemos pasa por nuestra selección técnica — probado, calificado y listo para usarse el día que llega.</p>
+        <h2 class="section__title">Elige y personaliza tu mapa</h2>
+        <p class="section__sub">Escribe los datos de tu momento directo en la tarjeta. Llegan con tu pedido y los revisamos contigo antes de imprimir.</p>
       </div>
-
-      <div class="catalog__filters">
-        <button class="filter-btn active">Todos</button>
-        <button class="filter-btn">LED Grow</button>
-        <button class="filter-btn">Hidroponía</button>
-        <button class="filter-btn">Espectro completo</button>
-        <button class="filter-btn">Interior</button>
-      </div>
-
+      <!-- PRECIOS Y TAMAÑOS PROVISIONALES: ajústalos con tu cotización de impresión, marcos y envío -->
       <div class="catalog__grid">
-
-        <!-- ── PRODUCTO 1: GrowSphere 288 ── -->
-        <div class="prod-card reveal d1"
-          data-product-id="growsphere-288"
-          data-product-name="GrowSphere 288"
-          data-product-price="2200"
-          data-product-detail="Set 4 Lámparas E26 · 288 LEDs totales"
-          data-product-icon="💡">
-          <div class="prod-visual">
-            <div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div>
-            <svg viewBox="0 0 88 116" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="44" y1="10" x2="44" y2="3" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-linecap="round"/>
-              <rect x="10" y="10" width="68" height="60" rx="6" fill="#060E06" stroke="rgba(232,181,71,0.22)" stroke-width="1"/>
-              <circle cx="20" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
-              <circle cx="30" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
-              <circle cx="40" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
-              <circle cx="50" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
-              <circle cx="60" cy="20" r="2.4" fill="rgba(232,181,71,0.88)"/>
-              <circle cx="70" cy="20" r="2.4" fill="rgba(107,169,217,0.82)"/>
-              <circle cx="20" cy="30" r="2.4" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="30" cy="30" r="2.4" fill="rgba(232,181,71,0.85)"/>
-              <circle cx="40" cy="30" r="2.4" fill="rgba(107,169,217,0.85)"/>
-              <circle cx="50" cy="30" r="2.4" fill="rgba(232,181,71,0.82)"/>
-              <circle cx="60" cy="30" r="2.4" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="70" cy="30" r="2.4" fill="rgba(232,181,71,0.80)"/>
-              <circle cx="20" cy="40" r="2.4" fill="rgba(232,181,71,0.82)"/>
-              <circle cx="30" cy="40" r="2.4" fill="rgba(107,169,217,0.78)"/>
-              <circle cx="40" cy="40" r="2.4" fill="rgba(232,181,71,0.88)"/>
-              <circle cx="50" cy="40" r="2.4" fill="rgba(107,169,217,0.85)"/>
-              <circle cx="60" cy="40" r="2.4" fill="rgba(232,181,71,0.82)"/>
-              <circle cx="70" cy="40" r="2.4" fill="rgba(107,169,217,0.78)"/>
-              <circle cx="20" cy="50" r="2.4" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="30" cy="50" r="2.4" fill="rgba(232,181,71,0.78)"/>
-              <circle cx="40" cy="50" r="2.4" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="50" cy="50" r="2.4" fill="rgba(232,181,71,0.78)"/>
-              <circle cx="60" cy="50" r="2.4" fill="rgba(107,169,217,0.75)"/>
-              <circle cx="70" cy="50" r="2.4" fill="rgba(232,181,71,0.72)"/>
-              <circle cx="20" cy="60" r="2.4" fill="rgba(232,181,71,0.72)"/>
-              <circle cx="30" cy="60" r="2.4" fill="rgba(107,169,217,0.70)"/>
-              <circle cx="40" cy="60" r="2.4" fill="rgba(232,181,71,0.75)"/>
-              <circle cx="50" cy="60" r="2.4" fill="rgba(107,169,217,0.72)"/>
-              <circle cx="60" cy="60" r="2.4" fill="rgba(232,181,71,0.70)"/>
-              <circle cx="70" cy="60" r="2.4" fill="rgba(107,169,217,0.68)"/>
-              <rect x="10" y="70" width="68" height="7" rx="3" fill="#0A1208" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
-              <line x1="18" y1="77" x2="18" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1.4" stroke-linecap="round"/>
-              <line x1="70" y1="77" x2="70" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1.4" stroke-linecap="round"/>
-              <line x1="16" y1="90" x2="72" y2="90" stroke="rgba(255,255,255,0.10)" stroke-width="1.4" stroke-linecap="round"/>
-              <rect x="28" y="97" width="32" height="12" rx="5" fill="rgba(232,181,71,0.08)" stroke="rgba(232,181,71,0.28)" stroke-width="0.8"/>
-            </svg>
-          </div>
-
+        <div class="prod-card reveal d1" data-base="mapa-impreso" data-price="450">
+          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
           <div class="prod-body">
-            <div class="prod-tags">
-              <span class="badge badge--harvest">Espectro Completo</span>
-              <span class="badge badge--accent">Más Vendido</span>
-              <span class="badge">LED Grow</span>
-            </div>
-            <h3 class="prod-name">GrowSphere 288</h3>
-            <p class="prod-latin">Set 4 Lámparas E26 · 288 LEDs totales</p>
-            <p class="prod-desc">El sistema de iluminación que usan productores avanzados, ahora en formato doméstico. 288 LEDs de alta potencia con espectro completo para invernadero, patio o interior. Instalación sin herramientas, enchufes EU/US incluidos.</p>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;">
-              <span class="badge">4.7 ⭐ Calificación</span>
-              <span class="badge badge--accent">Envío incluido</span>
-            </div>
+            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span></div>
+            <h3 class="prod-name">Mapa estelar impreso</h3>
+            <p class="prod-latin">Póster impreso · personalizado</p>
+            <p class="prod-desc">El cielo de tu fecha y lugar, impreso y listo para enmarcar y regalar.</p>
+            <ul class="spec"><li>Tres tamaños a elegir</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Envío con rastreo a todo México</li></ul>
+            <div class="pers"><label>Tamaño<select name="tam"><option value="30×40 cm" data-p="450">30×40 cm · $450</option><option value="40×50 cm" data-p="650">40×50 cm · $650</option><option value="50×70 cm" data-p="950">50×70 cm · $950</option></select></label>
+<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
+<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
+<label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
+<label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
+<label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
+<p class="err js-err" hidden></p>
             <div class="prod-footer">
-              <div class="prod-price">
-                <span class="prod-price__lbl">Precio</span>
-                <span class="prod-price__val">$2,200 <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span>
-              </div>
-              <button
-                class="btn btn--outline btn--sm btn-add-cart"
-                data-product-id="growsphere-288"
-                data-product-name="GrowSphere 288"
-                data-product-price="2200"
-                data-product-detail="Set 4 Lámparas E26 · 288 LEDs totales"
-                data-product-icon="💡">
-                + Agregar al carrito
-              </button>
+              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$450</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
+              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-impreso" data-product-name="Mapa estelar impreso" data-product-price="450" data-product-detail="" data-product-icon="✦">+ Agregar al carrito</button>
             </div>
           </div>
         </div>
-
-        <!-- ── PRODUCTO 2: SmartGarden 9 Pro ── -->
-        <div class="prod-card reveal d2"
-          data-product-id="smartgarden-9-pro"
-          data-product-name="SmartGarden 9 Pro"
-          data-product-price="2800"
-          data-product-detail="9 cápsulas · LED 15W · Temporizador automático"
-          data-product-icon="🌿">
-          <div class="prod-visual">
-            <div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(125,211,125,0.14),transparent 70%);opacity:0.6;"></div>
-            <svg viewBox="0 0 88 116" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="12" y="8" width="64" height="9" rx="4.5" fill="#060E06" stroke="rgba(125,211,125,0.28)" stroke-width="1"/>
-              <circle cx="22" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="32" cy="12.5" r="2.2" fill="rgba(125,211,125,0.85)"/>
-              <circle cx="42" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="52" cy="12.5" r="2.2" fill="rgba(125,211,125,0.85)"/>
-              <circle cx="62" cy="12.5" r="2.2" fill="rgba(107,169,217,0.80)"/>
-              <circle cx="72" cy="12.5" r="2.2" fill="rgba(125,211,125,0.80)"/>
-              <rect x="12" y="17" width="64" height="18" rx="2" fill="rgba(125,211,125,0.04)"/>
-              <rect x="40" y="17" width="8" height="26" rx="3" fill="#0A1208" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
-              <rect x="6" y="43" width="76" height="50" rx="9" fill="#060E06" stroke="rgba(125,211,125,0.18)" stroke-width="1"/>
-              <rect x="10" y="85" width="68" height="4" rx="2" fill="rgba(107,169,217,0.10)"/>
-              <circle cx="22" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
-              <circle cx="44" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
-              <circle cx="66" cy="56" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.24)" stroke-width="0.9"/>
-              <circle cx="22" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
-              <circle cx="44" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
-              <circle cx="66" cy="75" r="8" fill="#0D1A0D" stroke="rgba(125,211,125,0.18)" stroke-width="0.9"/>
-              <path d="M22 49 Q19 42 16 38 M22 49 Q25 42 28 38" stroke="rgba(125,211,125,0.70)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-              <path d="M44 49 Q41 43 38 40 M44 49 Q47 43 50 40" stroke="rgba(125,211,125,0.65)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-              <path d="M66 49 Q63 43 60 40 M66 49 Q69 43 72 40" stroke="rgba(125,211,125,0.60)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-              <path d="M22 68 Q21 65 20 63 M22 68 Q23 65 24 63" stroke="rgba(125,211,125,0.40)" stroke-width="1" stroke-linecap="round" fill="none"/>
-              <path d="M44 68 Q43 65 42 63 M44 68 Q45 65 46 63" stroke="rgba(125,211,125,0.38)" stroke-width="1" stroke-linecap="round" fill="none"/>
-              <circle cx="44" cy="90" r="3.5" fill="rgba(107,169,217,0.35)" stroke="rgba(107,169,217,0.30)" stroke-width="0.8"/>
-              <rect x="26" y="98" width="36" height="12" rx="5" fill="rgba(125,211,125,0.07)" stroke="rgba(125,211,125,0.25)" stroke-width="0.8"/>
-            </svg>
-          </div>
-
+        <div class="prod-card reveal d2" data-base="mapa-enmarcado" data-price="850">
+          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
           <div class="prod-body">
-            <div class="prod-tags">
-              <span class="badge badge--rare">Destacado</span>
-              <span class="badge badge--accent">Regalo Ideal</span>
-              <span class="badge">Hidropónico</span>
-            </div>
-            <h3 class="prod-name">SmartGarden 9 Pro</h3>
-            <p class="prod-latin">9 cápsulas · LED 15W · Temporizador automático</p>
-            <p class="prod-desc">Cultiva hierbas, lechugas y vegetales dentro de tu hogar sin tierra. LED de espectro completo con altura ajustable y temporizador integrado. Silencioso, compacto y listo para regalar.</p>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;">
-              <span class="badge">4.8 ⭐ Calificación</span>
-              <span class="badge badge--water">Envío incluido</span>
-            </div>
+            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--water">Con marco</span></div>
+            <h3 class="prod-name">Mapa estelar enmarcado</h3>
+            <p class="prod-latin">Póster con marco · listo para colgar</p>
+            <p class="prod-desc">Tu mapa ya enmarcado, para colgarlo en cuanto llegue a tu casa.</p>
+            <ul class="spec"><li>Tres tamaños y tres marcos a elegir</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Envío con rastreo a todo México</li></ul>
+            <div class="pers"><label>Tamaño<select name="tam"><option value="30×40 cm" data-p="850">30×40 cm · $850</option><option value="40×50 cm" data-p="1150">40×50 cm · $1,150</option><option value="50×70 cm" data-p="1550">50×70 cm · $1,550</option></select></label><label>Marco<select name="marco"><option>Negro</option><option>Blanco</option><option>Madera</option></select></label>
+<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
+<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
+<label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
+<label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
+<label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
+<p class="err js-err" hidden></p>
             <div class="prod-footer">
-              <div class="prod-price">
-                <span class="prod-price__lbl">Precio</span>
-                <span class="prod-price__val">$2,800 <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span>
-              </div>
-              <button
-                class="btn btn--outline btn--sm btn-add-cart"
-                data-product-id="smartgarden-9-pro"
-                data-product-name="SmartGarden 9 Pro"
-                data-product-price="2800"
-                data-product-detail="9 cápsulas · LED 15W · Temporizador automático"
-                data-product-icon="🌿">
-                + Agregar al carrito
-              </button>
+              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$850</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
+              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-enmarcado" data-product-name="Mapa estelar enmarcado" data-product-price="850" data-product-detail="" data-product-icon="🖼">+ Agregar al carrito</button>
             </div>
           </div>
         </div>
-
+        <div class="prod-card reveal d3" data-base="mapa-digital" data-price="149">
+          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
+          <div class="prod-body">
+            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge">Descarga</span></div>
+            <h3 class="prod-name">Mapa estelar digital</h3>
+            <p class="prod-latin">Archivo PNG · 1800×2400 px</p>
+            <p class="prod-desc">Tu cielo personalizado en un archivo para imprimir donde tú quieras.</p>
+            <ul class="spec"><li>Relación 3:4, ideal hasta 30×40 cm</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Te lo enviamos por WhatsApp o correo</li></ul>
+            <div class="pers">
+<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
+<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
+<label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
+<label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
+<label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
+<p class="err js-err" hidden></p>
+            <div class="prod-footer">
+              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$149</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
+              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-digital" data-product-name="Mapa estelar digital" data-product-price="149" data-product-detail="" data-product-icon="⬇">+ Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card reveal d4">
+          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(125,211,125,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
+          <div class="prod-body">
+            <div class="prod-tags"><span class="badge badge--accent">Gratis</span><span class="badge">Sin compromiso</span></div>
+            <h3 class="prod-name">Prueba tu mapa gratis</h3>
+            <p class="prod-latin">Vista previa en vivo</p>
+            <p class="prod-desc">Escribe tu fecha, tu hora y tu lugar, cambia el estilo y descarga la vista previa antes de pedir nada.</p>
+            <ul class="spec"><li>Cálculo en tu navegador, al instante</li><li>Tres estilos para comparar</li><li>Descarga la vista previa en PNG</li></ul>
+            <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val">Gratis</span></div><a class="btn btn--primary btn--sm" href="mapa.html">Probar generador →</a></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ════════════════════════ POR QUÉ STELLARVERTEX ════ -->
+  <section class="section" id="comparar" style="background:var(--bg-primary)">
+    <div class="container">
+      <div class="section__header reveal"><span class="label section__label">Compara</span><h2 class="section__title">Qué incluye cada formato</h2><p class="section__sub">Los tres llevan tu cielo calculado igual. Cambia cómo lo recibes.</p></div>
+      <div class="cmp-wrap reveal"><table class="cmp">
+        <thead><tr><th></th><th>Impreso</th><th>Enmarcado</th><th>Digital</th></tr></thead>
+        <tbody>
+          <tr><th>Qué recibes</th><td>Póster impreso</td><td>Póster con marco</td><td>Archivo PNG</td></tr>
+          <tr><th>Tamaños</th><td>30×40, 40×50 y 50×70 cm</td><td>30×40, 40×50 y 50×70 cm</td><td>1800×2400 px (3:4)</td></tr>
+          <tr><th>Marco</th><td>No, lo enmarcas tú</td><td>Negro, blanco o madera</td><td>—</td></tr>
+          <tr><th>Personalización</th><td>Título, mensaje, estilo, fecha, hora y lugar</td><td>Igual</td><td>Igual</td></tr>
+          <tr><th>Entrega</th><td>Envío con rastreo a todo México</td><td>Envío con rastreo a todo México</td><td>Por WhatsApp o correo</td></tr>
+          <tr><th>Ideal para</th><td>Regalar y elegir tu propio marco</td><td>Colgar al llegar</td><td>Imprimir donde quieras</td></tr>
+          <tr><th>Desde</th><td>$450 MXN</td><td>$850 MXN</td><td>$149 MXN</td></tr>
+        </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="section" id="estilos" style="background:var(--bg-secondary)">
+    <div class="container">
+      <div class="section__header reveal"><span class="label section__label">Estilos</span><h2 class="section__title">Tres formas de ver tu cielo</h2><p class="section__sub">Elige el que combine con la pared donde lo vas a colgar.</p></div>
+      <div class="styles">
+        <div class="sty reveal"><i style="background-color:#070d1c;border-color:#f4ead0;background-image:radial-gradient(circle at 32% 35%,#f4ead0 2px,transparent 3px),radial-gradient(circle at 62% 28%,#f4ead0 1.5px,transparent 2.5px),radial-gradient(circle at 56% 62%,#f4ead0 2.5px,transparent 3.5px),radial-gradient(circle at 36% 70%,#f4ead0 1.5px,transparent 2.5px),radial-gradient(circle at 72% 52%,#f4ead0 1.5px,transparent 2.5px)"></i><h3>Noche</h3><p>Fondo azul profundo y estrellas color crema. El más elegante en habitaciones.</p></div>
+        <div class="sty reveal"><i style="background-color:#000;border-color:#fff;background-image:radial-gradient(circle at 32% 35%,#fff 2px,transparent 3px),radial-gradient(circle at 62% 28%,#fff 1.5px,transparent 2.5px),radial-gradient(circle at 56% 62%,#fff 2.5px,transparent 3.5px),radial-gradient(circle at 36% 70%,#fff 1.5px,transparent 2.5px),radial-gradient(circle at 72% 52%,#fff 1.5px,transparent 2.5px)"></i><h3>Tinta</h3><p>Negro puro con estrellas blancas. Contraste máximo, muy moderno.</p></div>
+        <div class="sty reveal"><i style="background-color:#f2ede1;border-color:#14203d;background-image:radial-gradient(circle at 32% 35%,#14203d 2px,transparent 3px),radial-gradient(circle at 62% 28%,#14203d 1.5px,transparent 2.5px),radial-gradient(circle at 56% 62%,#14203d 2.5px,transparent 3.5px),radial-gradient(circle at 36% 70%,#14203d 1.5px,transparent 2.5px),radial-gradient(circle at 72% 52%,#14203d 1.5px,transparent 2.5px)"></i><h3>Papel</h3><p>Fondo crema con estrellas azul oscuro. Cálido, para espacios claros.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section categories" id="ocasiones">
+    <div class="container">
+      <div class="section__header reveal"><span class="label section__label">Ocasiones</span><h2 class="section__title">Para la fecha que no quieres olvidar</h2><p class="section__sub">Cualquier momento con día, hora y lugar puede tener su cielo.</p></div>
+      <div class="cat-grid">
+        <div class="cat-card h reveal d1"><div class="cat-icon">💍</div><h3>Bodas</h3><p>El cielo del momento del "sí, acepto", con los nombres de ustedes dos.</p><span class="cat-count">Regalo para novios y aniversarios</span></div>
+        <div class="cat-card w reveal d2"><div class="cat-icon">👶</div><h3>Nacimientos</h3><p>Las estrellas de la noche en que llegó tu bebé, para su cuarto.</p><span class="cat-count">Tip: usa la hora del acta</span></div>
+        <div class="cat-card r reveal d3"><div class="cat-icon">💕</div><h3>Aniversarios</h3><p>Primera cita, primer beso o el día que dijeron que sí. Un detalle que dice mucho.</p><span class="cat-count">Con mensaje personal</span></div>
+        <div class="cat-card a reveal d4"><div class="cat-icon">🎓</div><h3>Graduaciones</h3><p>El cielo del día en que cerraste una etapa y empezaste otra.</p><span class="cat-count">Ideal para regalar a quien se gradúa</span></div>
+        <div class="cat-card s reveal d5"><div class="cat-icon">🐾</div><h3>Mascotas</h3><p>El día que llegó a casa, o el cielo para recordarle con cariño.</p><span class="cat-count">Con su nombre como título</span></div>
+        <div class="cat-card d reveal d6"><div class="cat-icon">✨</div><h3>Cualquier fecha</h3><p>Un cumpleaños, un viaje, una mudanza. Si tiene fecha y lugar, tiene cielo.</p><span class="cat-count">Tú decides el mensaje</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="como-leer" style="background:var(--bg-secondary)">
+    <div class="container">
+      <div class="section__header reveal"><span class="label section__label">Guía</span><h2 class="section__title">Cómo leer tu mapa</h2><p class="section__sub">Es el cielo entero visto desde tu lugar, como si lo sostuvieras sobre tu cabeza.</p></div>
+      <div class="read reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Diagrama de un mapa estelar con norte, sur, este y oeste"><circle cx="150" cy="150" r="110" fill="#070d1c" stroke="#E8B547" stroke-width="2"/><circle cx="150" cy="150" r="55" fill="none" stroke="rgba(232,181,71,.25)" stroke-dasharray="3 5"/><path d="M110 105 185 95 210 140 170 170 105 190" fill="none" stroke="rgba(244,234,208,.3)"/><g fill="#f4ead0"><circle cx="110" cy="105" r="3"/><circle cx="185" cy="95" r="2"/><circle cx="170" cy="170" r="3.5"/><circle cx="105" cy="190" r="2"/><circle cx="210" cy="140" r="1.6"/></g><circle cx="150" cy="150" r="3" fill="#7DD37D"/><g fill="#E8B547" font-family="JetBrains Mono,monospace" font-size="16" text-anchor="middle"><text x="150" y="24">N</text><text x="150" y="288">S</text><text x="16" y="156">E</text><text x="284" y="156">O</text></g></svg>
+        <ul>
+          <li><b>Centro:</b> el punto justo sobre tu cabeza, el cenit.</li>
+          <li><b>Borde del círculo:</b> el horizonte. Lo que está cerca del borde se veía bajo.</li>
+          <li><b>Orientación:</b> norte arriba y este a la izquierda, como si miraras el cielo hacia arriba.</li>
+          <li><b>Puntos:</b> cada uno es una estrella; mientras más grande, más brillante.</li>
+          <li><b>Líneas:</b> las constelaciones. Puedes mostrarlas u ocultarlas.</li>
+          <li><b>Alcance:</b> estrellas visibles a simple vista con cielo oscuro. Por ahora no incluye planetas ni la Luna.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="section benefits" id="por-que">
     <div class="container">
       <div class="section__header reveal">
         <span class="label section__label">Por qué elegirnos</span>
-        <h2 class="section__title">La tienda detrás del producto</h2>
-        <p class="section__sub">StellarVertex no es una plataforma — soy yo, Colter, eligiendo, probando y vendiendo cada equipo directamente.</p>
+        <h2 class="section__title">La tienda detrás del mapa</h2>
+        <p class="section__sub">Un solo producto, hecho con cuidado y con trato directo contigo.</p>
       </div>
-
       <div class="benefits__grid">
-
-        <div class="benefit reveal d1">
-          <div class="benefit__icon">🎯</div>
-          <div>
-            <h3>Selección técnica propia</h3>
-            <p>Cada producto en el catálogo lo investigo y evalúo personalmente. No agrego algo solo porque existe — lo agrego porque funciona.</p>
-          </div>
-        </div>
-
-        <div class="benefit reveal d2">
-          <div class="benefit__icon">📦</div>
-          <div>
-            <h3>Entrega con número de rastreo</h3>
-            <p>Tu pedido viaja con seguimiento real desde el momento en que confirmas. Entrega en 3–7 días a cualquier punto de México.</p>
-          </div>
-        </div>
-
-        <div class="benefit reveal d3">
-          <div class="benefit__icon">🌱</div>
-          <div>
-            <h3>Cultivo urbano en expansión</h3>
-            <p>El cultivo hidropónico doméstico creció más del 30% anual en México desde 2021. Estos equipos no son tendencia — son el presente.</p>
-          </div>
-        </div>
-
-        <div class="benefit reveal d4">
-          <div class="benefit__icon">🎁</div>
-          <div>
-            <h3>Regalo que se recuerda</h3>
-            <p>Los jardines inteligentes son uno de los regalos premium más comprados en plataformas digitales mexicanas — compactos, originales, útiles.</p>
-          </div>
-        </div>
-
-        <div class="benefit reveal d5">
-          <div class="benefit__icon">⭐</div>
-          <div>
-            <h3>Calidad con calificaciones reales</h3>
-            <p>4.7–4.8 estrellas con cientos de compradores verificados. Antes de vender un producto, confirmo que tiene el historial que merece.</p>
-          </div>
-        </div>
-
-        <div class="benefit reveal d6">
-          <div class="benefit__icon">🔄</div>
-          <div>
-            <h3>Consumibles disponibles</h3>
-            <p>Los nutrientes, cápsulas y accesorios de repuesto estarán en el catálogo — para que tu sistema siga produciendo sin pausas.</p>
-          </div>
-        </div>
-
+        <div class="benefit reveal d1"><div class="benefit__icon">🔭</div><div><h3>Cálculo astronómico real</h3><p>Cada estrella se coloca según un catálogo astronómico abierto (Hipparcos), tal como estaba ese día.</p></div></div>
+        <div class="benefit reveal d2"><div class="benefit__icon">📦</div><div><h3>Entrega con rastreo</h3><p>Tu pedido viaja con seguimiento desde que confirmas. Enviamos a cualquier punto de México.</p></div></div>
+        <div class="benefit reveal d3"><div class="benefit__icon">🎁</div><div><h3>Regalo que se recuerda</h3><p>Bodas, nacimientos, aniversarios: un regalo que cuenta una fecha, no solo la adorna.</p></div></div>
+        <div class="benefit reveal d4"><div class="benefit__icon">✦</div><div><h3>Trato directo</h3><p>StellarVertex no es una plataforma: soy yo, Colter, quien revisa cada pedido y te escribe por WhatsApp.</p></div></div>
+        <div class="benefit reveal d5"><div class="benefit__icon">🔍</div><div><h3>Revisamos antes de imprimir</h3><p>Confirmamos contigo la fecha, la hora y el lugar para que el cielo sea el correcto.</p></div></div>
+        <div class="benefit reveal d6"><div class="benefit__icon">🖼</div><div><h3>Calidad, no volumen</h3><p>Prefiero pocos mapas muy bien hechos. Si algo no queda bien, lo resolvemos.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ════════════════════════ PROCESO ════ -->
+  <section class="section" id="faq" style="background:var(--bg-primary)">
+    <div class="container">
+      <div class="section__header reveal" style="text-align:center;"><span class="label section__label">Preguntas</span><h2 class="section__title">Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary>¿Qué datos necesito para mi mapa?</summary><p>Fecha, hora y lugar del momento. Si no sabes la hora exacta, usa una aproximada: el cielo gira unos 15° por hora, así que unos minutos de diferencia casi no se notan.</p></details>
+        <details><summary>¿Qué tan exacto es?</summary><p>Colocamos cada estrella con cálculo astronómico usando el catálogo abierto Hipparcos. Es el cielo real de tu fecha, hora y lugar. Por ahora el mapa no muestra planetas ni la Luna.</p></details>
+        <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa. Además, antes de imprimir confirmamos contigo la fecha, la hora y el lugar.</p></details>
+        <details><summary>¿Y el horario de verano?</summary><p>Usa la hora local que había en ese momento, como aparece en tu acta o invitación. Si tienes duda, escríbeme y lo revisamos juntos.</p></details>
+        <details><summary>¿Cómo pago?</summary><p>Coordinas el pedido por WhatsApp o correo desde el carrito. También puedes pagar con criptomonedas (USDC por Solana Pay).</p></details>
+        <details><summary>¿Hacen envíos a todo México?</summary><p>Sí, los mapas impresos y enmarcados viajan con número de rastreo. El mapa digital te lo enviamos por WhatsApp o correo.</p></details>
+        <details><summary>¿Qué pasa si algo no queda bien?</summary><p>Cada mapa se revisa contigo antes de producirlo. Si algo no queda perfecto, lo resolvemos.</p></details>
+        <details><summary>¿Qué hacen con mis datos?</summary><p>Solo usamos la fecha, la hora, el lugar y tus datos de contacto para preparar y enviar tu pedido. Los detalles están en el <a href="privacidad.html" style="color:var(--accent)">aviso de privacidad</a>.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="section process" id="proceso">
     <div class="container">
       <div class="section__header reveal" style="text-align:center;">
@@ -527,49 +264,25 @@
         <h2 class="section__title">Cómo Funciona</h2>
         <p class="section__sub--center section__sub">Elige, paga y recibe — así de directo. Cada paso tiene seguimiento real.</p>
       </div>
-
       <div class="process__track">
-        <div class="step reveal d1">
-          <div class="step__num">01</div>
-          <h3>Elige tu Equipo</h3>
-          <p>Explora el catálogo y encuentra el sistema que se adapta a tu espacio. Escríbeme si tienes dudas — respondo en menos de 24h.</p>
-        </div>
-        <div class="step reveal d2">
-          <div class="step__num">02</div>
-          <h3>Confirma tu Pedido</h3>
-          <p>Coordina el pago directamente conmigo. Sin plataformas intermediarias — el proceso es claro y sin sorpresas.</p>
-        </div>
-        <div class="step reveal d3">
-          <div class="step__num">03</div>
-          <h3>Te Confirmo en 24h</h3>
-          <p>Verifico disponibilidad y te envío los datos de tu envío. Recibes número de rastreo tan pronto como el paquete sale.</p>
-        </div>
-        <div class="step reveal d4">
-          <div class="step__num">04</div>
-          <h3>Recibe en Casa</h3>
-          <p>Tu equipo llega en 3–7 días, empacado y listo para usar. Si algo no está perfecto, lo resolvemos — sin discusión.</p>
-        </div>
+        <div class="step reveal d1"><div class="step__num">01</div><h3>Elige tu Mapa</h3><p>Prueba el generador, elige formato y estilo. Escríbeme si tienes dudas — respondo en menos de 24h.</p></div>
+        <div class="step reveal d2"><div class="step__num">02</div><h3>Confirma tu Pedido</h3><p>Coordina el pago directamente conmigo. Sin plataformas intermediarias — el proceso es claro y sin sorpresas.</p></div>
+        <div class="step reveal d3"><div class="step__num">03</div><h3>Te Confirmo en 24h</h3><p>Reviso contigo la fecha, la hora y el lugar, y te envío una vista previa final.</p></div>
+        <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe en Casa</h3><p>Tu mapa llega empacado y listo para colgar. Si algo no está perfecto, lo resolvemos.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ════════════════════════ CTA ════ -->
   <section class="section cta-section" id="contacto">
     <div class="cta-section__glow"></div>
     <div class="cta-section__inner reveal">
       <span class="label" style="display:block;margin-bottom:1rem;">Hablemos</span>
-      <h2>¿Listo para empezar<br>a cultivar en casa?</h2>
-      <p>Escríbeme con tu duda, el producto que te interesa, o simplemente para conocer más del catálogo — te respondo directo, sin bots.</p>
-
+      <h2>¿Listo para tu<br>mapa estelar?</h2>
+      <p>Escríbeme con tu duda, la fecha que quieres recordar, o simplemente para conocer más — te respondo directo, sin bots.</p>
       <div class="cta-actions">
-        <a href="mailto:contacto@stellarvertex.mx" class="btn btn--primary" style="font-size:0.95rem;padding:12px 28px;">
-          Ponerse en Contacto →
-        </a>
-        <a href="https://wa.me/525629704701" class="btn btn--ghost" style="font-size:0.95rem;padding:12px 28px;">
-          WhatsApp
-        </a>
+        <a href="mailto:contacto@stellarvertex.mx" class="btn btn--primary" style="font-size:0.95rem;padding:12px 28px;">Ponerse en Contacto →</a>
+        <a href="https://wa.me/525629704701" class="btn btn--ghost" style="font-size:0.95rem;padding:12px 28px;">WhatsApp</a>
       </div>
-
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
         <div class="cta-card"><span>📦</span><span>Envío a todo México</span></div>
         <div class="cta-card"><span>⚡</span><span>Respuesta en <strong>menos de 24h</strong></span></div>
@@ -582,10 +295,10 @@
   <footer>
     <div class="container">
       <div class="footer__inner">
-        <span class="footer__copy">© 2025 StellarVertex · Agri-tech · México</span>
+        <span class="footer__copy">© 2026 StellarVertex · Mapas estelares · México</span>
         <ul class="footer__links">
           <li><a href="#">Términos</a></li>
-          <li><a href="#">Privacidad</a></li>
+          <li><a href="privacidad.html">Privacidad</a></li>
           <li><a href="index.html">← Inicio</a></li>
         </ul>
       </div>
@@ -622,5 +335,25 @@
   <script src="solana-pay.js"></script>
   <script src="cart.js"></script>
 
+<script>
+// Personalización: cada tarjeta lleva tamaño, marco y datos del mapa al carrito
+(function(){
+  const h=t=>{let x=0;for(const c of t)x=(x*31+c.charCodeAt(0))|0;return (x>>>0).toString(36)};
+  document.querySelectorAll('.prod-card[data-base]').forEach(card=>{
+    const btn=card.querySelector('.btn-add-cart'),q=n=>card.querySelector('[name="'+n+'"]'),err=card.querySelector('.js-err'),pr=card.querySelector('.js-price');
+    const sync=()=>{const o=q('tam')&&q('tam').selectedOptions[0],p=o?+o.dataset.p:+card.dataset.price;pr.textContent='$'+p.toLocaleString('es-MX');btn.dataset.productPrice=p;return p};
+    card.addEventListener('input',sync);sync();
+    card.addEventListener('click',e=>{
+      if(!e.target.closest('.btn-add-cart'))return;
+      const f=q('fecha').value,hr=q('hora').value,lg=q('lugar').value.trim();
+      if(!f||!hr||!lg){e.stopPropagation();e.preventDefault();err.textContent='Completa fecha, hora y lugar para calcular tu cielo.';err.hidden=false;return}
+      err.hidden=true;sync();
+      const d=f.split('-').reverse().join('/');
+      const det=[q('tam')&&q('tam').value,q('marco')&&'Marco '+q('marco').value.toLowerCase(),d+' '+hr,lg,'Estilo '+q('estilo').value.toLowerCase(),q('titulo').value.trim()&&'Título: '+q('titulo').value.trim(),q('msg').value.trim()&&'Mensaje: '+q('msg').value.trim()].filter(Boolean).join(' · ');
+      btn.dataset.productDetail=det;btn.dataset.productId=card.dataset.base+'-'+h(det);
+    },true);
+  });
+})();
+</script>
 </body>
 </html>
