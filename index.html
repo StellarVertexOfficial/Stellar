@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StellarVertex — Mapas estelares personalizados</title>
-<meta name="description" content="El cielo exacto de la fecha y el lugar que elijas, impreso y listo para regalar. Para bodas, aniversarios y nacimientos. Envío a todo México.">
+<meta name="description" content="El cielo exacto de la fecha y el lugar que elijas, en PDF de alta resolución listo para imprimir y regalar. Solo $99 MXN.">
 <meta property="og:title" content="StellarVertex — Mapas estelares personalizados">
-<meta property="og:description" content="El cielo exacto de la fecha y el lugar que elijas, impreso y listo para regalar.">
+<meta property="og:description" content="El cielo exacto de tu fecha y lugar, en PDF listo para imprimir. Solo $99 MXN.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <link rel="icon" type="image/png" href="assets/Logo.png">
@@ -55,6 +55,8 @@
 .spot:hover::before{opacity:1}
 .cat-card{display:block}
 .prod-visual svg{width:116px;height:116px}
+.catalog__grid{grid-template-columns:repeat(2,minmax(0,440px));justify-content:center}
+@media(max-width:760px){.catalog__grid{grid-template-columns:1fr}}
 .prod-price__val{display:block;margin-top:2px}
 .signup{display:flex;gap:10px;max-width:480px;margin:0 auto 1.1rem;flex-wrap:wrap;justify-content:center}
 .signup input{flex:1 1 230px;padding:12px 18px}
@@ -97,9 +99,9 @@
     <div class="hero__content">
       <div class="hero__eyebrow"><span class="hero__tag">Mapas estelares · México 2026</span><div class="hero__divider"></div></div>
       <h1 class="hero__title">El cielo de ese día,<br><em>en tu pared.</em></h1>
-      <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y el momento que quieras recordar: una boda, un nacimiento, un primer beso. Impreso con cuidado y listo para regalar.</p>
+      <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y el momento que quieras recordar: una boda, un nacimiento, un primer beso. En PDF de alta resolución, listo para imprimir y regalar.</p>
       <div class="hero__badges">
-        <span class="badge badge--harvest">Envío a todo México</span>
+        <span class="badge badge--harvest">PDF listo para imprimir</span>
         <span class="badge badge--accent">Hecho a tu medida</span>
         <span class="badge badge--rare">Vista previa gratis</span>
         <span class="badge badge--water">Soporte por WhatsApp</span>
@@ -132,7 +134,7 @@
       <div class="stat-item reveal"><span class="stat-item__num"><em data-count="5044">5,044</em></span><span class="stat-item__lbl">Estrellas en cada mapa</span></div>
       <div class="stat-item reveal d1"><span class="stat-item__num"><em data-count="15">15</em>°</span><span class="stat-item__lbl">Gira el cielo cada hora</span></div>
       <div class="stat-item reveal d2"><span class="stat-item__num"><em data-count="3">3</em></span><span class="stat-item__lbl">Estilos a elegir</span></div>
-      <div class="stat-item reveal d3"><span class="stat-item__num"><em data-count="32">32</em></span><span class="stat-item__lbl">Estados con envío</span></div>
+      <div class="stat-item reveal d3"><span class="stat-item__num">$<em data-count="99">99</em></span><span class="stat-item__lbl">Pesos por tu mapa en PDF</span></div>
     </div>
   </div>
 </section>
@@ -159,26 +161,20 @@
   <div class="container">
     <div class="section__header reveal">
       <span class="label section__label">Productos</span>
-      <h2 class="section__title">Elige cómo recibir tu cielo</h2>
-      <p class="section__sub">Tres formatos, el mismo cálculo astronómico. Personalízalos en la tienda.</p>
+      <h2 class="section__title">Tu cielo, en un PDF</h2>
+      <p class="section__sub">Por ahora, un solo formato: tu mapa estelar en PDF, listo para imprimir donde quieras.</p>
     </div>
-    <!-- PRECIOS PROVISIONALES: deben coincidir con led_hidroponia.html -->
     <div class="catalog__grid">
       <div class="prod-card reveal d1"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
-        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span></div>
-          <h3 class="prod-name">Mapa estelar impreso</h3><p class="prod-latin">Póster · 3 tamaños</p>
-          <p class="prod-desc">El cielo de tu fecha y lugar, impreso con tu título y mensaje. Listo para enmarcar y regalar.</p>
-          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$450 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
-      <div class="prod-card reveal d2"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
-        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--water">Con marco</span></div>
-          <h3 class="prod-name">Mapa estelar enmarcado</h3><p class="prod-latin">Póster con marco · 3 tamaños</p>
-          <p class="prod-desc">Tu mapa ya enmarcado, para colgarlo en cuanto llegue a tu casa. Marco negro, blanco o madera.</p>
-          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$850 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
-      <div class="prod-card reveal d3"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
-        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge">Descarga</span></div>
-          <h3 class="prod-name">Mapa estelar digital</h3><p class="prod-latin">Archivo PNG · 1800×2400 px</p>
-          <p class="prod-desc">Tu cielo personalizado en un archivo, para imprimir donde tú quieras.</p>
-          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$149 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
+        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span><span class="badge badge--water">PDF</span></div>
+          <h3 class="prod-name">Mapa estelar en PDF</h3><p class="prod-latin">Archivo PDF · 30×40 cm</p>
+          <p class="prod-desc">El cielo del día y el lugar que elijas, con tu título y tu mensaje. Lo recibes por WhatsApp o correo, listo para imprimir.</p>
+          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val">$99 <span>MXN</span></span></div><a class="btn btn--primary btn--sm" href="led_hidroponia.html#catalogo">Pedir mi PDF →</a></div></div></div>
+      <div class="prod-card reveal d2"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(125,211,125,.16),transparent 70%);opacity:.6"></div></div>
+        <div class="prod-body"><div class="prod-tags"><span class="badge badge--accent">Gratis</span><span class="badge">Sin compromiso</span></div>
+          <h3 class="prod-name">Prueba tu mapa gratis</h3><p class="prod-latin">Vista previa en vivo</p>
+          <p class="prod-desc">Escribe tu fecha y tu lugar y mira cómo se ve tu cielo antes de pedir nada. La vista previa lleva marca de agua.</p>
+          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val">Gratis</span></div><a class="btn btn--outline btn--sm" href="mapa.html">Probar generador →</a></div></div></div>
     </div>
   </div>
 </section>
@@ -191,10 +187,10 @@
       <p class="section__sub section__sub--center">Elige, personaliza y recibe. Sin intermediarios entre tu momento y tu mapa.</p>
     </div>
     <div class="process__track">
-      <div class="step reveal d1"><div class="step__num">01</div><h3>Elige fecha y lugar</h3><p>Dinos cuándo y dónde. Si no sabes la hora exacta, una aproximada funciona.</p></div>
+      <div class="step reveal d1"><div class="step__num">01</div><h3>Elige fecha y lugar</h3><p>Dinos qué día y dónde. La hora es opcional, pero afina tu cielo.</p></div>
       <div class="step reveal d2"><div class="step__num">02</div><h3>Dale estilo</h3><p>Noche, tinta o papel, con tu título y tu mensaje personal.</p></div>
       <div class="step reveal d3"><div class="step__num">03</div><h3>Lo revisamos contigo</h3><p>Confirmamos fecha, hora y lugar antes de producir tu pedido.</p></div>
-      <div class="step reveal d4"><div class="step__num">04</div><h3>Recíbelo en casa</h3><p>Llega empacado y listo para colgar. Si algo no queda bien, lo resolvemos.</p></div>
+      <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe tu PDF</h3><p>Te lo enviamos listo para imprimir o compartir. Si algo no queda bien, lo resolvemos.</p></div>
     </div>
   </div>
 </section>
