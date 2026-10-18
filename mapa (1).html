@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu mapa estelar en PDF — StellarVertex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08090A;--ink:#f2f3f4;--mute:rgba(255,255,255,.55);--line:rgba(255,255,255,.1);--acc:#7DD37D;--gold:#E8B547}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(900px 500px at 70% -10%,rgba(232,181,71,.08),transparent 60%),var(--bg);color:var(--ink);font:400 15px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);position:sticky;top:0;background:rgba(8,9,10,.7);z-index:2}
+header b{font-weight:600}header span{font:400 12px 'JetBrains Mono',monospace;color:var(--mute)}
+main{display:grid;grid-template-columns:340px 1fr;gap:32px;max-width:1100px;margin:0 auto;padding:32px 24px}
+form{display:flex;flex-direction:column;gap:14px}
+label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--mute)}
+input,select{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:8px;color:var(--ink);font:inherit;padding:9px 12px;transition:border-color .15s}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+input:hover,select:hover{border-color:rgba(255,255,255,.2)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.chk{flex-direction:row;align-items:center;gap:8px}
+.themes{display:flex;gap:8px}
+.themes button{flex:1;padding:8px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 13px Inter;cursor:pointer;transition:border-color .15s,background .15s}
+.themes button[aria-pressed=true]{border-color:var(--acc);background:rgba(125,211,125,.1)}
+.go{background:var(--acc);color:#08090A;border:0;border-radius:999px;padding:12px;font:600 14px Inter;cursor:pointer;transition:transform .15s}
+.go:hover{transform:scale(1.02)}
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:11px;font:500 14px Inter;cursor:pointer}
+[hidden]{display:none!important}
+small{font:400 11px/1.4 'JetBrains Mono',monospace;color:var(--mute)}
+.view{display:flex;justify-content:center;align-items:flex-start}
+canvas{width:100%;max-width:560px;height:auto;border:1px solid var(--line);border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+@media(max-width:820px){main{grid-template-columns:1fr}.view{order:-1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><b>StellarVertex</b><span>mapa estelar · prototipo</span></header>
+<main>
+<form id="f" onsubmit="return false">
+  <label>Título<input id="titulo" value="El cielo de nuestro día" maxlength="40"></label>
+  <label>Mensaje<input id="msg" value="Para siempre bajo las mismas estrellas" maxlength="60"></label>
+  <div class="row">
+    <label>Fecha<input id="fecha" type="date" value="2024-05-10"></label>
+    <label>Hora (opcional)<input id="hora" type="time"></label>
+  </div>
+  <label>Ciudad
+    <select id="ciudad">
+      <option value="19.43,-99.13,-6,Ciudad de México">Ciudad de México</option>
+      <option value="20.67,-103.35,-6,Guadalajara">Guadalajara</option>
+      <option value="25.69,-100.32,-6,Monterrey">Monterrey</option>
+      <option value="19.04,-98.2,-6,Puebla">Puebla</option>
+      <option value="18.92,-99.23,-6,Cuernavaca">Cuernavaca</option>
+      <option value="20.59,-100.39,-6,Querétaro">Querétaro</option>
+      <option value="20.97,-89.62,-6,Mérida">Mérida</option>
+      <option value="21.12,-101.68,-6,León">León</option>
+      <option value="21.16,-86.85,-5,Cancún">Cancún</option>
+      <option value="32.51,-117.04,-8,Tijuana">Tijuana</option>
+    </select>
+  </label>
+  <div class="row3">
+    <label>Latitud<input id="lat" type="number" step="0.01" value="19.43"></label>
+    <label>Longitud<input id="lon" type="number" step="0.01" value="-99.13"></label>
+    <label>UTC<input id="tz" type="number" step="1" value="-6"></label>
+  </div>
+  <small>Hora de verano en México (hasta 2022): usa UTC -5 en el centro del país si la fecha cae en abril–octubre.</small>
+  <label>Lugar en el mapa<input id="lugar" value="Ciudad de México" maxlength="40"></label>
+  <label class="chk"><input id="lineas" type="checkbox" checked> Mostrar constelaciones</label>
+  <div class="themes" role="group" aria-label="Estilo">
+    <button type="button" data-t="noche" aria-pressed="true">Noche</button>
+    <button type="button" data-t="tinta" aria-pressed="false">Tinta</button>
+    <button type="button" data-t="papel" aria-pressed="false">Papel</button>
+  </div>
+  <button class="go" id="pedir" type="button">Pedir mi PDF · $99 MXN</button>
+  <button class="ghost" id="dl" type="button">Descargar vista previa</button>
+  <button class="go" id="pdf" type="button" hidden>Descargar PDF sin marca (vendedor)</button>
+  <small>La vista previa lleva marca de agua. Tu PDF final es de alta resolución, sin marca y listo para imprimir a 30×40 cm. Si no pones la hora, usamos las 21:00.</small>
+</form>
+<div class="view"><canvas id="cv" width="1800" height="2400" aria-label="Vista previa del mapa estelar"></canvas></div>
+</main>
+<script src="stars-data.js"></script>
+<script>
+const D=window.STELLAR_DATA,rad=Math.PI/180,$=i=>document.getElementById(i);
+const cv=$('cv'),W=1800,H=2400,CX=900,CY=1010,R=700;let ctx;
+const themes={
+  noche:{bg:'#0a1226',disc:'#070d1c',star:'#f4ead0',line:'rgba(244,234,208,.25)',ink:'#f4ead0'},
+  tinta:{bg:'#08090A',disc:'#000',star:'#fff',line:'rgba(255,255,255,.22)',ink:'#fff'},
+  papel:{bg:'#f2ede1',disc:'#f2ede1',star:'#14203d',line:'rgba(20,32,61,.25)',ink:'#14203d'}
+};
+let theme='noche';
+const SANS='Inter, system-ui, sans-serif',MONO='"JetBrains Mono", monospace';
+
+function lstDeg(y,m,d,hh,mm,off,lon){
+  const ms=Date.UTC(y,m-1,d,hh,mm)-off*36e5, jd=ms/864e5+2440587.5;
+  return ((280.46061837+360.98564736629*(jd-2451545)+lon)%360+360)%360;
+}
+function project(ra,dec,lat,lst){
+  const h=(lst-ra)*rad,d=dec*rad,p=lat*rad;
+  const alt=Math.asin(Math.sin(d)*Math.sin(p)+Math.cos(d)*Math.cos(p)*Math.cos(h));
+  if(alt<=0)return null;
+  const az=Math.atan2(-Math.cos(d)*Math.sin(h),Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.sin(p)*Math.cos(h));
+  const r=R*Math.tan((Math.PI/2-alt)/2);
+  return [CX-r*Math.sin(az),CY-r*Math.cos(az)]; // norte arriba, este a la izquierda
+}
+function fit(txt,w,fam,size,maxW){
+  ctx.font=`${w} ${size}px ${fam}`;
+  while(ctx.measureText(txt).width>maxW&&size>28){size-=4;ctx.font=`${w} ${size}px ${fam}`}
+}
+function paint(prev){
+  const t=themes[theme];
+  const [y,m,d]=$('fecha').value.split('-').map(Number),[hh,mm]=($('hora').value||'21:00').split(':').map(Number);
+  const lat=+$('lat').value,lon=+$('lon').value,off=+$('tz').value;
+  if(!y||isNaN(hh)||isNaN(lat)||isNaN(lon)||isNaN(off))return;
+  const lst=lstDeg(y,m,d,hh,mm,off,lon);
+  ctx.fillStyle=t.bg;ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=t.disc;ctx.beginPath();ctx.arc(CX,CY,R,0,7);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.arc(CX,CY,R,0,7);ctx.clip();
+  if($('lineas').checked){
+    ctx.strokeStyle=t.line;ctx.lineWidth=2;
+    for(const seg of D.lines){
+      ctx.beginPath();let pen=false;
+      for(const [ra,dec] of seg){const p=project(ra,dec,lat,lst);if(!p){pen=false;continue}pen?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);pen=true}
+      ctx.stroke();
+    }
+  }
+  ctx.fillStyle=t.star;
+  for(const [ra,dec,mag] of D.stars){
+    const p=project(ra,dec,lat,lst);if(!p)continue;
+    ctx.beginPath();ctx.arc(p[0],p[1],Math.max(1.1,.9+(6.2-mag)*.95),0,7);ctx.fill();
+  }
+  ctx.restore();
+  ctx.strokeStyle=t.ink;ctx.lineWidth=3;ctx.beginPath();ctx.arc(CX,CY,R+28,0,7);ctx.stroke();
+  ctx.fillStyle=t.ink;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`500 34px ${MONO}`;
+  ctx.fillText('N',CX,CY-R-70);ctx.fillText('S',CX,CY+R+70);ctx.fillText('E',CX-R-70,CY);ctx.fillText('O',CX+R+70,CY);
+  const fecha=new Date(Date.UTC(y,m-1,d)).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+  const coords=`${Math.abs(lat).toFixed(2)}° ${lat>=0?'N':'S'}   ${Math.abs(lon).toFixed(2)}° ${lon>=0?'E':'O'}`;
+  fit($('titulo').value||' ',700,SANS,120,1400);ctx.fillText($('titulo').value,CX,1960);
+  ctx.font=`500 52px ${SANS}`;ctx.fillText(fecha+($('hora').value?' · '+$('hora').value:''),CX,2050);
+  ctx.font=`400 34px ${MONO}`;ctx.fillText(`${$('lugar').value}   ${coords}`,CX,2118);
+  fit($('msg').value||' ',400,SANS,44,1300);ctx.globalAlpha=.75;ctx.fillText($('msg').value,CX,2220);ctx.globalAlpha=1;
+  if(prev){ctx.save();ctx.globalAlpha=.17;ctx.fillStyle=t.ink;ctx.font=`700 92px ${SANS}`;ctx.translate(CX,H/2);ctx.rotate(-.5);
+    for(let yy=-1700;yy<=1700;yy+=400)ctx.fillText('VISTA PREVIA · STELLARVERTEX',0,yy);ctx.restore()}
+}
+function render(c,k,prev){ctx=c.getContext('2d');ctx.setTransform(k,0,0,k,0,0);paint(prev)}
+function draw(){render(cv,1,true)}
+$('ciudad').addEventListener('change',e=>{
+  const [la,lo,tz,n]=e.target.value.split(',');
+  $('lat').value=la;$('lon').value=lo;$('tz').value=tz;$('lugar').value=n;draw();
+});
+document.querySelectorAll('.themes button').forEach(b=>b.addEventListener('click',()=>{
+  theme=b.dataset.t;document.querySelectorAll('.themes button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw();
+}));
+$('f').addEventListener('input',draw);
+$('dl').addEventListener('click',()=>cv.toBlob(b=>{
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='vista-previa-mapa-estelar.png';a.click();URL.revokeObjectURL(a.href);
+}));
+const q=new URLSearchParams(location.search);
+if(q.get('modo')==='vendedor')$('pdf').hidden=false;
+$('pedir').addEventListener('click',()=>{
+  const p=new URLSearchParams({fecha:$('fecha').value,hora:$('hora').value,lugar:$('lugar').value,titulo:$('titulo').value,msg:$('msg').value,estilo:theme});
+  location.href='led_hidroponia.html?'+p.toString()+'#catalogo';
+});
+function pdfBlob(jpg,w,h){ // PDF de una página 30×40 cm con la imagen incrustada (JPEG)
+  const PW=850.39,PH=1133.86,enc=new TextEncoder(),parts=[],offs=[];let len=0;
+  const push=b=>{parts.push(b);len+=b.length},str=s=>push(enc.encode(s)),obj=(n,b)=>{offs[n]=len;str(n+' 0 obj\n'+b+'\nendobj\n')};
+  str('%PDF-1.4\n');
+  obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  obj(3,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
+  offs[4]=len;str('4 0 obj\n<< /Type /XObject /Subtype /Image /Width '+w+' /Height '+h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n');push(jpg);str('\nendstream\nendobj\n');
+  const cs='q '+PW+' 0 0 '+PH+' 0 0 cm /Im0 Do Q';obj(5,'<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream');
+  const x=len;str('xref\n0 6\n0000000000 65535 f \n');for(let i=1;i<=5;i++)str(String(offs[i]).padStart(10,'0')+' 00000 n \n');
+  str('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+x+'\n%%EOF');
+  return new Blob(parts,{type:'application/pdf'});
+}
+$('pdf').addEventListener('click',async()=>{
+  const c=document.createElement('canvas');c.width=3000;c.height=4000;render(c,3000/W,false);
+  const jb=await new Promise(r=>c.toBlob(r,'image/jpeg',.92)),bytes=new Uint8Array(await jb.arrayBuffer());
+  const a=document.createElement('a');a.href=URL.createObjectURL(pdfBlob(bytes,3000,4000));a.download='mapa-estelar.pdf';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);draw();
+});
+draw();
+Promise.all([document.fonts.load('700 100px Inter'),document.fonts.load('500 40px Inter'),document.fonts.load('400 30px "JetBrains Mono"')]).then(draw);
+</script>
+</body>
+</html>
