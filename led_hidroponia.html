@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tienda · Mapas estelares · StellarVertex</title>
-  <meta name="description" content="Mapas estelares personalizados: elige tamaño, marco y estilo, escribe tu fecha, hora y lugar, y recibe el cielo de tu momento especial. Envío a todo México.">
+  <meta name="description" content="Mapa estelar personalizado en PDF: escribe tu fecha y tu lugar, elige estilo y recibe el cielo de tu momento especial listo para imprimir. Solo $99 MXN.">
   <meta property="og:title" content="Tienda · Mapas estelares · StellarVertex">
   <meta property="og:locale" content="es_MX">
   <link rel="icon" type="image/png" href="assets/Logo.png">
@@ -28,6 +28,7 @@
 .pers input,.pers select{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);padding:8px 10px;font:inherit;font-size:.85rem;min-width:0}
 .pers input:focus-visible,.pers select:focus-visible,.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .err{color:#ff8a8a;font-size:.8rem;margin:-4px 0 .75rem}
+.catalog__grid{grid-template-columns:repeat(2,minmax(0,440px))!important;justify-content:center}@media(max-width:760px){.catalog__grid{grid-template-columns:1fr!important}}
 .cmp-wrap{overflow-x:auto}.cmp{width:100%;border-collapse:collapse;min-width:620px}.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text-secondary);vertical-align:top}.cmp thead th{color:var(--text-primary);font-weight:600}.cmp tbody th{font:500 .75rem 'JetBrains Mono',monospace;color:var(--text-secondary);width:20%}
 .styles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.sty{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}.sty i{display:block;width:104px;height:104px;border-radius:50%;margin:0 auto 1rem;border:2px solid}.sty h3{margin-bottom:6px}.sty p{color:var(--text-secondary);font-size:.9rem}
 .read{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:3rem;align-items:center}.read ul{list-style:none;padding:0;margin:0;display:grid;gap:14px}.read li{color:var(--text-secondary)}.read li b{color:var(--text-primary)}
@@ -69,8 +70,8 @@
       <div class="hero__content">
         <div class="hero__eyebrow"><span class="hero__tag">Mapas estelares</span><div class="hero__divider"></div></div>
         <h1 class="hero__title">El cielo de tu<br><em>momento especial</em><br>en tu pared</h1>
-        <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y la hora que quieras recordar. Personalizado por StellarVertex y enviado directo a ti.</p>
-        <div class="hero__badges"><span class="badge badge--harvest">Envío a Todo México</span><span class="badge badge--accent">Hecho a tu medida</span><span class="badge badge--water">Soporte por WhatsApp</span><span class="badge badge--rare">Vista previa gratis</span></div>
+        <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y la hora que quieras recordar. Lo recibes en PDF de alta resolución, listo para imprimir y regalar.</p>
+        <div class="hero__badges"><span class="badge badge--harvest">PDF de alta resolución</span><span class="badge badge--accent">Hecho a tu medida</span><span class="badge badge--water">Soporte por WhatsApp</span><span class="badge badge--rare">Vista previa gratis</span></div>
         <div class="hero__cta"><a href="mapa.html" class="btn btn--primary">Crear mi mapa →</a><a href="#catalogo" class="btn btn--ghost">Ver productos</a></div>
       </div>
       <div class="hero__visual"><div style="width:min(320px,80%);margin:auto;"><svg style="width:100%;height:auto" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div></div>
@@ -81,75 +82,32 @@
     <div class="container">
       <div class="section__header reveal">
         <span class="label section__label">Catálogo</span>
-        <h2 class="section__title">Elige y personaliza tu mapa</h2>
-        <p class="section__sub">Escribe los datos de tu momento directo en la tarjeta. Llegan con tu pedido y los revisamos contigo antes de imprimir.</p>
+        <h2 class="section__title">Tu mapa estelar en PDF</h2>
+        <p class="section__sub">Escribe los datos de tu momento directo en la tarjeta. Llegan con tu pedido y los revisamos contigo antes de preparar tu PDF.</p>
       </div>
-      <!-- PRECIOS Y TAMAÑOS PROVISIONALES: ajústalos con tu cotización de impresión, marcos y envío -->
       <div class="catalog__grid">
-        <div class="prod-card reveal d1" data-base="mapa-impreso" data-price="450">
+        <div class="prod-card reveal d1" data-base="mapa-pdf" data-price="99">
           <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
           <div class="prod-body">
-            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span></div>
-            <h3 class="prod-name">Mapa estelar impreso</h3>
-            <p class="prod-latin">Póster impreso · personalizado</p>
-            <p class="prod-desc">El cielo de tu fecha y lugar, impreso y listo para enmarcar y regalar.</p>
-            <ul class="spec"><li>Tres tamaños a elegir</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Envío con rastreo a todo México</li></ul>
-            <div class="pers"><label>Tamaño<select name="tam"><option value="30×40 cm" data-p="450">30×40 cm · $450</option><option value="40×50 cm" data-p="650">40×50 cm · $650</option><option value="50×70 cm" data-p="950">50×70 cm · $950</option></select></label>
-<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
-<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
-<label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
-<label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
-<label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
-<p class="err js-err" hidden></p>
-            <div class="prod-footer">
-              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$450</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
-              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-impreso" data-product-name="Mapa estelar impreso" data-product-price="450" data-product-detail="" data-product-icon="✦">+ Agregar al carrito</button>
-            </div>
-          </div>
-        </div>
-        <div class="prod-card reveal d2" data-base="mapa-enmarcado" data-price="850">
-          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
-          <div class="prod-body">
-            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--water">Con marco</span></div>
-            <h3 class="prod-name">Mapa estelar enmarcado</h3>
-            <p class="prod-latin">Póster con marco · listo para colgar</p>
-            <p class="prod-desc">Tu mapa ya enmarcado, para colgarlo en cuanto llegue a tu casa.</p>
-            <ul class="spec"><li>Tres tamaños y tres marcos a elegir</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Envío con rastreo a todo México</li></ul>
-            <div class="pers"><label>Tamaño<select name="tam"><option value="30×40 cm" data-p="850">30×40 cm · $850</option><option value="40×50 cm" data-p="1150">40×50 cm · $1,150</option><option value="50×70 cm" data-p="1550">50×70 cm · $1,550</option></select></label><label>Marco<select name="marco"><option>Negro</option><option>Blanco</option><option>Madera</option></select></label>
-<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
-<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
-<label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
-<label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
-<label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
-<p class="err js-err" hidden></p>
-            <div class="prod-footer">
-              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$850</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
-              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-enmarcado" data-product-name="Mapa estelar enmarcado" data-product-price="850" data-product-detail="" data-product-icon="🖼">+ Agregar al carrito</button>
-            </div>
-          </div>
-        </div>
-        <div class="prod-card reveal d3" data-base="mapa-digital" data-price="149">
-          <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
-          <div class="prod-body">
-            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge">Descarga</span></div>
-            <h3 class="prod-name">Mapa estelar digital</h3>
-            <p class="prod-latin">Archivo PNG · 1800×2400 px</p>
-            <p class="prod-desc">Tu cielo personalizado en un archivo para imprimir donde tú quieras.</p>
-            <ul class="spec"><li>Relación 3:4, ideal hasta 30×40 cm</li><li>Título, mensaje y estilo a tu gusto</li><li>Fecha, hora y lugar exactos, al minuto</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Te lo enviamos por WhatsApp o correo</li></ul>
+            <div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span><span class="badge badge--water">PDF</span></div>
+            <h3 class="prod-name">Mapa estelar en PDF</h3>
+            <p class="prod-latin">Archivo PDF · 30×40 cm · 3:4</p>
+            <p class="prod-desc">El cielo del día y el lugar que elijas, en un PDF para imprimir y regalar.</p>
+            <ul class="spec"><li>PDF de alta resolución, listo para imprimir a 30×40 cm</li><li>Título, mensaje y estilo a tu gusto</li><li>Tu fecha y tu lugar, calculados con datos astronómicos reales</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Te lo enviamos por WhatsApp o correo</li></ul>
             <div class="pers">
-<label>Fecha<input type="date" name="fecha" required></label><label>Hora local<input type="time" name="hora" required></label>
+<label>Fecha<input type="date" name="fecha" required></label><label>Hora (opcional)<input type="time" name="hora"></label>
 <label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
 <label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
 <label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
 <label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
 <p class="err js-err" hidden></p>
             <div class="prod-footer">
-              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$149</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
-              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-digital" data-product-name="Mapa estelar digital" data-product-price="149" data-product-detail="" data-product-icon="⬇">+ Agregar al carrito</button>
+              <div class="prod-price"><span class="prod-price__lbl">Precio</span><span class="prod-price__val"><span class="js-price">$99</span> <span style="font-size:0.75rem;color:var(--text-muted);">MXN</span></span></div>
+              <button class="btn btn--outline btn--sm btn-add-cart" data-product-id="mapa-pdf" data-product-name="Mapa estelar en PDF" data-product-price="99" data-product-detail="" data-product-icon="📄">+ Agregar al carrito</button>
             </div>
           </div>
         </div>
-        <div class="prod-card reveal d4">
+        <div class="prod-card reveal d2">
           <div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(125,211,125,0.16),transparent 70%);opacity:0.6;"></div><svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,0.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,0.35)" stroke-width="1"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg></div>
           <div class="prod-body">
             <div class="prod-tags"><span class="badge badge--accent">Gratis</span><span class="badge">Sin compromiso</span></div>
@@ -161,23 +119,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="comparar" style="background:var(--bg-primary)">
-    <div class="container">
-      <div class="section__header reveal"><span class="label section__label">Compara</span><h2 class="section__title">Qué incluye cada formato</h2><p class="section__sub">Los tres llevan tu cielo calculado igual. Cambia cómo lo recibes.</p></div>
-      <div class="cmp-wrap reveal"><table class="cmp">
-        <thead><tr><th></th><th>Impreso</th><th>Enmarcado</th><th>Digital</th></tr></thead>
-        <tbody>
-          <tr><th>Qué recibes</th><td>Póster impreso</td><td>Póster con marco</td><td>Archivo PNG</td></tr>
-          <tr><th>Tamaños</th><td>30×40, 40×50 y 50×70 cm</td><td>30×40, 40×50 y 50×70 cm</td><td>1800×2400 px (3:4)</td></tr>
-          <tr><th>Marco</th><td>No, lo enmarcas tú</td><td>Negro, blanco o madera</td><td>—</td></tr>
-          <tr><th>Personalización</th><td>Título, mensaje, estilo, fecha, hora y lugar</td><td>Igual</td><td>Igual</td></tr>
-          <tr><th>Entrega</th><td>Envío con rastreo a todo México</td><td>Envío con rastreo a todo México</td><td>Por WhatsApp o correo</td></tr>
-          <tr><th>Ideal para</th><td>Regalar y elegir tu propio marco</td><td>Colgar al llegar</td><td>Imprimir donde quieras</td></tr>
-          <tr><th>Desde</th><td>$450 MXN</td><td>$850 MXN</td><td>$149 MXN</td></tr>
-        </tbody></table></div>
     </div>
   </section>
 
@@ -232,10 +173,10 @@
       </div>
       <div class="benefits__grid">
         <div class="benefit reveal d1"><div class="benefit__icon">🔭</div><div><h3>Cálculo astronómico real</h3><p>Cada estrella se coloca según un catálogo astronómico abierto (Hipparcos), tal como estaba ese día.</p></div></div>
-        <div class="benefit reveal d2"><div class="benefit__icon">📦</div><div><h3>Entrega con rastreo</h3><p>Tu pedido viaja con seguimiento desde que confirmas. Enviamos a cualquier punto de México.</p></div></div>
+        <div class="benefit reveal d2"><div class="benefit__icon">📄</div><div><h3>Recíbelo por WhatsApp o correo</h3><p>Una vez confirmados tus datos y tu pago, te enviamos tu PDF listo para imprimir.</p></div></div>
         <div class="benefit reveal d3"><div class="benefit__icon">🎁</div><div><h3>Regalo que se recuerda</h3><p>Bodas, nacimientos, aniversarios: un regalo que cuenta una fecha, no solo la adorna.</p></div></div>
         <div class="benefit reveal d4"><div class="benefit__icon">✦</div><div><h3>Trato directo</h3><p>StellarVertex no es una plataforma: soy yo, Colter, quien revisa cada pedido y te escribe por WhatsApp.</p></div></div>
-        <div class="benefit reveal d5"><div class="benefit__icon">🔍</div><div><h3>Revisamos antes de imprimir</h3><p>Confirmamos contigo la fecha, la hora y el lugar para que el cielo sea el correcto.</p></div></div>
+        <div class="benefit reveal d5"><div class="benefit__icon">🔍</div><div><h3>Revisamos tus datos</h3><p>Confirmamos contigo la fecha, la hora y el lugar para que el cielo sea el correcto.</p></div></div>
         <div class="benefit reveal d6"><div class="benefit__icon">🖼</div><div><h3>Calidad, no volumen</h3><p>Prefiero pocos mapas muy bien hechos. Si algo no queda bien, lo resolvemos.</p></div></div>
       </div>
     </div>
@@ -245,12 +186,13 @@
     <div class="container">
       <div class="section__header reveal" style="text-align:center;"><span class="label section__label">Preguntas</span><h2 class="section__title">Preguntas frecuentes</h2></div>
       <div class="faq reveal">
-        <details><summary>¿Qué datos necesito para mi mapa?</summary><p>Fecha, hora y lugar del momento. Si no sabes la hora exacta, usa una aproximada: el cielo gira unos 15° por hora, así que unos minutos de diferencia casi no se notan.</p></details>
+        <details><summary>¿Qué datos necesito para mi mapa?</summary><p>Fecha y lugar. La hora es opcional: si no la pones, usamos las 9 de la noche. Si la sabes, mejor: el cielo gira unos 15° por hora, así que afina tu mapa.</p></details>
         <details><summary>¿Qué tan exacto es?</summary><p>Colocamos cada estrella con cálculo astronómico usando el catálogo abierto Hipparcos. Es el cielo real de tu fecha, hora y lugar. Por ahora el mapa no muestra planetas ni la Luna.</p></details>
-        <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa. Además, antes de imprimir confirmamos contigo la fecha, la hora y el lugar.</p></details>
+        <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa con marca de agua. Tu PDF final no la lleva. Además, antes de imprimir confirmamos contigo la fecha, la hora y el lugar.</p></details>
         <details><summary>¿Y el horario de verano?</summary><p>Usa la hora local que había en ese momento, como aparece en tu acta o invitación. Si tienes duda, escríbeme y lo revisamos juntos.</p></details>
         <details><summary>¿Cómo pago?</summary><p>Coordinas el pedido por WhatsApp o correo desde el carrito. También puedes pagar con criptomonedas (USDC por Solana Pay).</p></details>
-        <details><summary>¿Hacen envíos a todo México?</summary><p>Sí, los mapas impresos y enmarcados viajan con número de rastreo. El mapa digital te lo enviamos por WhatsApp o correo.</p></details>
+        <details><summary>¿Cómo recibo mi mapa?</summary><p>Te enviamos el PDF por WhatsApp o correo una vez confirmados tus datos y tu pago. Está en alta resolución, listo para imprimir a 30×40 cm.</p></details>
+        <details><summary>¿Dónde lo imprimo?</summary><p>En cualquier imprenta o centro de impresión de planos. Pide 30×40 cm (proporción 3:4) y, si quieres, papel mate o fotográfico.</p></details>
         <details><summary>¿Qué pasa si algo no queda bien?</summary><p>Cada mapa se revisa contigo antes de producirlo. Si algo no queda perfecto, lo resolvemos.</p></details>
         <details><summary>¿Qué hacen con mis datos?</summary><p>Solo usamos la fecha, la hora, el lugar y tus datos de contacto para preparar y enviar tu pedido. Los detalles están en el <a href="privacidad.html" style="color:var(--accent)">aviso de privacidad</a>.</p></details>
       </div>
@@ -265,10 +207,10 @@
         <p class="section__sub--center section__sub">Elige, paga y recibe — así de directo. Cada paso tiene seguimiento real.</p>
       </div>
       <div class="process__track">
-        <div class="step reveal d1"><div class="step__num">01</div><h3>Elige tu Mapa</h3><p>Prueba el generador, elige formato y estilo. Escríbeme si tienes dudas — respondo en menos de 24h.</p></div>
+        <div class="step reveal d1"><div class="step__num">01</div><h3>Elige tu Mapa</h3><p>Prueba el generador, elige tu estilo. Escríbeme si tienes dudas — respondo en menos de 24h.</p></div>
         <div class="step reveal d2"><div class="step__num">02</div><h3>Confirma tu Pedido</h3><p>Coordina el pago directamente conmigo. Sin plataformas intermediarias — el proceso es claro y sin sorpresas.</p></div>
         <div class="step reveal d3"><div class="step__num">03</div><h3>Te Confirmo en 24h</h3><p>Reviso contigo la fecha, la hora y el lugar, y te envío una vista previa final.</p></div>
-        <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe en Casa</h3><p>Tu mapa llega empacado y listo para colgar. Si algo no está perfecto, lo resolvemos.</p></div>
+        <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe tu PDF</h3><p>Te lo enviamos listo para imprimir o compartir. Si algo no está perfecto, lo resolvemos.</p></div>
       </div>
     </div>
   </section>
@@ -284,7 +226,7 @@
         <a href="https://wa.me/525629704701" class="btn btn--ghost" style="font-size:0.95rem;padding:12px 28px;">WhatsApp</a>
       </div>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-        <div class="cta-card"><span>📦</span><span>Envío a todo México</span></div>
+        <div class="cta-card"><span>📄</span><span>PDF listo para imprimir</span></div>
         <div class="cta-card"><span>⚡</span><span>Respuesta en <strong>menos de 24h</strong></span></div>
         <div class="cta-card"><span>✦</span><span>Vendedor <strong>directo</strong></span></div>
       </div>
@@ -334,10 +276,13 @@
   </script>
   <script src="solana-pay.js"></script>
   <script src="cart.js"></script>
-<script src="cart.js"></script>
+
 <script>
-// Personalización: cada tarjeta lleva tamaño, marco y datos del mapa al carrito
+// Personalización: la tarjeta lleva los datos del mapa al carrito
 (function(){
+  const qp=new URLSearchParams(location.search),c0=document.querySelector('.prod-card[data-base]');
+  if(c0&&qp.has('fecha')){['fecha','hora','lugar','titulo','msg'].forEach(n=>{const el=c0.querySelector('[name="'+n+'"]');if(el&&qp.get(n))el.value=qp.get(n)});
+    const es=c0.querySelector('[name="estilo"]'),v=qp.get('estilo')||'';[...es.options].forEach(o=>{if(o.value.toLowerCase()===v)es.value=o.value})}
   const h=t=>{let x=0;for(const c of t)x=(x*31+c.charCodeAt(0))|0;return (x>>>0).toString(36)};
   document.querySelectorAll('.prod-card[data-base]').forEach(card=>{
     const btn=card.querySelector('.btn-add-cart'),q=n=>card.querySelector('[name="'+n+'"]'),err=card.querySelector('.js-err'),pr=card.querySelector('.js-price');
@@ -346,10 +291,10 @@
     card.addEventListener('click',e=>{
       if(!e.target.closest('.btn-add-cart'))return;
       const f=q('fecha').value,hr=q('hora').value,lg=q('lugar').value.trim();
-      if(!f||!hr||!lg){e.stopPropagation();e.preventDefault();err.textContent='Completa fecha, hora y lugar para calcular tu cielo.';err.hidden=false;return}
+      if(!f||!lg){e.stopPropagation();e.preventDefault();err.textContent='Completa fecha y lugar para calcular tu cielo.';err.hidden=false;return}
       err.hidden=true;sync();
       const d=f.split('-').reverse().join('/');
-      const det=[q('tam')&&q('tam').value,q('marco')&&'Marco '+q('marco').value.toLowerCase(),d+' '+hr,lg,'Estilo '+q('estilo').value.toLowerCase(),q('titulo').value.trim()&&'Título: '+q('titulo').value.trim(),q('msg').value.trim()&&'Mensaje: '+q('msg').value.trim()].filter(Boolean).join(' · ');
+      const det=[q('tam')&&q('tam').value,q('marco')&&'Marco '+q('marco').value.toLowerCase(),d+' '+(hr||'21:00'),lg,'Estilo '+q('estilo').value.toLowerCase(),q('titulo').value.trim()&&'Título: '+q('titulo').value.trim(),q('msg').value.trim()&&'Mensaje: '+q('msg').value.trim()].filter(Boolean).join(' · ');
       btn.dataset.productDetail=det;btn.dataset.productId=card.dataset.base+'-'+h(det);
     },true);
   });
