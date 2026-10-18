@@ -4,332 +4,292 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StellarVertex — Mapas estelares personalizados</title>
-<link rel="icon" type="image/png" href="assets/Logo.png">
 <meta name="description" content="El cielo exacto de la fecha y el lugar que elijas, impreso y listo para regalar. Para bodas, aniversarios y nacimientos. Envío a todo México.">
 <meta property="og:title" content="StellarVertex — Mapas estelares personalizados">
-<meta property="og:description" content="El cielo exacto de la fecha y el lugar que elijas, impreso y listo para regalar. Para bodas, aniversarios y nacimientos. Envío a todo México.">
+<meta property="og:description" content="El cielo exacto de la fecha y el lugar que elijas, impreso y listo para regalar.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
+<link rel="icon" type="image/png" href="assets/Logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,510;0,14..32,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style1.css">
+<style>
+/* ===== Extras del index: cielo, órbita, cintas y brillos ===== */
+:root{--gold:#E8B547}
+.sky-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.sky-bg::before,.sky-bg::after{content:"";position:absolute;inset:-50%}
+.sky-bg::before{background-image:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 90px 120px,#cfe0ff,transparent),radial-gradient(1.5px 1.5px at 150px 60px,#fff,transparent),radial-gradient(1px 1px at 60px 170px,#ffe9b0,transparent);background-size:200px 200px;animation:tw 5s ease-in-out infinite alternate}
+.sky-bg::after{background-image:radial-gradient(1.5px 1.5px at 40px 80px,#ffe9b0,transparent),radial-gradient(1px 1px at 200px 220px,#fff,transparent),radial-gradient(1px 1px at 120px 20px,#cfe0ff,transparent),radial-gradient(2px 2px at 260px 140px,#fff,transparent);background-size:320px 320px;animation:tw 7s 2s ease-in-out infinite alternate,drift 140s linear infinite}
+@keyframes tw{from{opacity:.25}to{opacity:.95}}
+@keyframes drift{to{transform:translate3d(-320px,-320px,0)}}
+.shoot{position:absolute;width:150px;height:1px;background:linear-gradient(90deg,transparent,#fff);opacity:0;animation:shoot 11s linear infinite}
+.shoot:nth-child(2){left:55%;top:6%;animation-delay:4s}
+.shoot:nth-child(3){left:25%;top:42%;animation-delay:8s}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(30deg)}2%{opacity:1}10%{opacity:0;transform:translate(364px,210px) rotate(30deg)}100%{opacity:0}}
+.hero__glow{background:radial-gradient(ellipse,rgba(232,181,71,.13) 0%,transparent 68%)}
+.hero__glow-2{background:radial-gradient(circle,rgba(107,169,217,.12) 0%,transparent 70%)}
+.hero__title em{background:linear-gradient(100deg,var(--gold),#fff6dc 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn--primary{animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 30px var(--accent-glow)}}
+.orb{position:relative;width:min(520px,86vw);aspect-ratio:1;margin:0 auto}
+.orb::before{content:"";position:absolute;inset:-16px;border-radius:50%;background:conic-gradient(transparent,rgba(232,181,71,.6),transparent 35%,rgba(125,211,125,.45),transparent 70%);filter:blur(20px);animation:spin 16s linear infinite}
+.orb::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:2;pointer-events:none;box-shadow:inset 0 0 70px rgba(0,0,0,.75),0 0 0 1px rgba(232,181,71,.4)}
+.orb canvas{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#0b1430 0%,#050913 85%)}
+.orb i{position:absolute;z-index:3;font:500 .72rem var(--font-mono);color:var(--gold);font-style:normal;letter-spacing:.1em}
+.orb i:nth-of-type(1){top:-24px;left:50%;transform:translateX(-50%)}.orb i:nth-of-type(2){bottom:-24px;left:50%;transform:translateX(-50%)}
+.orb i:nth-of-type(3){left:-20px;top:50%;transform:translateY(-50%)}.orb i:nth-of-type(4){right:-20px;top:50%;transform:translateY(-50%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.demo{display:flex;gap:10px 14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:2.2rem}
+.demo label{font:500 .68rem var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--text-secondary)}
+.demo input,.signup input{background:rgba(255,255,255,.04);border:1px solid var(--border-hi);border-radius:var(--r-full);padding:9px 16px;color:var(--text-primary);font:inherit;font-size:.88rem;color-scheme:dark}
+.demo input:focus-visible,.signup input:focus-visible,.cat-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.demo-cap{text-align:center;font-size:.8rem;color:var(--text-secondary);margin-top:.7rem;min-height:1.3em}
+.ribbon{overflow:hidden;border-block:1px solid var(--border);background:var(--bg-secondary);padding:14px 0;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.ribbon div{display:flex;gap:2.2rem;width:max-content;animation:run 38s linear infinite;font:500 .72rem var(--font-mono);text-transform:uppercase;letter-spacing:.22em;color:var(--text-secondary)}
+.ribbon b{color:var(--gold);font-weight:400}
+@keyframes run{to{transform:translateX(-50%)}}
+.stat-item__num em{background:linear-gradient(100deg,var(--gold),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.spot{position:relative}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(232,181,71,.13),transparent 62%)}
+.spot:hover::before{opacity:1}
+.cat-card{display:block}
+.prod-visual svg{width:116px;height:116px}
+.prod-price__val{display:block;margin-top:2px}
+.signup{display:flex;gap:10px;max-width:480px;margin:0 auto 1.1rem;flex-wrap:wrap;justify-content:center}
+.signup input{flex:1 1 230px;padding:12px 18px}
+.cta-note{font:400 .66rem var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:2rem}
+.cta-section__glow{background:radial-gradient(ellipse,rgba(232,181,71,.1) 0%,transparent 70%)}
+@media(max-width:1024px){.hero__visual{display:flex;flex-direction:column;align-items:center}.hero{min-height:auto}.hero__inner{padding:3rem 2rem 4rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2CH4VJQ9NS"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-2CH4VJQ9NS');
 </script>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    StellarVertex
-  </div>
-  <ul class="nav-links">
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="#como-funciona">Cómo funciona</a></li>
-    <li><a href="led_hidroponia.html">Tienda</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="btn-secondary" onclick="window.location.href='tienda.html'">Ver catálogo →</button>
-    <button class="btn-primary" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Registrarse</button>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-mark">✦</div><span class="nav__logo-text">StellarVertex</span></a>
+    <ul class="nav__links">
+      <li><a href="#ocasiones">Ocasiones</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#proceso">Cómo funciona</a></li>
+      <li><a href="mapa.html">Generador</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="led_hidroponia.html" class="nav__back">Tienda →</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-tag">
-    <span class="hero-tag-dot"></span>
-    Tienda · Mapas estelares · México 2026
+<section class="hero" id="inicio">
+  <div class="hero__bg">
+    <div class="hero__glow"></div><div class="hero__glow-2"></div>
+    <div class="sky-bg"><span class="shoot" style="left:8%;top:12%"></span><span class="shoot"></span><span class="shoot"></span></div>
   </div>
-  <div class="hero-content fade-up">
-    <h1>El cielo de ese día,<br><span>en tu pared.</span></h1>
-    <p class="hero-sub">Un mapa con las estrellas exactas sobre el lugar y el momento que quieras recordar: una boda, un nacimiento, un primer beso. Impreso con cuidado y listo para regalar.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="window.location.href='mapa.html'">Crear mi mapa →</button>
-      <button class="btn-secondary" onclick="document.getElementById('como-funciona').scrollIntoView({behavior:'smooth'})">¿Cómo funciona? →</button>
-    </div>
-  </div>
-</section>
-
-<!-- STRIP -->
-<section class="logos-section">
-  <p class="logos-label">Lo que hace único a tu mapa</p>
-  <div class="logos-grid">
-    <span class="logo-item">Datos astronómicos reales</span>
-    <span class="logo-item">Tu fecha, tu lugar</span>
-    <span class="logo-item">Impreso con cuidado</span>
-    <span class="logo-item">Listo para regalar</span>
-    <span class="logo-item">Estilo a elegir</span>
-    <span class="logo-item">Envío a todo México</span>
-  </div>
-</section>
-
-<!-- POR QUÉ UN MAPA ESTELAR -->
-<section class="features-section" id="productos">
-  <span class="section-label">CAT — Por qué un mapa estelar</span>
-  <h2 class="section-title fade-up">Un momento,<br>fijado en el cielo</h2>
-  <p class="section-body fade-up">Una foto guarda la imagen. Un mapa estelar guarda el cielo que había sobre ti ese día, calculado para el lugar y la hora exactos.</p>
-
-  <div class="features-grid">
-    <div class="feature-card fade-up">
-      <div class="feature-icon">✦</div>
-<span class="feature-tag">MAPA-01</span>
-<h3>El cielo real de tu fecha</h3>
-<p>Calculamos la posición de más de 5,000 estrellas y las constelaciones sobre el lugar y la hora exactos que elijas.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🕰</div>
-<span class="feature-tag">HORA-02</span>
-<h3>Tu hora, tu lugar</h3>
-<p>Desde la hora del "sí, acepto" hasta el primer llanto de tu bebé: el cielo se calcula al minuto, en cualquier ciudad.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🎁</div>
-<span class="feature-tag">REGALO-03</span>
-<h3>Un regalo con historia</h3>
-<p>Bodas, aniversarios, nacimientos o graduaciones. Un detalle personal que nadie más va a tener.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🎨</div>
-<span class="feature-tag">ESTILO-04</span>
-<h3>Tres estilos a elegir</h3>
-<p>Noche, tinta o papel, con tu título y tu mensaje, para que combine con la pared donde lo cuelgues.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">📦</div>
-<span class="feature-tag">ENVIO-05</span>
-<h3>Listo para colgar</h3>
-<p>Lo imprimimos y lo enviamos a todo México. Tú solo eliges dónde ponerlo.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">👀</div>
-<span class="feature-tag">VISTA-06</span>
-<h3>Pruébalo antes de pedir</h3>
-<p>Cambia fecha, lugar y estilo en el generador y mira tu mapa antes de decidir. La vista previa es gratis.</p>
-    </div>
-  </div>
-</section>
-
-<!-- DIFERENCIAL -->
-<section class="sensor-section">
-  <div class="sensor-inner">
-
-    <div class="sensor-panel fade-up">
-      <div class="sensor-header">
-        <div class="sensor-dots">
-          <div class="sensor-dot"></div>
-          <div class="sensor-dot"></div>
-          <div class="sensor-dot"></div>
-        </div>
-        <span class="sensor-title">mapa-estelar — datos de tu cielo</span>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <div class="hero__eyebrow"><span class="hero__tag">Mapas estelares · México 2026</span><div class="hero__divider"></div></div>
+      <h1 class="hero__title">El cielo de ese día,<br><em>en tu pared.</em></h1>
+      <p class="hero__desc">Un mapa con las estrellas exactas sobre el lugar y el momento que quieras recordar: una boda, un nacimiento, un primer beso. Impreso con cuidado y listo para regalar.</p>
+      <div class="hero__badges">
+        <span class="badge badge--harvest">Envío a todo México</span>
+        <span class="badge badge--accent">Hecho a tu medida</span>
+        <span class="badge badge--rare">Vista previa gratis</span>
+        <span class="badge badge--water">Soporte por WhatsApp</span>
       </div>
-      <div class="sensor-body">
-        <p class="sensor-lot">// Lo que necesitamos para tu mapa</p>
-        <div class="sensor-row">
-          <span class="sensor-key">fecha</span>
-<span class="sensor-val">la que elijas</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">hora</span>
-<span class="sensor-val info">al minuto</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">lugar</span>
-<span class="sensor-val">cualquier ciudad</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">estrellas</span>
-<span class="sensor-val">+5,000</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">constelaciones</span>
-<span class="sensor-val info">trazadas</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">estilos</span>
-<span class="sensor-val">noche · tinta · papel</span>
-        </div>
-        <div class="sensor-row">
-          <span class="sensor-key">soporte</span>
-<span class="sensor-val">WhatsApp</span>
-        </div>
-        <p class="sensor-lot">// Tú eliges, nosotros calculamos</p>
+      <div class="hero__cta">
+        <a href="mapa.html" class="btn btn--primary">Crear mi mapa →</a>
+        <a href="led_hidroponia.html" class="btn btn--ghost">Ver la tienda</a>
       </div>
     </div>
-
-    <div class="sensor-text fade-up">
-      <span class="section-label">VAL — Nuestro diferencial</span>
-      <h2 class="section-title">No vendemos un póster.<br>Vendemos tu momento.</h2>
-      <p class="section-body">Empezamos con un solo producto, hecho con cuidado: tu mapa estelar. Sin catálogos infinitos. Tú pones la fecha y el lugar; nosotros nos encargamos del resto.</p>
-      <button class="btn-primary" onclick="window.location.href='tienda.html'">Ver catálogo →</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- PRODUCTOS -->
-<section class="lotes-section">
-  <div class="lotes-inner">
-    <div class="lotes-header">
-      <span class="section-label">PROD — Lo que puedes pedir</span>
-      <h2 class="section-title fade-up">Un producto.<br>Bien hecho.</h2>
-      <p class="section-body fade-up">Elige cómo quieres recibir tu mapa. Y si todavía dudas, pruébalo gratis antes de pedir.</p>
-    </div>
-
-    <div class="lotes-grid">
-      <div class="lote-card fade-up">
-        <p class="lote-id">MAPA-IMPRESO · PROD-01</p>
-<h3>Mapa estelar impreso</h3>
-<p>El cielo de tu fecha y lugar, impreso con tu título y mensaje. Listo para enmarcar y regalar.</p>
-<div class="lote-meta"><span class="lote-tag active">Preventa</span><span class="lote-tag info">✦ Personalizado</span><span class="lote-tag">Regalo</span></div>
+    <div class="hero__visual">
+      <div class="orb">
+        <canvas id="sky" width="900" height="900" role="img" aria-label="Mapa del cielo en movimiento sobre la Ciudad de México"></canvas>
+        <i>N</i><i>S</i><i>E</i><i>O</i>
       </div>
-      <div class="lote-card fade-up">
-        <p class="lote-id">MAPA-ENMARCADO · PROD-02</p>
-<h3>Mapa estelar enmarcado</h3>
-<p>Tu mapa ya enmarcado y listo para colgar en cuanto llegue a tu casa.</p>
-<div class="lote-meta"><span class="lote-tag active">Preventa</span><span class="lote-tag info">🖼 Con marco</span><span class="lote-tag">Listo para colgar</span></div>
+      <div class="demo">
+        <label for="demoDate">Prueba tu fecha</label>
+        <input type="date" id="demoDate" aria-describedby="demoCap">
+        <a href="mapa.html" class="btn btn--outline btn--sm">Personalizar →</a>
       </div>
-      <div class="lote-card fade-up">
-        <p class="lote-id">MAPA-DIGITAL · PROD-03</p>
-<h3>Mapa estelar digital</h3>
-<p>Archivo en alta resolución con tu cielo personalizado, para imprimir donde tú quieras.</p>
-<div class="lote-meta"><span class="lote-tag active">Preventa</span><span class="lote-tag info">⬇ Descarga</span><span class="lote-tag">Para imprimir</span></div>
-      </div>
-      <div class="lote-card fade-up">
-        <p class="lote-id">VISTA-PREVIA · PROD-04</p>
-<h3>Prueba tu mapa gratis</h3>
-<p>Escribe tu fecha y tu lugar y mira cómo se ve tu cielo antes de pedir nada.</p>
-<div class="lote-meta"><span class="lote-tag active">Gratis</span><span class="lote-tag info">👀 Vista previa</span><span class="lote-tag">Sin compromiso</span></div>
-      </div>
+      <p class="demo-cap" id="demoCap" aria-live="polite"></p>
     </div>
   </div>
 </section>
 
-<!-- CÓMO FUNCIONA -->
-<section class="illustration-section" id="como-funciona">
-  <span class="section-label">FIG — ¿Cómo funciona?</span>
-  <h2 class="section-title fade-up">De tu fecha a tu pared</h2>
-  <p class="section-body fade-up">Proceso simple, entrega directa a tu puerta. Sin intermediarios entre tu momento y tu mapa.</p>
-  <div class="svg-wrap fade-up">
-    <svg viewBox="0 0 560 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-      <defs>
-        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(125,211,125,0.4)"/>
-        </marker>
-      </defs>
+<div class="ribbon" aria-hidden="true"><div id="ribbon"></div></div>
 
-      <!-- Paso 1 -->
-      <rect x="20" y="50" width="110" height="80" rx="8" fill="none" stroke="rgba(125,211,125,0.35)" stroke-width="1"/>
-      <text x="75" y="82" text-anchor="middle" font-size="22" fill="rgba(125,211,125,0.8)">📅</text>
-      <text x="75" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(125,211,125,0.7)" letter-spacing="0.07em">ELIGE</text>
-      <text x="75" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Fecha y lugar</text>
-      <text x="75" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(125,211,125,0.35)">01</text>
-
-      <!-- Conector -->
-      <line x1="130" y1="90" x2="160" y2="90" stroke="rgba(125,211,125,0.2)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-
-      <!-- Paso 2 -->
-      <rect x="165" y="50" width="110" height="80" rx="8" fill="none" stroke="rgba(107,169,217,0.4)" stroke-width="1"/>
-      <text x="220" y="82" text-anchor="middle" font-size="22" fill="rgba(107,169,217,0.8)">🎨</text>
-      <text x="220" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(107,169,217,0.7)" letter-spacing="0.07em">DISEÑA</text>
-      <text x="220" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Tu estilo</text>
-      <text x="220" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(107,169,217,0.35)">02</text>
-
-      <!-- Conector -->
-      <line x1="275" y1="90" x2="305" y2="90" stroke="rgba(125,211,125,0.2)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-
-      <!-- Paso 3 -->
-      <rect x="310" y="50" width="110" height="80" rx="8" fill="none" stroke="rgba(232,181,71,0.4)" stroke-width="1"/>
-      <text x="365" y="82" text-anchor="middle" font-size="22" fill="rgba(232,181,71,0.8)">🚚</text>
-      <text x="365" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(232,181,71,0.7)" letter-spacing="0.07em">ENVÍO</text>
-      <text x="365" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Directo a ti</text>
-      <text x="365" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(232,181,71,0.35)">03</text>
-
-      <!-- Conector -->
-      <line x1="420" y1="90" x2="450" y2="90" stroke="rgba(125,211,125,0.2)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-
-      <!-- Paso 4 -->
-      <rect x="455" y="50" width="85" height="80" rx="8" fill="rgba(125,211,125,0.06)" stroke="rgba(125,211,125,0.45)" stroke-width="1"/>
-      <text x="497" y="82" text-anchor="middle" font-size="22" fill="rgba(125,211,125,0.9)">✦</text>
-      <text x="497" y="104" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(125,211,125,0.9)" letter-spacing="0.07em">EN CASA</text>
-      <text x="497" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">Tu mapa</text>
-      <text x="497" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(125,211,125,0.4)">04</text>
-    </svg>
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-strip__grid">
+      <div class="stat-item reveal"><span class="stat-item__num"><em data-count="5044">5,044</em></span><span class="stat-item__lbl">Estrellas en cada mapa</span></div>
+      <div class="stat-item reveal d1"><span class="stat-item__num"><em data-count="15">15</em>°</span><span class="stat-item__lbl">Gira el cielo cada hora</span></div>
+      <div class="stat-item reveal d2"><span class="stat-item__num"><em data-count="3">3</em></span><span class="stat-item__lbl">Estilos a elegir</span></div>
+      <div class="stat-item reveal d3"><span class="stat-item__num"><em data-count="32">32</em></span><span class="stat-item__lbl">Estados con envío</span></div>
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="contacto">
-  <div class="cta-glow"></div>
-  <span class="section-label" style="display:block;text-align:center;">REG — Acceso anticipado</span>
-  <h2 class="section-title fade-up" style="margin:0 auto 16px;">Sé de los primeros en<br>tener tu mapa estelar</h2>
-  <p class="section-body fade-up" style="margin:0 auto 40px;">Estamos abriendo los primeros pedidos de mapas estelares. Regístrate y recibe acceso anticipado y una vista previa de tu mapa gratis.</p>
-
-  <form name="preventa" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="cta-actions fade-up" style="flex-direction:column;align-items:center;gap:14px;max-width:380px;margin:0 auto;position:relative;z-index:1;">
-<input type="hidden" name="form-name" value="preventa">
-<p style="display:none"><label>No llenar: <input name="bot-field"></label></p>
-    <input name="email" required aria-label="Tu correo" type="email"
-      placeholder="tu@correo.com"
-      style="
-        width:100%;padding:12px 20px;
-        background:rgba(255,255,255,0.04);
-        border:1px solid rgba(255,255,255,0.12);
-        border-radius:999px;
-        color:#fff;
-        font-family:'Inter',sans-serif;font-size:14px;
-        outline:none;text-align:center;
-        transition:border-color 0.15s ease;
-      "
-      onfocus="this.style.borderColor='rgba(125,211,125,0.4)'"
-      onblur="this.style.borderColor='rgba(255,255,255,0.12)'"
-    >
-    <button class="btn-primary" style="width:100%;padding:12px 20px;font-size:14px;">
-      Avísame cuando abran →
-    </button>
-    <p style="font-size:11px;color:rgba(255,255,255,0.28);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;">
-      SIN SPAM · SOLO LO QUE IMPORTA
-    </p>
-  </form>
+<section class="section categories" id="ocasiones">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label section__label">Ocasiones</span>
+      <h2 class="section__title">Para la fecha que no quieres olvidar</h2>
+      <p class="section__sub">Cualquier momento con día, hora y lugar puede tener su propio cielo.</p>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-card h reveal d1" href="led_hidroponia.html#catalogo"><div class="cat-icon">💍</div><h3>Bodas</h3><p>El cielo del momento del "sí, acepto", con los nombres de ustedes dos.</p><span class="cat-count">Novios y aniversarios</span></a>
+      <a class="cat-card w reveal d2" href="led_hidroponia.html#catalogo"><div class="cat-icon">👶</div><h3>Nacimientos</h3><p>Las estrellas de la noche en que llegó tu bebé, para decorar su cuarto.</p><span class="cat-count">Tip: usa la hora del acta</span></a>
+      <a class="cat-card r reveal d3" href="led_hidroponia.html#catalogo"><div class="cat-icon">💕</div><h3>Aniversarios</h3><p>Primera cita, primer beso o el día que dijeron que sí. Un detalle que dice mucho.</p><span class="cat-count">Con mensaje personal</span></a>
+      <a class="cat-card a reveal d4" href="led_hidroponia.html#catalogo"><div class="cat-icon">🎓</div><h3>Graduaciones</h3><p>El cielo del día en que cerraste una etapa y empezaste otra.</p><span class="cat-count">Regalo para quien se gradúa</span></a>
+      <a class="cat-card s reveal d5" href="led_hidroponia.html#catalogo"><div class="cat-icon">🐾</div><h3>Mascotas</h3><p>El día que llegó a casa, o el cielo para recordarle con cariño.</p><span class="cat-count">Con su nombre como título</span></a>
+      <a class="cat-card d reveal d6" href="led_hidroponia.html#catalogo"><div class="cat-icon">✨</div><h3>Cualquier fecha</h3><p>Un cumpleaños, un viaje, una mudanza. Si tiene fecha y lugar, tiene cielo.</p><span class="cat-count">Tú decides el mensaje</span></a>
+    </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<section class="section catalog" id="productos">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label section__label">Productos</span>
+      <h2 class="section__title">Elige cómo recibir tu cielo</h2>
+      <p class="section__sub">Tres formatos, el mismo cálculo astronómico. Personalízalos en la tienda.</p>
+    </div>
+    <!-- PRECIOS PROVISIONALES: deben coincidir con led_hidroponia.html -->
+    <div class="catalog__grid">
+      <div class="prod-card reveal d1"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
+        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--accent">Personalizado</span></div>
+          <h3 class="prod-name">Mapa estelar impreso</h3><p class="prod-latin">Póster · 3 tamaños</p>
+          <p class="prod-desc">El cielo de tu fecha y lugar, impreso con tu título y mensaje. Listo para enmarcar y regalar.</p>
+          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$450 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
+      <div class="prod-card reveal d2"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
+        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge badge--water">Con marco</span></div>
+          <h3 class="prod-name">Mapa estelar enmarcado</h3><p class="prod-latin">Póster con marco · 3 tamaños</p>
+          <p class="prod-desc">Tu mapa ya enmarcado, para colgarlo en cuanto llegue a tu casa. Marco negro, blanco o madera.</p>
+          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$850 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
+      <div class="prod-card reveal d3"><div class="prod-visual"><div class="prod-visual__glow" style="background:radial-gradient(circle at 50% 55%,rgba(232,181,71,.16),transparent 70%);opacity:.6"></div></div>
+        <div class="prod-body"><div class="prod-tags"><span class="badge badge--harvest">Preventa</span><span class="badge">Descarga</span></div>
+          <h3 class="prod-name">Mapa estelar digital</h3><p class="prod-latin">Archivo PNG · 1800×2400 px</p>
+          <p class="prod-desc">Tu cielo personalizado en un archivo, para imprimir donde tú quieras.</p>
+          <div class="prod-footer"><div class="prod-price"><span class="prod-price__lbl">Desde</span><span class="prod-price__val">$149 <span>MXN</span></span></div><a class="btn btn--outline btn--sm" href="led_hidroponia.html#catalogo">Personalizar →</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section process" id="proceso">
+  <div class="container">
+    <div class="section__header reveal" style="text-align:center;">
+      <span class="label section__label">Cómo funciona</span>
+      <h2 class="section__title">De tu fecha a tu pared</h2>
+      <p class="section__sub section__sub--center">Elige, personaliza y recibe. Sin intermediarios entre tu momento y tu mapa.</p>
+    </div>
+    <div class="process__track">
+      <div class="step reveal d1"><div class="step__num">01</div><h3>Elige fecha y lugar</h3><p>Dinos cuándo y dónde. Si no sabes la hora exacta, una aproximada funciona.</p></div>
+      <div class="step reveal d2"><div class="step__num">02</div><h3>Dale estilo</h3><p>Noche, tinta o papel, con tu título y tu mensaje personal.</p></div>
+      <div class="step reveal d3"><div class="step__num">03</div><h3>Lo revisamos contigo</h3><p>Confirmamos fecha, hora y lugar antes de producir tu pedido.</p></div>
+      <div class="step reveal d4"><div class="step__num">04</div><h3>Recíbelo en casa</h3><p>Llega empacado y listo para colgar. Si algo no queda bien, lo resolvemos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section benefits">
+  <div class="container">
+    <div class="section__header reveal">
+      <span class="label section__label">Por qué StellarVertex</span>
+      <h2 class="section__title">Astronomía real, en términos simples</h2>
+      <p class="section__sub">Sin tecnicismos: tú eliges, nosotros calculamos.</p>
+    </div>
+    <div class="benefits__grid">
+      <div class="benefit reveal d1"><div class="benefit__icon">🔭</div><div><h3>Datos astronómicos reales</h3><p>Cada estrella se coloca con un catálogo astronómico abierto (Hipparcos), tal como estaba ese día.</p></div></div>
+      <div class="benefit reveal d2"><div class="benefit__icon">📍</div><div><h3>Tu lugar exacto</h3><p>El cielo cambia según dónde estés, y tu mapa lo respeta: desde tu ciudad hasta la sala del hospital.</p></div></div>
+      <div class="benefit reveal d3"><div class="benefit__icon">🎨</div><div><h3>Diseño a tu gusto</h3><p>Elige estilo, título y mensaje para que el mapa combine contigo y con tu casa.</p></div></div>
+      <div class="benefit reveal d4"><div class="benefit__icon">🤝</div><div><h3>Trato directo</h3><p>No es una plataforma: una persona revisa cada pedido y te escribe por WhatsApp.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section" id="contacto">
+  <div class="cta-section__glow"></div>
+  <div class="cta-section__inner reveal">
+    <span class="label" style="display:block;margin-bottom:1rem;">Acceso anticipado</span>
+    <h2>Sé de los primeros en<br>tener tu mapa estelar</h2>
+    <p>Estamos abriendo los primeros pedidos. Regístrate y recibe acceso anticipado y una vista previa de tu mapa gratis.</p>
+    <form class="signup" name="preventa" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="preventa">
+      <p style="display:none"><label>No llenar: <input name="bot-field"></label></p>
+      <input type="email" name="email" required aria-label="Tu correo" placeholder="tu@correo.com">
+      <button class="btn btn--primary" type="submit">Avísame cuando abran →</button>
+    </form>
+    <p class="cta-note">Sin spam · solo lo que importa</p>
+    <div class="cta-actions" style="margin-bottom:0">
+      <a href="mapa.html" class="btn btn--ghost">Probar el generador</a>
+      <a href="https://wa.me/525629704701" class="btn btn--ghost">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <div class="footer-logo">StellarVertex · Mapas estelares personalizados</div>
-  <ul class="footer-links">
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="tienda.html">Tienda</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="privacidad.html">Privacidad y Politicas</a></li>
-    <li><a href="nosotros.html">Nosotros</a></li>
-  </ul>
-  <p class="copyright">© 2026 StellarVertex. Todos los derechos reservados.</p>
+  <div class="container">
+    <div class="footer__inner">
+      <span class="footer__copy">© 2026 StellarVertex · Mapas estelares · México</span>
+      <ul class="footer__links">
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="led_hidroponia.html">Tienda</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
 </footer>
 
+<script src="stars-data.js"></script>
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-document.querySelectorAll('.features-grid .feature-card, .lotes-grid .lote-card').forEach((el, i) => {
-  el.style.transitionDelay = (i * 60) + 'ms';
-});
+(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SV='<svg viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="38" stroke="rgba(232,181,71,.45)" stroke-width="1.2"/><path d="M30 30 52 24 60 46 40 58 24 50 30 30" stroke="rgba(232,181,71,.35)"/><g fill="#E8B547"><circle cx="30" cy="30" r="2"/><circle cx="52" cy="24" r="1.6"/><circle cx="60" cy="46" r="2.2"/><circle cx="40" cy="58" r="1.6"/><circle cx="24" cy="50" r="1.4"/><circle cx="66" cy="62" r="1.4"/></g></svg>';
+  document.querySelectorAll('.prod-visual').forEach(v=>v.insertAdjacentHTML('beforeend',SV));
+  // cinta de constelaciones
+  const N=['Orión','Osa Mayor','Casiopea','Escorpio','Leo','Cisne','Lira','Sagitario','Tauro','Pegaso','Géminis','Cefeo'];
+  const r=document.getElementById('ribbon'),row=N.map(n=>`<span>${n}</span><b>✦</b>`).join('');
+  r.innerHTML=row+row;
+  // aparición al hacer scroll + contadores
+  const count=el=>{const to=+el.dataset.count;if(reduce){el.textContent=to.toLocaleString('es-MX');return}
+    const t0=performance.now();(function f(n){const p=Math.min((n-t0)/1400,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('es-MX');if(p<1)requestAnimationFrame(f)})(t0)};
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);const c=e.target.querySelector('[data-count]');if(c)count(c)}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // brillo que sigue al cursor
+  document.querySelectorAll('.cat-card,.prod-card,.benefit').forEach(el=>{el.classList.add('spot');
+    el.addEventListener('pointermove',e=>{const b=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-b.left)+'px');el.style.setProperty('--my',(e.clientY-b.top)+'px')})});
+  // cielo en vivo sobre Ciudad de México
+  const D=window.STELLAR_DATA,cv=document.getElementById('sky');if(!D||!cv)return;
+  const ctx=cv.getContext('2d'),S=cv.width,C=S/2,R=C-8,rad=Math.PI/180,LAT=19.43,LON=-99.13,OFF=-6;
+  const inp=document.getElementById('demoDate'),cap=document.getElementById('demoCap');
+  inp.value=new Date().toISOString().slice(0,10);
+  let base=0,t0=performance.now();
+  const setDate=()=>{const [y,m,d]=inp.value.split('-').map(Number);if(!y)return;
+    const jd=(Date.UTC(y,m-1,d,21,0)-OFF*36e5)/864e5+2440587.5;base=((280.46061837+360.98564736629*(jd-2451545)+LON)%360+360)%360;t0=performance.now();
+    cap.textContent='El cielo de la Ciudad de México el '+new Date(Date.UTC(y,m-1,d)).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})+', a las 21:00';
+    if(reduce)draw(t0)};
+  const proj=(ra,dec,lst)=>{const h=(lst-ra)*rad,d=dec*rad,p=LAT*rad,alt=Math.asin(Math.sin(d)*Math.sin(p)+Math.cos(d)*Math.cos(p)*Math.cos(h));if(alt<=0)return null;
+    const az=Math.atan2(-Math.cos(d)*Math.sin(h),Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.sin(p)*Math.cos(h)),q=R*Math.tan((Math.PI/2-alt)/2);
+    return [C-q*Math.sin(az),C-q*Math.cos(az)]};
+  function draw(now){
+    const lst=(base+(reduce?0:(now-t0)/1000*.75))%360;
+    ctx.clearRect(0,0,S,S);ctx.lineWidth=1.6;ctx.strokeStyle='rgba(232,181,71,.28)';
+    for(const seg of D.lines){ctx.beginPath();let pen=false;for(const [ra,dec] of seg){const p=proj(ra,dec,lst);if(!p){pen=false;continue}pen?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);pen=true}ctx.stroke()}
+    ctx.fillStyle='#f4ead0';ctx.shadowColor='#ffe9b0';
+    for(const [ra,dec,mag] of D.stars){const p=proj(ra,dec,lst);if(!p)continue;ctx.shadowBlur=mag<2.2?14:0;ctx.beginPath();ctx.arc(p[0],p[1],Math.max(.9,.8+(6.2-mag)*.8),0,7);ctx.fill()}
+    ctx.shadowBlur=0;
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  inp.addEventListener('input',setDate);setDate();if(!reduce)requestAnimationFrame(draw);
+})();
 </script>
-
 </body>
 </html>
