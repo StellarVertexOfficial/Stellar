@@ -21,9 +21,20 @@
   /* ────────────────────────────────────────────
      PERSISTENCIA
      ──────────────────────────────────────────── */
+  function isValidItem(item) {
+    return item
+      && typeof item.id === 'string' && item.id.length > 0
+      && typeof item.name === 'string' && item.name.length > 0
+      && typeof item.detail === 'string' && typeof item.icon === 'string'
+      && Number.isSafeInteger(item.price) && item.price > 0
+      && Number.isSafeInteger(item.qty) && item.qty > 0
+      && Number.isSafeInteger(item.price * item.qty);
+  }
+
   function loadFromStorage() {
     try {
-      return JSON.parse(localStorage.getItem(STORAGE)) || [];
+      const items = JSON.parse(localStorage.getItem(STORAGE));
+      return Array.isArray(items) ? items.filter(isValidItem) : [];
     } catch {
       return [];
     }
@@ -43,12 +54,12 @@
   function addItem(product) {
     const existing = cartItems.find(i => i.id === product.id);
     if (existing) {
-      existing.qty += 1;
+      changeQty(existing.id, 1);
     } else {
-      cartItems.push({ ...product, qty: 1 });
+      cartItems.push(product);
+      persist();
+      render();
     }
-    persist();
-    render();
     showToast(`${product.name} agregado al carrito`);
   }
 
@@ -64,7 +75,7 @@
     const newQty = item.qty + delta;
     if (newQty <= 0) {
       removeItem(id);
-    } else {
+    } else if (Number.isSafeInteger(newQty * item.price)) {
       item.qty = newQty;
       persist();
       render();
@@ -115,6 +126,27 @@
         <button class="cart-drawer__close" id="svCartClose" aria-label="Cerrar carrito">✕</button>
       </div>
       <div class="cart-drawer__body" id="svCartBody"></div>
+      <template id="svCartItemTemplate">
+        <div class="cart-item">
+          <div class="cart-item__icon"></div>
+          <div class="cart-item__info">
+            <div class="cart-item__name"></div>
+            <div class="cart-item__detail"></div>
+            <div class="cart-item__price">
+              <span>MXN</span>
+              <span class="cart-item__unit-price" style="color:var(--text-muted);font-size:0.6rem;margin-left:4px;"></span>
+            </div>
+          </div>
+          <div class="cart-item__controls">
+            <div class="cart-item__qty">
+              <button type="button" class="cart-item__qty-btn" data-sv-action="dec" aria-label="Reducir cantidad">−</button>
+              <span class="cart-item__qty-num"></span>
+              <button type="button" class="cart-item__qty-btn" data-sv-action="inc" aria-label="Aumentar cantidad">+</button>
+            </div>
+            <button type="button" class="cart-item__remove" data-sv-action="del">Eliminar</button>
+          </div>
+        </div>
+      </template>
       <div class="cart-drawer__footer" id="svCartFooter" style="display:none;">
         <div class="cart-summary">
           <span class="cart-summary__label">Total estimado</span>
@@ -194,13 +226,13 @@
     const product = {
       id:     btn.dataset.productId,
       name:   btn.dataset.productName,
-      price:  parseInt(btn.dataset.productPrice, 10),
+      price:  Number(btn.dataset.productPrice),
       detail: btn.dataset.productDetail || '',
       icon:   btn.dataset.productIcon   || '📦',
+      qty:    1,
     };
 
-    /* Validación mínima */
-    if (!product.id || isNaN(product.price)) return;
+    if (!isValidItem(product)) return;
 
     addItem(product);
 
@@ -260,37 +292,31 @@
       return;
     }
 
-    /* Items */
     if (body) {
-      body.innerHTML = cartItems.map(item => {
-        const lineTotal = formatMXN(item.price * item.qty);
-        const unitPrice = formatMXN(item.price);
-        return `
-        <div class="cart-item" data-cart-id="${item.id}">
-          <div class="cart-item__icon">${item.icon}</div>
-          <div class="cart-item__info">
-            <div class="cart-item__name">${item.name}</div>
-            <div class="cart-item__detail">${item.detail}</div>
-            <div class="cart-item__price">
-              $${lineTotal} <span>MXN</span>
-              ${item.qty > 1 ? `<span style="color:var(--text-muted);font-size:0.6rem;margin-left:4px;">($${unitPrice} c/u)</span>` : ''}
-            </div>
-          </div>
-          <div class="cart-item__controls">
-            <div class="cart-item__qty">
-              <button class="cart-item__qty-btn" data-sv-action="dec" data-sv-id="${item.id}" aria-label="Reducir cantidad">−</button>
-              <span class="cart-item__qty-num">${item.qty}</span>
-              <button class="cart-item__qty-btn" data-sv-action="inc" data-sv-id="${item.id}" aria-label="Aumentar cantidad">+</button>
-            </div>
-            <button class="cart-item__remove" data-sv-action="del" data-sv-id="${item.id}">Eliminar</button>
-          </div>
-        </div>`;
-      }).join('');
+      const template = document.getElementById('svCartItemTemplate');
+      const rows = cartItems.map(item => {
+        const row = template.content.firstElementChild.cloneNode(true);
+
+        row.dataset.cartId = item.id;
+        row.querySelector('.cart-item__icon').textContent = item.icon;
+        row.querySelector('.cart-item__name').textContent = item.name;
+        row.querySelector('.cart-item__detail').textContent = item.detail;
+        row.querySelector('.cart-item__qty-num').textContent = item.qty;
+        row.querySelector('.cart-item__price').prepend(`$${formatMXN(item.price * item.qty)} `);
+        const unitPrice = row.querySelector('.cart-item__unit-price');
+        unitPrice.hidden = item.qty === 1;
+        unitPrice.textContent = `($${formatMXN(item.price)} c/u)`;
+        row.querySelectorAll('[data-sv-action]').forEach(button => {
+          button.dataset.svId = item.id;
+        });
+        return row;
+      });
+      body.replaceChildren(...rows);
     }
 
     /* Total */
     if (total) {
-      total.innerHTML = `$${formatMXN(totalPrice())} <span>MXN</span>`;
+      total.firstChild.textContent = `$${formatMXN(totalPrice())} `;
     }
     if (footer) footer.style.display = 'flex';
   }

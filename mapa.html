@@ -27,7 +27,6 @@ input:hover,select:hover{border-color:rgba(255,255,255,.2)}
 .go{background:var(--acc);color:#08090A;border:0;border-radius:999px;padding:12px;font:600 14px Inter;cursor:pointer;transition:transform .15s}
 .go:hover{transform:scale(1.02)}
 .ghost{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:11px;font:500 14px Inter;cursor:pointer}
-[hidden]{display:none!important}
 small{font:400 11px/1.4 'JetBrains Mono',monospace;color:var(--mute)}
 .view{display:flex;justify-content:center;align-items:flex-start}
 canvas{width:100%;max-width:560px;height:auto;border:1px solid var(--line);border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
@@ -74,7 +73,6 @@ canvas{width:100%;max-width:560px;height:auto;border:1px solid var(--line);borde
   </div>
   <button class="go" id="pedir" type="button">Pedir mi PDF · $99 MXN</button>
   <button class="ghost" id="dl" type="button">Descargar vista previa</button>
-  <button class="go" id="pdf" type="button" hidden>Descargar PDF sin marca (vendedor)</button>
   <small>La vista previa lleva marca de agua. Tu PDF final es de alta resolución, sin marca y listo para imprimir a 30×40 cm. Si no pones la hora, usamos las 21:00.</small>
 </form>
 <div class="view"><canvas id="cv" width="1800" height="2400" aria-label="Vista previa del mapa estelar"></canvas></div>
@@ -82,7 +80,8 @@ canvas{width:100%;max-width:560px;height:auto;border:1px solid var(--line);borde
 <script src="stars-data.js"></script>
 <script>
 const D=window.STELLAR_DATA,rad=Math.PI/180,$=i=>document.getElementById(i);
-const cv=$('cv'),W=1800,H=2400,CX=900,CY=1010,R=700;let ctx;
+const cv=$('cv'),W=1800,H=2400,CX=900,CY=1010,R=700;
+const ctx=cv.getContext('2d');
 const themes={
   noche:{bg:'#0a1226',disc:'#070d1c',star:'#f4ead0',line:'rgba(244,234,208,.25)',ink:'#f4ead0'},
   tinta:{bg:'#08090A',disc:'#000',star:'#fff',line:'rgba(255,255,255,.22)',ink:'#fff'},
@@ -107,7 +106,7 @@ function fit(txt,w,fam,size,maxW){
   ctx.font=`${w} ${size}px ${fam}`;
   while(ctx.measureText(txt).width>maxW&&size>28){size-=4;ctx.font=`${w} ${size}px ${fam}`}
 }
-function paint(prev){
+function draw(){
   const t=themes[theme];
   const [y,m,d]=$('fecha').value.split('-').map(Number),[hh,mm]=($('hora').value||'21:00').split(':').map(Number);
   const lat=+$('lat').value,lon=+$('lon').value,off=+$('tz').value;
@@ -139,11 +138,15 @@ function paint(prev){
   ctx.font=`500 52px ${SANS}`;ctx.fillText(fecha+($('hora').value?' · '+$('hora').value:''),CX,2050);
   ctx.font=`400 34px ${MONO}`;ctx.fillText(`${$('lugar').value}   ${coords}`,CX,2118);
   fit($('msg').value||' ',400,SANS,44,1300);ctx.globalAlpha=.75;ctx.fillText($('msg').value,CX,2220);ctx.globalAlpha=1;
-  if(prev){ctx.save();ctx.globalAlpha=.17;ctx.fillStyle=t.ink;ctx.font=`700 92px ${SANS}`;ctx.translate(CX,H/2);ctx.rotate(-.5);
-    for(let yy=-1700;yy<=1700;yy+=400)ctx.fillText('VISTA PREVIA · STELLARVERTEX',0,yy);ctx.restore()}
+  ctx.save();
+  ctx.globalAlpha=.17;
+  ctx.fillStyle=t.ink;
+  ctx.font=`700 92px ${SANS}`;
+  ctx.translate(CX,H/2);
+  ctx.rotate(-.5);
+  for(let yy=-1700;yy<=1700;yy+=400)ctx.fillText('VISTA PREVIA · STELLARVERTEX',0,yy);
+  ctx.restore();
 }
-function render(c,k,prev){ctx=c.getContext('2d');ctx.setTransform(k,0,0,k,0,0);paint(prev)}
-function draw(){render(cv,1,true)}
 $('ciudad').addEventListener('change',e=>{
   const [la,lo,tz,n]=e.target.value.split(',');
   $('lat').value=la;$('lon').value=lo;$('tz').value=tz;$('lugar').value=n;draw();
@@ -155,29 +158,9 @@ $('f').addEventListener('input',draw);
 $('dl').addEventListener('click',()=>cv.toBlob(b=>{
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='vista-previa-mapa-estelar.png';a.click();URL.revokeObjectURL(a.href);
 }));
-const q=new URLSearchParams(location.search);
-if(q.get('modo')==='vendedor')$('pdf').hidden=false;
 $('pedir').addEventListener('click',()=>{
   const p=new URLSearchParams({fecha:$('fecha').value,hora:$('hora').value,lugar:$('lugar').value,titulo:$('titulo').value,msg:$('msg').value,estilo:theme});
   location.href='led_hidroponia.html?'+p.toString()+'#catalogo';
-});
-function pdfBlob(jpg,w,h){ // PDF de una página 30×40 cm con la imagen incrustada (JPEG)
-  const PW=850.39,PH=1133.86,enc=new TextEncoder(),parts=[],offs=[];let len=0;
-  const push=b=>{parts.push(b);len+=b.length},str=s=>push(enc.encode(s)),obj=(n,b)=>{offs[n]=len;str(n+' 0 obj\n'+b+'\nendobj\n')};
-  str('%PDF-1.4\n');
-  obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
-  obj(3,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
-  offs[4]=len;str('4 0 obj\n<< /Type /XObject /Subtype /Image /Width '+w+' /Height '+h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n');push(jpg);str('\nendstream\nendobj\n');
-  const cs='q '+PW+' 0 0 '+PH+' 0 0 cm /Im0 Do Q';obj(5,'<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream');
-  const x=len;str('xref\n0 6\n0000000000 65535 f \n');for(let i=1;i<=5;i++)str(String(offs[i]).padStart(10,'0')+' 00000 n \n');
-  str('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+x+'\n%%EOF');
-  return new Blob(parts,{type:'application/pdf'});
-}
-$('pdf').addEventListener('click',async()=>{
-  const c=document.createElement('canvas');c.width=3000;c.height=4000;render(c,3000/W,false);
-  const jb=await new Promise(r=>c.toBlob(r,'image/jpeg',.92)),bytes=new Uint8Array(await jb.arrayBuffer());
-  const a=document.createElement('a');a.href=URL.createObjectURL(pdfBlob(bytes,3000,4000));a.download='mapa-estelar.pdf';a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),4000);draw();
 });
 draw();
 Promise.all([document.fonts.load('700 100px Inter'),document.fonts.load('500 40px Inter'),document.fonts.load('400 30px "JetBrains Mono"')]).then(draw);
