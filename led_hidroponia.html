@@ -9,7 +9,7 @@
   <meta property="og:locale" content="es_MX">
   <link rel="icon" type="image/png" href="assets/Logo.png">
   <link rel="stylesheet" href="style1.css">
-  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="cart.css?v=3c2094c4b2">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
@@ -190,7 +190,7 @@
         <details><summary>¿Qué tan exacto es?</summary><p>Colocamos cada estrella con cálculo astronómico usando el catálogo abierto Hipparcos. Es el cielo real de tu fecha, hora y lugar. Por ahora el mapa no muestra planetas ni la Luna.</p></details>
         <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa con marca de agua. Tu PDF final no la lleva. Además, antes de imprimir confirmamos contigo la fecha, la hora y el lugar.</p></details>
         <details><summary>¿Y el horario de verano?</summary><p>Usa la hora local que había en ese momento, como aparece en tu acta o invitación. Si tienes duda, escríbeme y lo revisamos juntos.</p></details>
-        <details><summary>¿Cómo pago?</summary><p>Coordinas el pedido por WhatsApp o correo desde el carrito. También puedes pagar con criptomonedas (USDC por Solana Pay).</p></details>
+        <details><summary>¿Cómo pago?</summary><p>Abre el carrito, escribe el correo donde quieres recibir tu PDF y pulsa «Pagar ahora». Mercado Pago te permite pagar en pesos mexicanos con tarjeta de débito o crédito.</p></details>
         <details><summary>¿Cómo recibo mi mapa?</summary><p>Te enviamos el PDF por WhatsApp o correo una vez confirmados tus datos y tu pago. Está en alta resolución, listo para imprimir a 30×40 cm.</p></details>
         <details><summary>¿Dónde lo imprimo?</summary><p>En cualquier imprenta o centro de impresión de planos. Pide 30×40 cm (proporción 3:4) y, si quieres, papel mate o fotográfico.</p></details>
         <details><summary>¿Qué pasa si algo no queda bien?</summary><p>Cada mapa se revisa contigo antes de producirlo. Si algo no queda perfecto, lo resolvemos.</p></details>
@@ -208,7 +208,7 @@
       </div>
       <div class="process__track">
         <div class="step reveal d1"><div class="step__num">01</div><h3>Elige tu Mapa</h3><p>Prueba el generador, elige tu estilo. Escríbeme si tienes dudas — respondo en menos de 24h.</p></div>
-        <div class="step reveal d2"><div class="step__num">02</div><h3>Confirma tu Pedido</h3><p>Coordina el pago directamente conmigo. Sin plataformas intermediarias — el proceso es claro y sin sorpresas.</p></div>
+        <div class="step reveal d2"><div class="step__num">02</div><h3>Paga tu pedido</h3><p>Elige «Pagar ahora» en el carrito para completar tu compra en Mercado Pago.</p></div>
         <div class="step reveal d3"><div class="step__num">03</div><h3>Te Confirmo en 24h</h3><p>Reviso contigo la fecha, la hora y el lugar, y te envío una vista previa final.</p></div>
         <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe tu PDF</h3><p>Te lo enviamos listo para imprimir o compartir. Si algo no está perfecto, lo resolvemos.</p></div>
       </div>
@@ -275,14 +275,27 @@
     document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
   </script>
   <script src="solana-pay.js"></script>
-  <script src="cart.js"></script>
+  <script src="cart.js?v=c1372ed4dd"></script>
 
 <script>
 // Personalización: la tarjeta lleva los datos del mapa al carrito
 (function(){
-  const qp=new URLSearchParams(location.search),c0=document.querySelector('.prod-card[data-base]');
-  if(c0&&qp.has('fecha')){['fecha','hora','lugar','titulo','msg'].forEach(n=>{const el=c0.querySelector('[name="'+n+'"]');if(el&&qp.get(n))el.value=qp.get(n)});
-    const es=c0.querySelector('[name="estilo"]'),v=qp.get('estilo')||'';[...es.options].forEach(o=>{if(o.value.toLowerCase()===v)es.value=o.value})}
+  const params = new URLSearchParams(location.search);
+  const card = document.querySelector('.prod-card[data-base]');
+  let draft;
+  try { draft = JSON.parse(sessionStorage.getItem('sv_map_draft')); } catch { /* Enlace anterior o sesión no disponible. */ }
+  const map = params.has('fecha') ? Object.fromEntries(params) : draft;
+  if (card && map?.fecha) {
+    const limits = { fecha: 10, hora: 5, lugar: 50, titulo: 40, msg: 60 };
+    for (const [name, limit] of Object.entries(limits)) {
+      const input = card.querySelector(`[name="${name}"]`);
+      if (typeof map[name] === 'string') input.value = map[name].slice(0, limit);
+    }
+    const style = card.querySelector('[name="estilo"]');
+    for (const option of style.options) {
+      if (option.value.toLowerCase() === map.estilo) style.value = option.value;
+    }
+  }
   const h=t=>{let x=0;for(const c of t)x=(x*31+c.charCodeAt(0))|0;return (x>>>0).toString(36)};
   document.querySelectorAll('.prod-card[data-base]').forEach(card=>{
     const btn=card.querySelector('.btn-add-cart'),q=n=>card.querySelector('[name="'+n+'"]'),err=card.querySelector('.js-err'),pr=card.querySelector('.js-price');
@@ -295,7 +308,15 @@
       err.hidden=true;sync();
       const d=f.split('-').reverse().join('/');
       const det=[q('tam')&&q('tam').value,q('marco')&&'Marco '+q('marco').value.toLowerCase(),d+' '+(hr||'21:00'),lg,'Estilo '+q('estilo').value.toLowerCase(),q('titulo').value.trim()&&'Título: '+q('titulo').value.trim(),q('msg').value.trim()&&'Mensaje: '+q('msg').value.trim()].filter(Boolean).join(' · ');
-      btn.dataset.productDetail=det;btn.dataset.productId=card.dataset.base+'-'+h(det);
+      const config = {
+        fecha: f, hora: hr || '21:00', lugar: lg, titulo: q('titulo').value.trim(),
+        msg: q('msg').value.trim(), estilo: q('estilo').value.toLowerCase(),
+      };
+      if (map?.coordenadas && map.lugar.trim() === lg) config.coordenadas = map.coordenadas;
+      if (typeof map?.lineas === 'boolean') config.lineas = map.lineas;
+      btn.stellarMap = config;
+      btn.dataset.productDetail = det;
+      btn.dataset.productId = card.dataset.base + '-' + h(JSON.stringify(config));
     },true);
   });
 })();

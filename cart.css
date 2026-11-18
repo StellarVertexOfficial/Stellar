@@ -397,16 +397,7 @@
   margin-left: 4px;
 }
 
-.cart-note {
-  font-family: var(--font-mono);
-  font-size: 0.60rem;
-  color: var(--text-muted);
-  text-align: center;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-}
-
-.cart-drawer__footer .btn--wap {
+.cart-drawer__footer .btn--pay {
   width: 100%;
   justify-content: center;
   background: var(--accent);
@@ -415,9 +406,42 @@
   font-weight: 600;
   padding: 12px 22px;
 }
-.cart-drawer__footer .btn--wap:hover {
+.cart-drawer__footer .btn--pay:hover {
   background: #91db91;
   box-shadow: 0 0 28px var(--accent-glow);
+}
+
+.cart-payment {
+  display: grid;
+  gap: 0.55rem;
+}
+.cart-payment label, .cart-payment__message, .cart-payment__hint {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+.cart-payment__hint {
+  text-align: center;
+}
+.cart-payment input {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font: inherit;
+}
+.cart-payment input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.cart-payment .btn--pay:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+.cart-payment__message:empty, #svCartCrypto[hidden] {
+  display: none;
 }
 
 #svCartCrypto:hover {

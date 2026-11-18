@@ -159,8 +159,22 @@ $('dl').addEventListener('click',()=>cv.toBlob(b=>{
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='vista-previa-mapa-estelar.png';a.click();URL.revokeObjectURL(a.href);
 }));
 $('pedir').addEventListener('click',()=>{
-  const p=new URLSearchParams({fecha:$('fecha').value,hora:$('hora').value,lugar:$('lugar').value,titulo:$('titulo').value,msg:$('msg').value,estilo:theme});
-  location.href='led_hidroponia.html?'+p.toString()+'#catalogo';
+  const p = Object.fromEntries(['fecha','hora','lugar','titulo','msg'].map(key => [key, $(key).value]));
+  p.estilo = theme;
+  p.lineas = $('lineas').checked;
+  const coordinates = ['lat', 'lon', 'tz'];
+  if (coordinates.every(key => $(key).value !== '' && $(key).validity.valid)) {
+    p.coordenadas = Object.fromEntries(coordinates.map(key => [key, Number($(key).value)]));
+  }
+  try {
+    sessionStorage.setItem('sv_map_draft', JSON.stringify(p));
+  } catch {
+    location.href = 'led_hidroponia.html?' + new URLSearchParams({
+      fecha: p.fecha, hora: p.hora, lugar: p.lugar, titulo: p.titulo, msg: p.msg, estilo: p.estilo
+    }) + '#catalogo';
+    return;
+  }
+  location.href = 'led_hidroponia.html#catalogo';
 });
 draw();
 Promise.all([document.fonts.load('700 100px Inter'),document.fonts.load('500 40px Inter'),document.fonts.load('400 30px "JetBrains Mono"')]).then(draw);

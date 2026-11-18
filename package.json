@@ -4,6 +4,7 @@
   "private": true,
   "description": "StellarVertex — tienda de mapas estelares personalizados",
   "dependencies": {
+    "@netlify/blobs": "10.7.13",
     "@solana/web3.js": "^1.98.4"
   }
 }
