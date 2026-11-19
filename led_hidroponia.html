@@ -275,7 +275,7 @@
     document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
   </script>
   <script src="solana-pay.js"></script>
-  <script src="cart.js?v=c1372ed4dd"></script>
+  <script src="cart.js?v=4529f8cda5"></script>
 
 <script>
 // Personalización: la tarjeta lleva los datos del mapa al carrito
@@ -296,28 +296,30 @@
       if (option.value.toLowerCase() === map.estilo) style.value = option.value;
     }
   }
-  const h=t=>{let x=0;for(const c of t)x=(x*31+c.charCodeAt(0))|0;return (x>>>0).toString(36)};
   document.querySelectorAll('.prod-card[data-base]').forEach(card=>{
     const btn=card.querySelector('.btn-add-cart'),q=n=>card.querySelector('[name="'+n+'"]'),err=card.querySelector('.js-err'),pr=card.querySelector('.js-price');
     const sync=()=>{const o=q('tam')&&q('tam').selectedOptions[0],p=o?+o.dataset.p:+card.dataset.price;pr.textContent='$'+p.toLocaleString('es-MX');btn.dataset.productPrice=p;return p};
     card.addEventListener('input',sync);sync();
-    card.addEventListener('click',e=>{
-      if(!e.target.closest('.btn-add-cart'))return;
+    btn.getMapForCart = () => {
       const f=q('fecha').value,hr=q('hora').value,lg=q('lugar').value.trim();
-      if(!f||!lg){e.stopPropagation();e.preventDefault();err.textContent='Completa fecha y lugar para calcular tu cielo.';err.hidden=false;return}
-      err.hidden=true;sync();
-      const d=f.split('-').reverse().join('/');
-      const det=[q('tam')&&q('tam').value,q('marco')&&'Marco '+q('marco').value.toLowerCase(),d+' '+(hr||'21:00'),lg,'Estilo '+q('estilo').value.toLowerCase(),q('titulo').value.trim()&&'Título: '+q('titulo').value.trim(),q('msg').value.trim()&&'Mensaje: '+q('msg').value.trim()].filter(Boolean).join(' · ');
+      if (!f || !lg) {
+        err.textContent = 'Completa fecha y lugar para calcular tu cielo.';
+        err.hidden = false;
+        return null;
+      }
+      err.hidden = true;
+      sync();
+      const size = q('tam')?.value;
+      const frame = q('marco')?.value;
+      btn.dataset.productDetail = [size, frame && 'Marco ' + frame.toLowerCase()].filter(Boolean).join(' · ');
       const config = {
         fecha: f, hora: hr || '21:00', lugar: lg, titulo: q('titulo').value.trim(),
         msg: q('msg').value.trim(), estilo: q('estilo').value.toLowerCase(),
       };
       if (map?.coordenadas && map.lugar.trim() === lg) config.coordenadas = map.coordenadas;
       if (typeof map?.lineas === 'boolean') config.lineas = map.lineas;
-      btn.stellarMap = config;
-      btn.dataset.productDetail = det;
-      btn.dataset.productId = card.dataset.base + '-' + h(JSON.stringify(config));
-    },true);
+      return config;
+    };
   });
 })();
 </script>

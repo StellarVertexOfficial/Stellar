@@ -13,6 +13,7 @@
   const STORAGE  = 'sv_cart_v1';
   const CHECKOUT_SESSION = 'sv_checkout_pending';
   let pendingCheckout;
+  let cartOpener;
 
   /* ────────────────────────────────────────────
      ESTADO
@@ -61,7 +62,6 @@
       persist();
       render();
     }
-    showToast(`${product.name} agregado al carrito`);
   }
 
   function removeItem(id) {
@@ -117,7 +117,10 @@
     const drawer = document.createElement('aside');
     drawer.className = 'cart-drawer';
     drawer.id = 'svCartDrawer';
+    drawer.setAttribute('role', 'dialog');
+    drawer.setAttribute('aria-modal', 'true');
     drawer.setAttribute('aria-label', 'Carrito de compras');
+    drawer.inert = true;
     drawer.innerHTML = `
       <div class="cart-drawer__header">
         <div class="cart-drawer__header-meta">
@@ -189,8 +192,26 @@
     /* Cerrar drawer */
     document.getElementById('svCartOverlay').addEventListener('click', closeDrawer);
     document.getElementById('svCartClose').addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeDrawer();
+    const drawer = document.getElementById('svCartDrawer');
+    document.addEventListener('keydown', event => {
+      if (drawer.inert || (event.key !== 'Tab' && event.key !== 'Escape')) return;
+      if (document.getElementById('svp-overlay')) return;
+      if (event.key === 'Escape') {
+        closeDrawer();
+        return;
+      }
+      const controls = Array.from(drawer.querySelectorAll('button:enabled, input:enabled, a[href]'))
+        .filter(control => control.getClientRects().length > 0);
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      const outside = !drawer.contains(event.target);
+      if (event.shiftKey && (outside || event.target === first)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (outside || event.target === last)) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     /* Checkout */
@@ -222,11 +243,18 @@
 
     /* Trigger del carrito en la nav */
     const trigger = document.getElementById('svCartTrigger');
-    if (trigger) trigger.addEventListener('click', openDrawer);
+    if (trigger) {
+      trigger.setAttribute('aria-haspopup', 'dialog');
+      trigger.setAttribute('aria-controls', 'svCartDrawer');
+      trigger.addEventListener('click', () => openDrawer(trigger));
+    }
   }
 
   function handleAddClick(e) {
     const btn = e.currentTarget;
+    const map = btn.getMapForCart?.();
+    if (btn.getMapForCart && !map) return;
+
     const product = {
       id:     btn.dataset.productId,
       name:   btn.dataset.productName,
@@ -234,12 +262,29 @@
       detail: btn.dataset.productDetail || '',
       icon:   btn.dataset.productIcon   || '📦',
       qty:    1,
-      map:    btn.stellarMap ?? null,
+      map:    map ?? btn.stellarMap ?? null,
     };
+    if (map) {
+      // Usa la misma clave que los mapas personalizados ya guardados.
+      let hash = 0;
+      for (const char of JSON.stringify(map)) hash = (31 * hash + char.charCodeAt(0)) | 0;
+      product.id += '-' + (hash >>> 0).toString(36);
+      const date = map.fecha.split('-').reverse().join('/');
+      product.detail = [
+        product.detail, date + ' ' + map.hora, map.lugar, 'Estilo ' + map.estilo,
+        map.titulo && 'Título: ' + map.titulo, map.msg && 'Mensaje: ' + map.msg,
+      ].filter(Boolean).join(' · ');
+    }
 
     if (!isValidItem(product)) return;
 
     addItem(product);
+    if (btn.hasAttribute('data-open-cart')) {
+      openDrawer(btn);
+      return;
+    }
+
+    showToast(`${product.name} agregado al carrito`);
 
     /* Feedback visual en el botón */
     const original = btn.textContent;
@@ -254,16 +299,25 @@
   /* ────────────────────────────────────────────
      ABRIR / CERRAR DRAWER
      ──────────────────────────────────────────── */
-  function openDrawer() {
-    document.getElementById('svCartDrawer').classList.add('open');
+  function openDrawer(opener) {
+    const drawer = document.getElementById('svCartDrawer');
+    cartOpener = opener;
+    drawer.inert = false;
+    drawer.classList.add('open');
     document.getElementById('svCartOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.getElementById('svCartClose').focus({ preventScroll: true });
   }
 
   function closeDrawer() {
-    document.getElementById('svCartDrawer').classList.remove('open');
+    const drawer = document.getElementById('svCartDrawer');
+    if (drawer.inert) return;
+    const restoreFocus = drawer.contains(document.activeElement) || document.activeElement === document.body;
+    drawer.inert = true;
+    drawer.classList.remove('open');
     document.getElementById('svCartOverlay').classList.remove('open');
     document.body.style.overflow = '';
+    if (restoreFocus) cartOpener?.focus({ preventScroll: true });
   }
 
   /* ────────────────────────────────────────────
@@ -276,6 +330,9 @@
     const total   = document.getElementById('svCartTotal');
     const trigger = document.getElementById('svCartTrigger');
 
+    const active = document.activeElement;
+    const activeItem = body?.contains(active) ? active : null;
+    const closeButton = document.getElementById('svCartClose');
     const n = totalItems();
 
     /* Badge del trigger */
@@ -287,6 +344,7 @@
 
     /* Sin productos */
     if (cartItems.length === 0) {
+      if (activeItem || footer?.contains(active)) closeButton.focus({ preventScroll: true });
       if (footer) footer.style.display = 'none';
       if (body) body.innerHTML = `
         <div class="cart-empty">
@@ -317,6 +375,11 @@
         return row;
       });
       body.replaceChildren(...rows);
+      if (activeItem?.dataset.svAction) {
+        const row = rows.find(item => item.dataset.cartId === activeItem.dataset.svId);
+        const button = row?.querySelector(`[data-sv-action="${activeItem.dataset.svAction}"]`);
+        (button || closeButton).focus({ preventScroll: true });
+      }
     }
 
     /* Total */
@@ -429,6 +492,7 @@
       amount: totalPrice(),
       label:  label || 'Pedido StellarVertex',
     });
+    document.querySelector('#svp-overlay .svp-close')?.focus({ preventScroll: true });
   }
 
   /* ────────────────────────────────────────────
@@ -467,6 +531,12 @@
     buildDOM();
     bindEvents();
     render();
+    window.addEventListener('storage', event => {
+      if (event.key === STORAGE || event.key === null) {
+        cartItems = loadFromStorage();
+        render();
+      }
+    });
 
     /* Una sola vez: cuando un pago cripto se confirma, cerramos el drawer y limpiamos el carrito */
     document.addEventListener('solana-pay:confirmed', () => {
