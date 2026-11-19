@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { isPaymentId, json, orderStore, reconcilePayment, replyError } from './lib/checkout.mjs';
+import { deliverPaidOrder } from './lib/delivery.mjs';
 
 function signedPaymentId(request, secret) {
   const query = new URL(request.url).searchParams;
@@ -23,7 +24,9 @@ export default async function webhook(request) {
   if (!id) return json({ error: 'Firma inválida.' }, 401);
 
   try {
-    await reconcilePayment(orderStore(), id);
+    const store = orderStore();
+    const folio = await reconcilePayment(store, id);
+    if (folio) await deliverPaidOrder(store, folio);
     return json({ received: true });
   } catch (error) {
     return replyError(error);

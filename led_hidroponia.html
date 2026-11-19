@@ -83,7 +83,7 @@
       <div class="section__header reveal">
         <span class="label section__label">Catálogo</span>
         <h2 class="section__title">Tu mapa estelar en PDF</h2>
-        <p class="section__sub">Escribe los datos de tu momento directo en la tarjeta. Llegan con tu pedido y los revisamos contigo antes de preparar tu PDF.</p>
+        <p class="section__sub">Elige la fecha, la ciudad y el estilo de tu mapa. Para personalizar las coordenadas, usa el <a href="mapa.html">generador</a>.</p>
       </div>
       <div class="catalog__grid">
         <div class="prod-card reveal d1" data-base="mapa-pdf" data-price="99">
@@ -93,10 +93,10 @@
             <h3 class="prod-name">Mapa estelar en PDF</h3>
             <p class="prod-latin">Archivo PDF · 30×40 cm · 3:4</p>
             <p class="prod-desc">El cielo del día y el lugar que elijas, en un PDF para imprimir y regalar.</p>
-            <ul class="spec"><li>PDF de alta resolución, listo para imprimir a 30×40 cm</li><li>Título, mensaje y estilo a tu gusto</li><li>Tu fecha y tu lugar, calculados con datos astronómicos reales</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Te lo enviamos por WhatsApp o correo</li></ul>
+            <ul class="spec"><li>PDF de alta resolución, listo para imprimir a 30×40 cm</li><li>Título, mensaje y estilo a tu gusto</li><li>Tu fecha y tu lugar, calculados con datos astronómicos reales</li><li>+5,000 estrellas y constelaciones trazadas</li><li>Recíbelo por correo tras confirmar el pago</li></ul>
             <div class="pers">
 <label>Fecha<input type="date" name="fecha" required></label><label>Hora (opcional)<input type="time" name="hora"></label>
-<label class="w2">Lugar (ciudad o sitio)<input type="text" name="lugar" maxlength="50" placeholder="Ej. Cuernavaca, Morelos"></label>
+<label class="w2">Ciudad<input type="text" name="lugar" list="ciudades-mapa" maxlength="50" placeholder="Ej. Cuernavaca"><datalist id="ciudades-mapa"></datalist></label>
 <label class="w2">Título<input type="text" name="titulo" maxlength="40" placeholder="El cielo de nuestro día"></label>
 <label class="w2">Mensaje<input type="text" name="msg" maxlength="60" placeholder="Para siempre bajo las mismas estrellas"></label>
 <label class="w2">Estilo<select name="estilo"><option>Noche</option><option>Tinta</option><option>Papel</option></select></label></div>
@@ -173,7 +173,7 @@
       </div>
       <div class="benefits__grid">
         <div class="benefit reveal d1"><div class="benefit__icon">🔭</div><div><h3>Cálculo astronómico real</h3><p>Cada estrella se coloca según un catálogo astronómico abierto (Hipparcos), tal como estaba ese día.</p></div></div>
-        <div class="benefit reveal d2"><div class="benefit__icon">📄</div><div><h3>Recíbelo por WhatsApp o correo</h3><p>Una vez confirmados tus datos y tu pago, te enviamos tu PDF listo para imprimir.</p></div></div>
+        <div class="benefit reveal d2"><div class="benefit__icon">📄</div><div><h3>Recíbelo por correo</h3><p>Recibirás el PDF listo para imprimir en el correo que registres al pagar.</p></div></div>
         <div class="benefit reveal d3"><div class="benefit__icon">🎁</div><div><h3>Regalo que se recuerda</h3><p>Bodas, nacimientos, aniversarios: un regalo que cuenta una fecha, no solo la adorna.</p></div></div>
         <div class="benefit reveal d4"><div class="benefit__icon">✦</div><div><h3>Trato directo</h3><p>StellarVertex no es una plataforma: soy yo, Colter, quien revisa cada pedido y te escribe por WhatsApp.</p></div></div>
         <div class="benefit reveal d5"><div class="benefit__icon">🔍</div><div><h3>Revisamos tus datos</h3><p>Confirmamos contigo la fecha, la hora y el lugar para que el cielo sea el correcto.</p></div></div>
@@ -188,10 +188,10 @@
       <div class="faq reveal">
         <details><summary>¿Qué datos necesito para mi mapa?</summary><p>Fecha y lugar. La hora es opcional: si no la pones, usamos las 9 de la noche. Si la sabes, mejor: el cielo gira unos 15° por hora, así que afina tu mapa.</p></details>
         <details><summary>¿Qué tan exacto es?</summary><p>Colocamos cada estrella con cálculo astronómico usando el catálogo abierto Hipparcos. Es el cielo real de tu fecha, hora y lugar. Por ahora el mapa no muestra planetas ni la Luna.</p></details>
-        <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa con marca de agua. Tu PDF final no la lleva. Además, antes de imprimir confirmamos contigo la fecha, la hora y el lugar.</p></details>
+        <details><summary>¿Puedo ver mi mapa antes de pedirlo?</summary><p>Sí. El generador es gratis y te deja descargar una vista previa con marca de agua. Tu PDF final no la lleva. Revisa la fecha, la hora y el lugar en el generador antes de hacer tu pedido.</p></details>
         <details><summary>¿Y el horario de verano?</summary><p>Usa la hora local que había en ese momento, como aparece en tu acta o invitación. Si tienes duda, escríbeme y lo revisamos juntos.</p></details>
         <details><summary>¿Cómo pago?</summary><p>Abre el carrito, escribe el correo donde quieres recibir tu PDF y pulsa «Pagar ahora». Mercado Pago te permite pagar en pesos mexicanos con tarjeta de débito o crédito.</p></details>
-        <details><summary>¿Cómo recibo mi mapa?</summary><p>Te enviamos el PDF por WhatsApp o correo una vez confirmados tus datos y tu pago. Está en alta resolución, listo para imprimir a 30×40 cm.</p></details>
+        <details><summary>¿Cómo recibo mi mapa?</summary><p>Te enviamos el PDF al correo que registres en el carrito después de confirmar tu pago. Está en alta resolución, listo para imprimir a 30×40 cm.</p></details>
         <details><summary>¿Dónde lo imprimo?</summary><p>En cualquier imprenta o centro de impresión de planos. Pide 30×40 cm (proporción 3:4) y, si quieres, papel mate o fotográfico.</p></details>
         <details><summary>¿Qué pasa si algo no queda bien?</summary><p>Cada mapa se revisa contigo antes de producirlo. Si algo no queda perfecto, lo resolvemos.</p></details>
         <details><summary>¿Qué hacen con mis datos?</summary><p>Solo usamos la fecha, la hora, el lugar y tus datos de contacto para preparar y enviar tu pedido. Los detalles están en el <a href="privacidad.html" style="color:var(--accent)">aviso de privacidad</a>.</p></details>
@@ -209,7 +209,7 @@
       <div class="process__track">
         <div class="step reveal d1"><div class="step__num">01</div><h3>Elige tu Mapa</h3><p>Prueba el generador, elige tu estilo. Escríbeme si tienes dudas — respondo en menos de 24h.</p></div>
         <div class="step reveal d2"><div class="step__num">02</div><h3>Paga tu pedido</h3><p>Elige «Pagar ahora» en el carrito para completar tu compra en Mercado Pago.</p></div>
-        <div class="step reveal d3"><div class="step__num">03</div><h3>Te Confirmo en 24h</h3><p>Reviso contigo la fecha, la hora y el lugar, y te envío una vista previa final.</p></div>
+        <div class="step reveal d3"><div class="step__num">03</div><h3>Confirmamos el pago</h3><p>Consulta la confirmación y el estado de tu envío con el folio del pedido.</p></div>
         <div class="step reveal d4"><div class="step__num">04</div><h3>Recibe tu PDF</h3><p>Te lo enviamos listo para imprimir o compartir. Si algo no está perfecto, lo resolvemos.</p></div>
       </div>
     </div>
@@ -274,12 +274,16 @@
     }, { rootMargin: '-40% 0px -55% 0px' });
     document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
   </script>
+  <script src="mapa-calculo.js"></script>
   <script src="solana-pay.js"></script>
-  <script src="cart.js?v=4529f8cda5"></script>
+  <script src="cart.js?v=2a077437b7"></script>
 
 <script>
 // Personalización: la tarjeta lleva los datos del mapa al carrito
 (function(){
+  const { cities, coordinatesForCity } = StellarMap;
+  const cityOptions = document.getElementById('ciudades-mapa');
+  for (const { name } of cities) cityOptions.append(new Option(name));
   const params = new URLSearchParams(location.search);
   const card = document.querySelector('.prod-card[data-base]');
   let draft;
@@ -307,6 +311,13 @@
         err.hidden = false;
         return null;
       }
+      const customLocation = map?.lugar?.trim() === lg && typeof map.coordenadas === 'object'
+        ? map.coordenadas : null;
+      if (!customLocation && !coordinatesForCity(lg)) {
+        err.textContent = 'Elige una ciudad de la lista o usa el generador para indicar otro lugar.';
+        err.hidden = false;
+        return null;
+      }
       err.hidden = true;
       sync();
       const size = q('tam')?.value;
@@ -316,8 +327,9 @@
         fecha: f, hora: hr || '21:00', lugar: lg, titulo: q('titulo').value.trim(),
         msg: q('msg').value.trim(), estilo: q('estilo').value.toLowerCase(),
       };
-      if (map?.coordenadas && map.lugar.trim() === lg) config.coordenadas = map.coordenadas;
+      if (customLocation) config.coordenadas = customLocation;
       if (typeof map?.lineas === 'boolean') config.lineas = map.lineas;
+      if (typeof map?.horaVisible === 'boolean' && hr === map.hora) config.horaVisible = map.horaVisible;
       return config;
     };
   });

@@ -1,4 +1,6 @@
 import { getStore } from '@netlify/blobs';
+import { emailDeliveryConfigured } from './delivery.mjs';
+import { canRenderMap } from './map-pdf.mjs';
 
 const PRICE_MXN = 99;
 const LABEL = 'Mapa estelar en PDF';
@@ -74,6 +76,7 @@ function normalizeMap(map) {
     result.coordenadas = { lat, lon, tz };
   }
   if (typeof map.lineas === 'boolean') result.lineas = map.lineas;
+  if (typeof map.horaVisible === 'boolean') result.horaVisible = map.horaVisible;
   return result;
 }
 
@@ -103,6 +106,13 @@ export async function createCheckout(store, body, origin) {
 
   const { folio, email, quantity } = input;
   const initial = { ...input, createdAt: new Date().toISOString(), payment: null };
+  if (production() && emailDeliveryConfigured()) {
+    if (input.items.every(item => canRenderMap(item.map))) {
+      initial.delivery = { status: 'pending' };
+    } else if (!await store.get(folio)) {
+      throw new CheckoutError(400, 'Quita del carrito los mapas que falten por personalizar y agrégalos de nuevo desde el generador.');
+    }
+  }
   await store.setJSON(folio, initial, { onlyIfNew: true });
   const saved = await store.getWithMetadata(folio, { type: 'json' });
   const order = saved.data;
@@ -169,7 +179,7 @@ export async function reconcilePayment(store, paymentId, expectedFolio) {
     if (tracked?.id === paymentId && (
       Date.parse(updated) < Date.parse(tracked.updatedAt)
       || (tracked.status === payment.status && tracked.updatedAt === updated)
-    )) return;
+    )) return folio;
     // Los intentos fallidos de un segundo pago no sustituyen uno ya liquidado.
     if (tracked && tracked.id !== paymentId && (
       ['approved', 'refunded', 'charged_back'].includes(tracked.status)
@@ -180,7 +190,7 @@ export async function reconcilePayment(store, paymentId, expectedFolio) {
       ...order,
       payment: { id: paymentId, status: payment.status, updatedAt: updated },
     }, { onlyIfMatch: saved.etag });
-    if (result.modified) return;
+    if (result.modified) return folio;
   }
   throw new CheckoutError(503, 'La confirmación del pago está en curso.');
 }
@@ -191,5 +201,7 @@ export async function publicOrder(store, folio) {
   if (!order) return null;
   const status = order.payment?.status
     ?? (Date.now() > Date.parse(order.createdAt) + PREFERENCE_LIFETIME ? 'expired' : 'pending');
-  return { folio, amount: order.amount, status, test: !production() };
+  const summary = { folio, amount: order.amount, status, test: !production() };
+  if (status === 'approved' && order.delivery) summary.delivery = order.delivery.status;
+  return summary;
 }

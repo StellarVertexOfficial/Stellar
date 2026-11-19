@@ -21,6 +21,20 @@ function clearPaidCart() {
   } catch { /* El pedido permanece confirmado aunque falle el almacenamiento local. */ }
 }
 
+function approvedMessage(order) {
+  if (order.test) return 'Pago de prueba aprobado.';
+  switch (order.delivery) {
+    case 'sent':
+      return 'Pago confirmado. Enviamos el PDF al correo que registraste. Revisa también tu carpeta de correo no deseado.';
+    case 'pending':
+      return 'Pago confirmado. Estamos preparando el envío de tu PDF. Puedes actualizar el estado del pedido.';
+    case 'review':
+      return 'Pago confirmado. Si todavía no recibes tu PDF, contacta a StellarVertex con tu folio.';
+    default:
+      return 'Pago confirmado. Enviaremos tu PDF al correo que registraste.';
+  }
+}
+
 async function updateOrder() {
   refresh.disabled = true;
   try {
@@ -45,7 +59,7 @@ async function updateOrder() {
     number.textContent = 'Folio: ' + order.folio;
     switch (order.status) {
       case 'approved':
-        message.textContent = order.test ? 'Pago de prueba aprobado.' : 'Pago confirmado. Enviaremos tu PDF al correo que registraste.';
+        message.textContent = approvedMessage(order);
         clearPaidCart();
         break;
       case 'rejected':

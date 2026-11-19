@@ -11,4 +11,14 @@ El botón «Pagar ahora» abre Mercado Pago con el total calculado por Netlify a
 
 ## Producción
 
-Configura las variables de **Functions** en el contexto **Production** con el Access Token real, la clave de firma del webhook de producción y `MERCADOPAGO_MODE=production`. Registra `https://stellarvertex.com/.netlify/functions/mercadopago-webhook` para el evento Pagos y publica un nuevo despliegue. Los pedidos reales se guardan en el almacén **stellar-orders**. Entrega el PDF manualmente solo cuando el pago del folio figure como aprobado. La generación privada del PDF final se gestiona por separado.
+Configura las variables de **Functions** en el contexto **Production** con el Access Token real, la clave de firma del webhook de producción y `MERCADOPAGO_MODE=production`. Registra `https://stellarvertex.com/.netlify/functions/mercadopago-webhook` para el evento Pagos y publica un nuevo despliegue. Los pedidos reales se guardan en **stellar-orders**.
+
+## Entrega por correo
+
+1. Agrega y verifica `stellarvertex.com` en [Resend](https://resend.com/domains). Copia los registros DNS que te indique Resend al panel que administra el dominio.
+2. Crea una clave de Resend con permiso de envío para el dominio verificado. Guarda la clave como `RESEND_API_KEY`, en **Production** y con alcance **Functions** en Netlify. El remitente predeterminado es `StellarVertex <pedidos@stellarvertex.com>`. Si verificaste otro dominio o prefieres otra dirección, guarda el remitente correspondiente en `STELLAR_EMAIL_FROM`.
+3. Publica un nuevo despliegue. En la primera venta aprobada, compara el folio con la operación en Mercado Pago y confirma que Resend muestra el correo con el PDF adjunto. La entrega funciona aunque el comprador cierre Checkout Pro antes de regresar a la tienda.
+
+Los pedidos creados en producción con la clave configurada quedan programados para entrega automática. El aviso firmado de Mercado Pago activa el envío cuando la API confirma que el pago aprobado coincide con el folio, el importe y el vendedor. El adjunto contiene una página vectorial de 30 × 40 cm por cada diseño distinto del pedido. La vista previa pública sigue mostrando su marca de agua.
+
+El pedido privado conserva el estado `delivery.status`, el identificador devuelto por Resend y la fecha de envío. Ante un error, el webhook devuelve un error temporal para que Mercado Pago reintente con la misma clave de idempotencia. Si llega un nuevo aviso 23 horas después del primer intento y el envío sigue incierto, el pedido pasa a revisión para evitar un segundo correo. En ese caso, revisa primero el folio en Resend antes de enviar manualmente. Los pedidos creados antes de la activación conservan la entrega manual. Los pagos de prueba no generan correos.

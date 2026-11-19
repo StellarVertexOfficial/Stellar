@@ -161,7 +161,7 @@
           <input type="email" id="svCartDeliveryEmail" name="email" autocomplete="email" maxlength="254"
             placeholder="tu@correo.com" required aria-describedby="svCartPaymentMessage">
           <button type="submit" class="btn btn--pay" id="svCartPay">Pagar ahora</button>
-          <p class="cart-payment__hint">Paga con tarjeta en Mercado Pago.</p>
+          <p class="cart-payment__hint">Paga con tarjeta en Mercado Pago. Recibirás el PDF por correo tras confirmarse el pago.</p>
           <p class="cart-payment__message" id="svCartPaymentMessage" role="status"></p>
         </form>
         <button class="btn btn--ghost" id="svCartCrypto" style="width:100%;justify-content:center;border-color:rgba(125,211,125,0.2);color:#7DD37D;">

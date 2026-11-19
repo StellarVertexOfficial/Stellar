@@ -62,18 +62,7 @@ canvas{display:block;min-width:0;width:100%;max-width:560px;height:auto;border:1
     <label>Hora (opcional)<input id="hora" type="time"></label>
   </div>
   <label>Ciudad
-    <select id="ciudad">
-      <option value="19.43,-99.13,-6,Ciudad de México">Ciudad de México</option>
-      <option value="20.67,-103.35,-6,Guadalajara">Guadalajara</option>
-      <option value="25.69,-100.32,-6,Monterrey">Monterrey</option>
-      <option value="19.04,-98.2,-6,Puebla">Puebla</option>
-      <option value="18.92,-99.23,-6,Cuernavaca">Cuernavaca</option>
-      <option value="20.59,-100.39,-6,Querétaro">Querétaro</option>
-      <option value="20.97,-89.62,-6,Mérida">Mérida</option>
-      <option value="21.12,-101.68,-6,León">León</option>
-      <option value="21.16,-86.85,-5,Cancún">Cancún</option>
-      <option value="32.51,-117.04,-8,Tijuana">Tijuana</option>
-    </select>
+    <select id="ciudad"></select>
   </label>
   <div class="row3">
     <label>Latitud<input id="lat" type="number" required min="-90" max="90" step="any" value="19.43"></label>
@@ -97,64 +86,54 @@ canvas{display:block;min-width:0;width:100%;max-width:560px;height:auto;border:1
 <div class="view"><canvas id="cv" width="1800" height="2400" aria-label="Vista previa del mapa estelar"></canvas></div>
 </main>
 <script src="stars-data.js"></script>
+<script src="mapa-calculo.js"></script>
 <script defer src="solana-pay.js"></script>
-<script defer src="cart.js?v=4529f8cda5"></script>
+<script defer src="cart.js?v=2a077437b7"></script>
 <script>
-const D=window.STELLAR_DATA,rad=Math.PI/180,$=i=>document.getElementById(i);
-const cv=$('cv'),W=1800,H=2400,CX=900,CY=1010,R=700;
-const ctx=cv.getContext('2d');
-const themes={
-  noche:{bg:'#0a1226',disc:'#070d1c',star:'#f4ead0',line:'rgba(244,234,208,.25)',ink:'#f4ead0'},
-  tinta:{bg:'#08090A',disc:'#000',star:'#fff',line:'rgba(255,255,255,.22)',ink:'#fff'},
-  papel:{bg:'#f2ede1',disc:'#f2ede1',star:'#14203d',line:'rgba(20,32,61,.25)',ink:'#14203d'}
-};
-let theme='noche';
+const D = window.STELLAR_DATA;
+const $ = id => document.getElementById(id);
+const { cities, layout, themes, coordinatesForCity, parseDateTime, siderealAngle, project, starRadius, dateLabel, coordinateLabel } = StellarMap;
+const { width: W, height: H, cx: CX, cy: CY, radius: R } = layout;
+const cv = $('cv');
+const ctx = cv.getContext('2d');
+let theme = 'noche';
 const SANS='Inter, system-ui, sans-serif',MONO='"JetBrains Mono", monospace';
+for (const { name } of cities) $('ciudad').add(new Option(name, name));
 
-function lstDeg(y,m,d,hh,mm,off,lon){
-  const ms=Date.UTC(y,m-1,d,hh,mm)-off*36e5, jd=ms/864e5+2440587.5;
-  return ((280.46061837+360.98564736629*(jd-2451545)+lon)%360+360)%360;
-}
-function project(ra,dec,lat,lst){
-  const h=(lst-ra)*rad,d=dec*rad,p=lat*rad;
-  const alt=Math.asin(Math.sin(d)*Math.sin(p)+Math.cos(d)*Math.cos(p)*Math.cos(h));
-  if(alt<=0)return null;
-  const az=Math.atan2(-Math.cos(d)*Math.sin(h),Math.sin(d)*Math.cos(p)-Math.cos(d)*Math.sin(p)*Math.cos(h));
-  const r=R*Math.tan((Math.PI/2-alt)/2);
-  return [CX-r*Math.sin(az),CY-r*Math.cos(az)]; // norte arriba, este a la izquierda
-}
 function fit(txt,w,fam,size,maxW){
   ctx.font=`${w} ${size}px ${fam}`;
   while(ctx.measureText(txt).width>maxW&&size>28){size-=4;ctx.font=`${w} ${size}px ${fam}`}
 }
 function draw(){
   const t=themes[theme];
-  const [y,m,d]=$('fecha').value.split('-').map(Number),[hh,mm]=($('hora').value||'21:00').split(':').map(Number);
-  const lat=+$('lat').value,lon=+$('lon').value,off=+$('tz').value;
-  if(!y||isNaN(hh)||isNaN(lat)||isNaN(lon)||isNaN(off))return;
-  const lst=lstDeg(y,m,d,hh,mm,off,lon);
+  const date = parseDateTime($('fecha').value, $('hora').value || '21:00');
+  const location = {lat: $('lat').valueAsNumber, lon: $('lon').valueAsNumber, tz: $('tz').valueAsNumber};
+  if (!date || !Object.values(location).every(Number.isFinite)) return;
+  const lat = location.lat;
+  const lst = siderealAngle(date, location);
   ctx.fillStyle=t.bg;ctx.fillRect(0,0,W,H);
   ctx.fillStyle=t.disc;ctx.beginPath();ctx.arc(CX,CY,R,0,7);ctx.fill();
   ctx.save();ctx.beginPath();ctx.arc(CX,CY,R,0,7);ctx.clip();
   if($('lineas').checked){
-    ctx.strokeStyle=t.line;ctx.lineWidth=2;
+    ctx.strokeStyle=t.line;ctx.globalAlpha=t.lineOpacity;ctx.lineWidth=2;
     for(const seg of D.lines){
       ctx.beginPath();let pen=false;
       for(const [ra,dec] of seg){const p=project(ra,dec,lat,lst);if(!p){pen=false;continue}pen?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);pen=true}
       ctx.stroke();
     }
+    ctx.globalAlpha=1;
   }
   ctx.fillStyle=t.star;
   for(const [ra,dec,mag] of D.stars){
     const p=project(ra,dec,lat,lst);if(!p)continue;
-    ctx.beginPath();ctx.arc(p[0],p[1],Math.max(1.1,.9+(6.2-mag)*.95),0,7);ctx.fill();
+    ctx.beginPath();ctx.arc(p[0],p[1],starRadius(mag),0,7);ctx.fill();
   }
   ctx.restore();
   ctx.strokeStyle=t.ink;ctx.lineWidth=3;ctx.beginPath();ctx.arc(CX,CY,R+28,0,7);ctx.stroke();
   ctx.fillStyle=t.ink;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`500 34px ${MONO}`;
   ctx.fillText('N',CX,CY-R-70);ctx.fillText('S',CX,CY+R+70);ctx.fillText('E',CX-R-70,CY);ctx.fillText('O',CX+R+70,CY);
-  const fecha=new Date(Date.UTC(y,m-1,d)).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
-  const coords=`${Math.abs(lat).toFixed(2)}° ${lat>=0?'N':'S'}   ${Math.abs(lon).toFixed(2)}° ${lon>=0?'E':'O'}`;
+  const fecha = dateLabel(date);
+  const coords = coordinateLabel(location);
   fit($('titulo').value||' ',700,SANS,120,1400);ctx.fillText($('titulo').value,CX,1960);
   ctx.font=`500 52px ${SANS}`;ctx.fillText(fecha+($('hora').value?' · '+$('hora').value:''),CX,2050);
   ctx.font=`400 34px ${MONO}`;ctx.fillText(`${$('lugar').value}   ${coords}`,CX,2118);
@@ -169,8 +148,13 @@ function draw(){
   ctx.restore();
 }
 $('ciudad').addEventListener('change',e=>{
-  const [la,lo,tz,n]=e.target.value.split(',');
-  $('lat').value=la;$('lon').value=lo;$('tz').value=tz;$('lugar').value=n;draw();
+  const name = e.target.value;
+  const { lat, lon, tz } = coordinatesForCity(name);
+  $('lat').value = lat;
+  $('lon').value = lon;
+  $('tz').value = tz;
+  $('lugar').value = name;
+  draw();
 });
 document.querySelectorAll('.themes button').forEach(b=>b.addEventListener('click',()=>{
   theme=b.dataset.t;document.querySelectorAll('.themes button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw();
@@ -197,6 +181,7 @@ $('pedir').getMapForCart = () => {
       tz: $('tz').valueAsNumber,
     },
     lineas: $('lineas').checked,
+    horaVisible: Boolean($('hora').value),
   };
 
   try {
