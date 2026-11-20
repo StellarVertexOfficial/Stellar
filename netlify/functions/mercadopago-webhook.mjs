@@ -1,6 +1,5 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { isPaymentId, json, orderStore, reconcilePayment, replyError } from './lib/checkout.mjs';
-import { deliverPaidOrder } from './lib/delivery.mjs';
+import { confirmPaymentAndDeliver, isPaymentId, json, orderStore, replyError } from './lib/checkout.mjs';
 
 function signedPaymentId(request, secret) {
   const query = new URL(request.url).searchParams;
@@ -18,15 +17,13 @@ function signedPaymentId(request, secret) {
 export default async function webhook(request) {
   if (request.method !== 'POST') return json({ error: 'Método no permitido.' }, 405);
 
-  const secret = process.env.MERCADOPAGO_WEBHOOK_SECRET;
+  const secret = process.env.MERCADOPAGO_WEBHOOK_SECRET?.trim();
   if (!secret) return json({ error: 'Webhook sin configurar.' }, 503);
   const id = signedPaymentId(request, secret);
   if (!id) return json({ error: 'Firma inválida.' }, 401);
 
   try {
-    const store = orderStore();
-    const folio = await reconcilePayment(store, id);
-    if (folio) await deliverPaidOrder(store, folio);
+    await confirmPaymentAndDeliver(orderStore(), id);
     return json({ received: true });
   } catch (error) {
     return replyError(error);

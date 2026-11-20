@@ -8,7 +8,7 @@ const message = document.getElementById('order-message');
 const number = document.getElementById('order-number');
 const refresh = document.getElementById('order-refresh');
 const checkout = '/.netlify/functions/checkout';
-let verifiedPayment = false;
+let confirmOnRefresh = Boolean(paymentId);
 
 function clearPaidCart() {
   try {
@@ -38,13 +38,12 @@ function approvedMessage(order) {
 async function updateOrder() {
   refresh.disabled = true;
   try {
-    const shouldVerify = paymentId && !verifiedPayment;
-    const response = shouldVerify
+    const response = confirmOnRefresh
       ? await fetch(checkout, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'confirm', folio, paymentId }),
-        signal: AbortSignal.timeout(12000),
+        signal: AbortSignal.timeout(30000),
       })
       : await fetch(checkout + '?folio=' + encodeURIComponent(folio), {
         signal: AbortSignal.timeout(12000),
@@ -52,8 +51,8 @@ async function updateOrder() {
     const order = await response.json();
     if (!response.ok) throw new Error(order.error ?? 'No pudimos consultar el pedido.');
     if (['approved', 'rejected', 'cancelled', 'refunded', 'charged_back'].includes(order.status)) {
-      verifiedPayment = true;
-      history.replaceState(null, '', '/pedido.html?folio=' + encodeURIComponent(folio));
+      confirmOnRefresh = Boolean(paymentId && order.status === 'approved' && order.delivery === 'pending');
+      if (!confirmOnRefresh) history.replaceState(null, '', '/pedido.html?folio=' + encodeURIComponent(folio));
     }
 
     number.textContent = 'Folio: ' + order.folio;

@@ -1,10 +1,11 @@
 import { getStore } from '@netlify/blobs';
-import { emailDeliveryConfigured } from './delivery.mjs';
+import { deliverPaidOrder, emailDeliveryConfigured } from './delivery.mjs';
 import { canRenderMap } from './map-pdf.mjs';
 
 const PRICE_MXN = 99;
 const LABEL = 'Mapa estelar en PDF';
 const PREFERENCE_LIFETIME = 30 * 60 * 1000;
+const SHOP_ORIGIN = 'https://stellarvertex.com';
 export const isFolio = value => typeof value === 'string'
   && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
 export const isPaymentId = value => typeof value === 'string' && /^\d{1,24}$/.test(value);
@@ -35,7 +36,7 @@ export function orderStore() {
 }
 
 export async function mercadoPago(path, body, idempotencyKey) {
-  const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
+  const token = process.env.MERCADOPAGO_ACCESS_TOKEN?.trim();
   if (!token) throw new CheckoutError(503, 'El pago con tarjeta aún no está disponible.');
   const headers = { Authorization: `Bearer ${token}` };
   if (body) headers['Content-Type'] = 'application/json';
@@ -95,38 +96,34 @@ function normalizeOrder(body) {
   return { folio: body.folio, email, items, quantity, amount: quantity * PRICE_MXN };
 }
 
-export async function createCheckout(store, body, origin) {
-  const input = normalizeOrder(body);
-  if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
+function requireCheckoutConfiguration(live, origin, deployContext) {
+  const publicShop = deployContext === 'production' || origin === SHOP_ORIGIN || origin === 'https://www.stellarvertex.com';
+  if ((publicShop && !live) || !process.env.MERCADOPAGO_ACCESS_TOKEN?.trim()
+    || (live && !process.env.MERCADOPAGO_WEBHOOK_SECRET?.trim())) {
     throw new CheckoutError(503, 'El pago con tarjeta aún no está disponible.');
   }
-  if (production() && !process.env.MERCADOPAGO_WEBHOOK_SECRET) {
-    throw new CheckoutError(503, 'El pago con tarjeta aún no está disponible.');
+  if (live && !emailDeliveryConfigured()) {
+    throw new CheckoutError(503, 'La entrega de PDF por correo está temporalmente pausada. Tu carrito sigue guardado.');
   }
+}
 
-  const { folio, email, quantity } = input;
-  const initial = { ...input, createdAt: new Date().toISOString(), payment: null };
-  if (production() && emailDeliveryConfigured()) {
-    if (input.items.every(item => canRenderMap(item.map))) {
-      initial.delivery = { status: 'pending' };
-    } else if (!await store.get(folio)) {
-      throw new CheckoutError(400, 'Quita del carrito los mapas que falten por personalizar y agrégalos de nuevo desde el generador.');
-    }
-  }
-  await store.setJSON(folio, initial, { onlyIfNew: true });
-  const saved = await store.getWithMetadata(folio, { type: 'json' });
-  const order = saved.data;
-  if (order.email !== email || JSON.stringify(order.items) !== JSON.stringify(input.items)) {
+function existingPayment(order, input, live) {
+  if (order.email !== input.email || JSON.stringify(order.items) !== JSON.stringify(input.items)) {
     throw new CheckoutError(409, 'El carrito cambió. Vuelve a iniciar el pago.');
   }
   if (order.payment && !['rejected', 'cancelled'].includes(order.payment.status)) {
-    return { folio, status: order.payment.status };
+    return { folio: order.folio, status: order.payment.status };
   }
+  if (Date.parse(order.createdAt) + PREFERENCE_LIFETIME <= Date.now()
+    || (live && order.checkoutUrl?.startsWith('https://sandbox.'))) {
+    return { folio: order.folio, status: 'expired' };
+  }
+  return null;
+}
 
+async function createPreference(order, origin, live) {
+  const { folio, email, quantity } = order;
   const expiresAt = new Date(Date.parse(order.createdAt) + PREFERENCE_LIFETIME).toISOString();
-  if (Date.parse(expiresAt) <= Date.now()) return { folio, status: 'expired' };
-  if (order.checkoutUrl) return { folio, url: order.checkoutUrl };
-
   const back = new URL('/pedido.html', origin);
   back.searchParams.set('folio', folio);
   const preference = await mercadoPago('/checkout/preferences', {
@@ -135,28 +132,64 @@ export async function createCheckout(store, body, origin) {
     payer: { email },
     payment_methods: { excluded_payment_types: [{ id: 'ticket' }, { id: 'bank_transfer' }], installments: 1 },
     back_urls: { success: back.href, pending: back.href, failure: back.href },
+    ...(live && { notification_url: SHOP_ORIGIN + '/.netlify/functions/mercadopago-webhook?source_news=webhooks' }),
     auto_return: 'approved',
     expires: true,
     expiration_date_to: expiresAt,
   }, folio);
-  const checkoutUrl = preference[production() ? 'init_point' : 'sandbox_init_point'];
+  const checkoutUrl = preference[live ? 'init_point' : 'sandbox_init_point'];
   let redirect;
   try { redirect = new URL(checkoutUrl); } catch { /* Respuesta incompleta del proveedor. */ }
   if (!redirect || redirect.protocol !== 'https:' || redirect.username || redirect.password
     || !['www.mercadopago.com.mx', 'sandbox.mercadopago.com.mx', 'www.mercadopago.com', 'sandbox.mercadopago.com'].includes(redirect.hostname)
+    || (live && redirect.hostname.startsWith('sandbox.'))
     || preference.collector_id == null || !preference.id) {
     throw new CheckoutError(502, 'Mercado Pago no devolvió un enlace de pago válido.');
   }
 
-  const write = await store.setJSON(folio, {
-    ...order,
+  return {
     checkoutUrl: redirect.href,
     preferenceId: preference.id,
     collectorId: String(preference.collector_id),
-  }, { onlyIfMatch: saved.etag });
-  if (write.modified) return { folio, url: redirect.href };
+  };
+}
+
+export async function createCheckout(store, body, origin, deployContext) {
+  const input = normalizeOrder(body);
+  const { folio } = input;
+  const live = production();
+  let saved = await store.getWithMetadata(folio, { type: 'json' });
+  if (saved?.data) {
+    const result = existingPayment(saved.data, input, live);
+    if (result) return result;
+  }
+  requireCheckoutConfiguration(live, origin, deployContext);
+  if (live && !input.items.every(item => canRenderMap(item.map))) {
+    throw new CheckoutError(400, 'Quita del carrito los mapas que falten por personalizar y agrégalos de nuevo desde el generador.');
+  }
+  if (!saved?.data) {
+    const initial = { ...input, createdAt: new Date().toISOString(), payment: null };
+    if (live) initial.delivery = { status: 'pending' };
+    await store.setJSON(folio, initial, { onlyIfNew: true });
+    saved = await store.getWithMetadata(folio, { type: 'json' });
+    if (!saved?.data) throw new CheckoutError(503, 'No pudimos guardar el pedido. Intenta de nuevo.');
+    const result = existingPayment(saved.data, input, live);
+    if (result) return result;
+  }
+  const order = saved.data;
+  if (order.checkoutUrl && (!live || order.delivery)) return { folio, url: order.checkoutUrl };
+
+  const ready = { ...order };
+  if (!ready.checkoutUrl) Object.assign(ready, await createPreference(order, origin, live));
+  if (live && !ready.delivery) ready.delivery = { status: 'pending' };
+  const write = await store.setJSON(folio, ready, { onlyIfMatch: saved.etag });
+  if (write.modified) return { folio, url: ready.checkoutUrl };
   const current = await store.get(folio, { type: 'json' });
-  if (current?.checkoutUrl) return { folio, url: current.checkoutUrl };
+  if (current) {
+    const result = existingPayment(current, input, live);
+    if (result) return result;
+    if (current.checkoutUrl && (!live || current.delivery)) return { folio, url: current.checkoutUrl };
+  }
   throw new CheckoutError(409, 'No se pudo preparar el pago. Intenta de nuevo.');
 }
 
@@ -193,6 +226,11 @@ export async function reconcilePayment(store, paymentId, expectedFolio) {
     if (result.modified) return folio;
   }
   throw new CheckoutError(503, 'La confirmación del pago está en curso.');
+}
+
+export async function confirmPaymentAndDeliver(store, paymentId, expectedFolio) {
+  const verifiedFolio = await reconcilePayment(store, paymentId, expectedFolio);
+  if (verifiedFolio && production()) await deliverPaidOrder(store, verifiedFolio);
 }
 
 export async function publicOrder(store, folio) {
